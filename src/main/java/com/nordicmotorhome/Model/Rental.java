@@ -12,8 +12,8 @@ public class Rental {
     private List<Accessory> accessoryList;
     private Date start_date;
     private Date end_date;
-    private String pick_up_location;
-    private String drop_off_location;
+    private Location pick_up_location;
+    private Location drop_off_location;
 
     public Rental() {
     }
