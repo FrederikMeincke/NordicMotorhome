@@ -40,3 +40,45 @@
     background-color: #0475aa;
     color: #ffffff;
 }
+
+div.loginwindow {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    height: 100px;
+    display: block;
+    text-align: center;
+}
+
+loginwindow{
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+input.field{
+    float: right;
+    font-size: 17px;
+    font-family: sans-serif;
+    background-color: #ffffff;
+    color: #ffffff;
+    border: 2px solid #dadada;
+    border-radius: 3px;
+}
+
+input.submit-btn{
+    float: end;
+    font-size: 17px;
+    font-family: sans-serif;
+    height: 55px;
+    width: auto;
+    background-color: #0475aa;
+    color: #ffffff;
+    border: 10px solid white;
+    border-radius: 1px;
+}
