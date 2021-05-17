@@ -12,6 +12,11 @@ public class HomeController {
         return "home/index";
     }
 
+    @GetMapping("/loginPage")
+    public String loginPage(){
+        return "home/loginPage";
+    }
+
     @GetMapping("/showAllCustomers")
     public String showAllCustomers(){
         return "home/showAllCustomers";
