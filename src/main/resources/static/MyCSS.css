@@ -7,12 +7,6 @@ This CSS-section is for all the overall CSS like h1 or p etc...
     padding-bottom: 1px;
 }
 
-.h1-1 {
-    font-family: sans-serif;
-    padding-bottom: 1px;
-}
-
-
 
 /*
 These are CSS for the top navigation menu
@@ -32,7 +26,6 @@ These are CSS for the top navigation menu
     font-size: 17px;
 }
 
-
 .menubar a.unactive {
     font-family: sans-serif;
     background-color: #333;
@@ -48,13 +41,36 @@ These are CSS for the top navigation menu
 /*
 These are the CSS for the search bar
  */
+.search-id-name {
+    float: right;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-right: 8px;
+    border: none;
+    font-size: 20px;
+}
 
+.column {
+    float: right;
 
+}
+
+.column2 {
+    float: right;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
 
 /*
 These are CSS for the tables
  */
-/*
+
 .column {
     float: right;
 }
@@ -65,46 +81,31 @@ These are CSS for the tables
     margin-right:auto;
 }
 
- */
-/*
-.row::after {
-    content: "";
-    clear: both;
-    display: table;
-}
-
-#pagecss {
+#tablecss {
     font-family: Arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
 
-#pagecss td, #indexpagecss th {
+#tablecss td, #indexpagecss th {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: center;
 }
 
+#tablecss tr:nth-child(even){background-color: #f2f2f2}
 
-#pagecss tr:nth-child(even){background-color: #f2f2f2}
+#tablecss tr:hover {background-color: #ddd}
 
-
-#pagecss tr:hover {background-color: #ddd}
-
-#pagecss {
-    font-family: Arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-#pagecss th {
+#tablecss th {
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: center;
     background-color: #008cba;
     color: #ffffff;
 }
-*/
+
+
 /*
 These are CSS for the Login window
  */
@@ -157,6 +158,36 @@ input.login-btn{
     color: #ffffff;
     border: 10px solid white;
     border-radius: 1px;
+}
+
+
+/*
+CSS for the Create new buttons
+ */
+
+.button1 {
+    background-color: #008cba;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    margin: 4px 2px;
+    font-size: 16px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.button-anc {
+    background-color: white;
+    color: black;
+    border: 1px solid #008cba;
+    margin-left: 0%;
+}
+
+.button-anc:hover {
+    background-color: #008cba;
+    color: white;
 }
 
 /*

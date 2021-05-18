@@ -14,8 +14,8 @@ public class Customer {
     private String phone;
     private String email;
     private String drivers_license;
-    private Date dl_issue_date;
-    private Date dl_expire_date;
+    private String dl_issue_date;
+    private String dl_expire_date;
     private String street;
     private String floor;
     private int zip;
@@ -26,7 +26,7 @@ public class Customer {
     }
 
     public Customer(int id, String first_name, String last_name, String mobile, String phone, String email,
-                    String drivers_license, Date dl_issue_date, Date dl_expire_date, String street,
+                    String drivers_license, String dl_issue_date, String dl_expire_date, String street,
                     int zip, String city, String country, String floor) {
         this.id = id;
         this.first_name = first_name;
@@ -100,19 +100,19 @@ public class Customer {
         this.drivers_license = drivers_license;
     }
 
-    public Date getDl_issue_date() {
+    public String getDl_issue_date() {
         return dl_issue_date;
     }
 
-    public void setDl_issue_date(Date dl_issue_date) {
+    public void setDl_issue_date(String dl_issue_date) {
         this.dl_issue_date = dl_issue_date;
     }
 
-    public Date getDl_expire_date() {
+    public String getDl_expire_date() {
         return dl_expire_date;
     }
 
-    public void setDl_expire_date(Date dl_expire_date) {
+    public void setDl_expire_date(String dl_expire_date) {
         this.dl_expire_date = dl_expire_date;
     }
 
