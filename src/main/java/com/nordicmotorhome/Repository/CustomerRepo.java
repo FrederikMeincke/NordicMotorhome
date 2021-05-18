@@ -21,7 +21,7 @@ public class CustomerRepo {
                 "dl_expire_date, street, floor, zip, city, name as 'country' FROM NMR.customers " +
                 "INNER JOIN addresses on addresses.id = addresses_fk " +
                 "INNER JOIN zip_codes on zip_codes.id = zip_codes_fk " +
-                "INNER JOIN countries on zip_codes.id = countries_fk;";
+                "INNER JOIN countries on countries.id = countries_fk;";
         RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
         return jdbcTemplate.query(sqlCustomer,rowMapper);
     }
