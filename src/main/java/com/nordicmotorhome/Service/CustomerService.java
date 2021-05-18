@@ -11,4 +11,8 @@ public class CustomerService {
     @Autowired
     CustomerRepo customerRepo;
 
+    public List<Customer> fetchAllCustomers() {
+        return customerRepo.fetchAllCustomers();
+    }
+
 }
