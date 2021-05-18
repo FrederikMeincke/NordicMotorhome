@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 
 public class MotorhomeRepo {
+
     @Autowired
     JdbcTemplate jdbcTemplate;
 }

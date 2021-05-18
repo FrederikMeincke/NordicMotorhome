@@ -1,12 +1,21 @@
 /*
 This CSS-section is for all the overall CSS like h1 or p etc...
  */
+.h1 {
+    text-align: center;
+    font-family: sans-serif;
+    padding-bottom: 1px;
+}
 
+.h1-1 {
+    font-family: sans-serif;
+    padding-bottom: 1px;
+}
 
 
 
 /*
-These are all for the top navigation menu
+These are CSS for the top navigation menu
  */
 
 .menubar {
@@ -36,9 +45,68 @@ These are all for the top navigation menu
     color: #ffffff;
 }
 
+/*
+These are the CSS for the search bar
+ */
+
+
 
 /*
-These are all for the Login window
+These are CSS for the tables
+ */
+/*
+.column {
+    float: right;
+}
+
+.column2 {
+    float: right;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+ */
+/*
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+#pagecss {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#pagecss td, #indexpagecss th {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+
+#pagecss tr:nth-child(even){background-color: #f2f2f2}
+
+
+#pagecss tr:hover {background-color: #ddd}
+
+#pagecss {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#pagecss th {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    background-color: #008cba;
+    color: #ffffff;
+}
+*/
+/*
+These are CSS for the Login window
  */
 .menubar a.login {
     float: right;
@@ -92,6 +160,7 @@ input.login-btn{
 }
 
 /*
-Write the next group desciption here -->>>
+Write the next group description here -->>>
  */
+
 

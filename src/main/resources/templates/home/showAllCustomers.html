@@ -17,5 +17,87 @@
     <a class="login" href="/loginPage">Login</a>
 </div>
 
+<!-- Header -->
+<h1 class="h1">Customer List</h1>
+
+<!-- Search Bar -->
+<div class="row">
+
+    <a href="/addNewCustomer">
+        <button class="button1 button-anc">Add new Customer</button>
+    </a>
+
+    <!-- Clear Icon -->
+    <form class="search-id-name" name="clear" method="get" action="/showAllCustomers">
+        <input class="column2"  type="image" src="clear.png" width="20px" height="20px" alt="Clear"/>
+    </form>
+
+    <form class="search-id-name" name="search" method="post" action="/searchForCustomer">
+        <input type="text" name="search" placeholder="Search here...">
+
+        <!-- Search Icon -->
+        <input class="column" type="image" src="search.png" width="20px" height="20px" alt="Search"/>
+    </form>
+</div>
+
+<!-- Table -->
+<table id="pagecss">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Mobile no.</th>
+        <th>Phone no.</th>
+        <th>e-mail</th>
+        <th>Drivers License no.</th>
+        <th>Drivers License issue date</th>
+        <th>Drivers License expire date</th>
+        <th>Street Name</th>
+        <th>Street no.</th>
+        <th>Floor</th>
+        <th>Zip</th>
+        <th>City</th>
+        <th>Country</th>
+        <th>Actions:</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Display all customers information-->
+    <tr th:each="customers:${customerList}">
+        <td th:text="${customers.id}"/>
+        <td th:text="${customers.firstname}"/>
+        <td th:text="${customers.lastname}"/>
+        <td th:text="${customers.mobile}"/>
+        <td th:text="${customers.phone}"/>
+        <td th:text="${customers.email}"/>
+        <td th:text="${customers.drivers_license}"/>
+        <td th:text="${customers.drivers_license_issuedate}"/>
+        <td th:text="${customers.drivers_license_expiredate}"/>
+        <td th:text="${customers.address_street}"/>
+        <td th:text="${customers.address_number}"/>
+        <td th:text="${customers.address_floor}"/>
+        <td th:text="${customers.zip}"/>
+        <td th:text="${customers.city}"/>
+        <td th:text="${customers.country}"/>
+
+        <td>
+
+            <a th:href="@{'/showContracts/'+${customers.id}}">
+                <button class="btn-show" id="show-contract" title="Show Contracts"><img src="view.png" alt="Show Contracts" width="25px" height="25px"></button>
+            </a>
+
+            <a th:href="@{'/updateCustomer/'+${customers.id}}">
+                <button class="btn-update" id="btn-update" title="Edit Customer"><img src="edit.png" alt="Edit Customer" width="25px" height="25px"></button>
+            </a>
+
+            <a th:href="@{'/deleteCustomer/'+${customers.id}}">
+                <button class="btn-delete" id="btn-delete" title="Delete Customer"><img src="delete.png" alt="Delete Customer" width="25px" height="25px"></button>
+            </a>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
