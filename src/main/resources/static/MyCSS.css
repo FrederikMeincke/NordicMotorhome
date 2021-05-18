@@ -9,9 +9,40 @@ This CSS-section is for all the overall CSS like h1 or p etc...
 
 
 /*
+Front page Background image
+ */
+.index-background {
+    background-image: url("background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+/*
+CSS for the Front page title text
+ */
+div.startpage{
+    font-size: 3rem;
+    text-align: center;
+    height:90vh;
+    line-height: 35vh;
+    color: white;
+    font-family: sans-serif, cursive;
+    font-weight: 700;
+    text-shadow:
+            3px 3px 30px #333, /* Shadow faded */
+            2px 2px #4ed1ff,
+            3px 3px #05afe7,
+            4px 4px #008cba,
+            5px 5px #43bb9f,
+            6px 6px #008cba,
+            7px 7px #022c3d,
+            8px 8px 5px #ff911b /* Orange blend with the back ground */
+}
+
+/*
 These are CSS for the top navigation menu
  */
-
 .menubar {
     background-color: #333;
     overflow: hidden;
@@ -70,17 +101,6 @@ These are the CSS for the search bar
 /*
 These are CSS for the tables
  */
-
-.column {
-    float: right;
-}
-
-.column2 {
-    float: right;
-    margin-left:auto;
-    margin-right:auto;
-}
-
 #tablecss {
     font-family: Arial, sans-serif;
     border-collapse: collapse;
@@ -147,16 +167,16 @@ input.loginfield{
     border: 2px solid #dadada;
     border-radius: 3px;
 }
-
+/* Login Button */
 input.login-btn{
     float: end;
     font-size: 17px;
     font-family: sans-serif;
-    height: 55px;
+    height: 40px;
     width: 100px;
     background-color: #0475aa;
     color: #ffffff;
-    border: 10px solid white;
+    border: 10px transparent;
     border-radius: 1px;
 }
 
@@ -164,7 +184,6 @@ input.login-btn{
 /*
 CSS for the Create new buttons
  */
-
 .button1 {
     background-color: #008cba;
     border: none;
@@ -193,5 +212,3 @@ CSS for the Create new buttons
 /*
 Write the next group description here -->>>
  */
-
-
