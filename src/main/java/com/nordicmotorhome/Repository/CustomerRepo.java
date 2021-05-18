@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Repository
@@ -17,7 +16,7 @@ public class CustomerRepo {
     JdbcTemplate jdbcTemplate;
 
     public List<Customer> fetchAllCustomers() {
-        String sqlCustomer = "USE NMR; " +
+        String sqlCustomer =
                 "SELECT customers.id, first_name, last_name, mobile, phone, email, drivers_license, dl_issue_date, " +
                 "dl_expire_date, street, floor, zip, city, name as 'country' FROM NMR.customers " +
                 "INNER JOIN addresses on addresses.id = addresses_fk " +

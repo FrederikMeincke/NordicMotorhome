@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -54,7 +54,6 @@
         <th>Drivers License issue date</th>
         <th>Drivers License expire date</th>
         <th>Street Name</th>
-        <th>Street no.</th>
         <th>Floor</th>
         <th>Zip</th>
         <th>City</th>
@@ -66,8 +65,8 @@
     <!-- Display all customers information-->
     <tr th:each="customers:${customerList}">
         <td th:text="${customers.id}"/>
-        <td th:text="${customers.first_Name}"/>
-        <td th:text="${customers.last_Name}"/>
+        <td th:text="${customers.first_name}"/>
+        <td th:text="${customers.last_name}"/>
         <td th:text="${customers.mobile}"/>
         <td th:text="${customers.phone}"/>
         <td th:text="${customers.email}"/>
@@ -76,7 +75,7 @@
         <td th:text="${customers.dl_expire_date}"/>
         <td th:text="${customers.street}"/>
         <td th:text="${customers.floor}"/>
-        <td th:text="${customers.zip_codes}"/>
+        <td th:text="${customers.zip}"/>
         <td th:text="${customers.city}"/>
         <td th:text="${customers.country}"/>
 
