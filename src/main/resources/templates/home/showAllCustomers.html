@@ -66,18 +66,17 @@
     <!-- Display all customers information-->
     <tr th:each="customers:${customerList}">
         <td th:text="${customers.id}"/>
-        <td th:text="${customers.firstname}"/>
-        <td th:text="${customers.lastname}"/>
+        <td th:text="${customers.first_Name}"/>
+        <td th:text="${customers.last_Name}"/>
         <td th:text="${customers.mobile}"/>
         <td th:text="${customers.phone}"/>
         <td th:text="${customers.email}"/>
         <td th:text="${customers.drivers_license}"/>
-        <td th:text="${customers.drivers_license_issuedate}"/>
-        <td th:text="${customers.drivers_license_expiredate}"/>
-        <td th:text="${customers.address_street}"/>
-        <td th:text="${customers.address_number}"/>
-        <td th:text="${customers.address_floor}"/>
-        <td th:text="${customers.zip}"/>
+        <td th:text="${customers.dl_issue_date}"/>
+        <td th:text="${customers.dl_expire_date}"/>
+        <td th:text="${customers.street}"/>
+        <td th:text="${customers.floor}"/>
+        <td th:text="${customers.zip_codes}"/>
         <td th:text="${customers.city}"/>
         <td th:text="${customers.country}"/>
 

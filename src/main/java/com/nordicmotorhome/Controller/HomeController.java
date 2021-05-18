@@ -1,11 +1,18 @@
 package com.nordicmotorhome.Controller;
 
+import com.nordicmotorhome.Model.Customer;
+import com.nordicmotorhome.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 @Controller
 public class HomeController {
+    @Autowired
+    CustomerService customerService;
 
     @GetMapping("/")
     public String index() {
@@ -18,7 +25,9 @@ public class HomeController {
     }
 
     @GetMapping("/showAllCustomers")
-    public String showAllCustomers(){
+    public String showAllCustomers(Model model){
+        List<Customer> customerList = customerService.fetchAllCustomers();
+        model.addAttribute("customerList", customerList);
         return "home/showAllCustomers";
     }
 
