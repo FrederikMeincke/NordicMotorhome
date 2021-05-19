@@ -17,4 +17,8 @@ public class CustomerService {
         return customerRepo.fetchAllCustomers();
     }
 
+    public void addCustomer(Customer customer){
+        customerRepo.addCustomer(customer);
+    }
+
 }

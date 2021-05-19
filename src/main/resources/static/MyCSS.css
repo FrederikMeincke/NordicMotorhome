@@ -127,6 +127,19 @@ These are CSS for the tables
 
 
 /*
+CSS for the creation table for new customers, motorhomes, rentals and service reports
+ */
+
+.add-form{
+    background-color: rgba(51, 51, 51, 0.44);
+}
+
+.labelcss{}
+
+.label-text{}
+
+
+/*
 These are CSS for the Login window
  */
 .menubar a.login {

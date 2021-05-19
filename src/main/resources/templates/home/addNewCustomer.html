@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Nordic Motorhome Rental</title>
+    <link href="../MyCSS.css" rel="stylesheet" type="text/css">
+</head>
+<body class="index-background"> <!-- This adds the background cover -->
+
+<!-- Menu Bar -->
+<div class="menubar">
+    <a class="unactive" href="/">Home</a>
+    <a class="active" href="/showAllCustomers">Customers</a>
+    <a class="unactive" href="/showAllMotorhomes">Motorhomes</a>
+    <a class="unactive" href="/showAllRentals">Rentals</a>
+    <a class="unactive" href="/showAllServiceReports">Service Reports</a>
+    <a class="login" href="/loginPage">Login</a>
+</div>
+
+<h1 class="h1">Create Customer</h1>
+
+<form class="add-form" action="/addNewCustomer" method="post">
+    <label class="label-text">First Name</label>
+    <br>
+    <input class="labelcss" type="text" name="firstname" placeholder="I.e. Edward Snowden"> <span style="color: red">*</span>
+    <br><br>
+    <label class="label-text">Last Name</label>
+    <br>
+    <input class="labelcss" type="text" name="lastname" placeholder="I.e. Edward Snowden"> <span style="color: red">*</span>
+    <br><br>
+    <label class="label-text">Mobile No.</label>
+    <br>
+    <input class="labelcss" type="text" name="mobile" placeholder="I.e. 42042069"> <span style="color: red">*</span>
+    <br><br>
+    <label class="label-text">Phone No.</label>
+    <br>
+    <input class="labelcss" type="text" name="phone" placeholder="I.e. 69420420">
+    <br><br>
+    <label>E-mail</label>
+    <br>
+    <input class="labelcss" type="text" name="email" placeholder="I.e. your@email.com"> <span style="color: red">*</span>
+    <br><br>
+    <label class="label-text">Drivers license Number.</label>
+    <br>
+    <input class="labelcss" type="text" name="drivers_license" placeholder="I.e. XY11111Z"> <span style="color: red">*</span>
+    <br><br>
+    <label class="label-text">Drivers License issue date</label>
+    <br>
+    <input class="select-date-2" type="date" name="drivers_license_issuedate"> <span style="color: red">*</span>
+    <br><br>
+    <label class="label-text">Drivers License expire date</label>
+    <br>
+    <input class="select-date-2" type="date" name="drivers_license_expiredate"> <span style="color: red">*</span>
+    <br><br>
+    <label class="label-text">Street Name</label>
+    <br>
+    <input class="labelcss" type="text" name="street" placeholder="I.e. Nordics Corner"> <span style="color: red">*</span>
+    <br><br>
+    <label class="label-text">Floor</label>
+    <br>
+    <input class="labelcss" type="text" name="floor" placeholder="I.e. 3th">
+    <br><br>
+    <label class="label-text">City</label>
+    <br>
+    <input class="labelcss" type="text" name="city" placeholder="I.e. Motor Ville"> <span style="color: red">*</span>
+    <br><br>
+    <label>Zip</label>
+    <br>
+    <input class="labelcss" type="text" name="zip" placeholder="I.e. 42069"> <span style="color: red">*</span>
+    <br><br>
+    <label class="label-text">Country</label>
+    <br>
+    <input class="labelcss" type="text" name="Country" placeholder="I.e. Denmark"> <span style="color: red">*</span>
+    <br><br>
+    <p style="font-size: 14px">ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</p>
+    <input class="button1 button-anc" type="submit" value="Add Customer">
+</form>
+</body>
+</html>
