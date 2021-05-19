@@ -42,9 +42,14 @@ public class HomeController {
         return "home/addNewCustomer";
     }
 
+    /**
+     * @Author Kasper N. Jensen
+     * @param customer Customer
+     * @return String/URL
+     */
     @PostMapping("/addNewCustomer")
     public String addNewCustomer(@ModelAttribute Customer customer) {
-       /* boolean emptyField =
+        boolean emptyField =
                         customer.getFirst_name().isEmpty() || customer.getLast_name().isEmpty() ||
                         customer.getMobile().isEmpty() || customer.getPhone().isEmpty() || customer.getEmail().isEmpty() ||
                         customer.getDrivers_license().isEmpty() || customer.getDl_issue_date().isEmpty() ||
@@ -56,7 +61,6 @@ public class HomeController {
             return "home/error/errorPage";
         }
 
-        */
         customerService.addCustomer(customer);
         return "redirect:/showAllCustomers";
     }
