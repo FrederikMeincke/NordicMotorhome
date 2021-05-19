@@ -162,6 +162,13 @@ public class DatabaseRepo {
     }
 
     // @author jimmy mads
+
+    /**
+     * @Author Jimmy Losang, Mads Westh
+     * Checks if the countries table is empty and if so it will read a textfile that contains
+     * prepared data and inserts the data into the database. This method is used to quickly
+     * store data in the database in order to check the programs functionality for demos.
+     */
     public void dataDump() {
         String sqlCheck = "SELECT COUNT('id') FROM NMR.countries;";
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlCheck);
