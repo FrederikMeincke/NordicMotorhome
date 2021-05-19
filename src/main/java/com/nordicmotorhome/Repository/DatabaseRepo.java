@@ -188,7 +188,7 @@ public class DatabaseRepo {
                     }
                 }
             } catch (IOException ioException) {
-
+                System.out.println("Data file not found or unreadable.");
             }
         }
     }
