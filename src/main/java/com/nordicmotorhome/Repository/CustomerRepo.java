@@ -34,6 +34,7 @@ public class CustomerRepo {
      * a valid country, so we must first check for countries.
      * @param customer
      */
+   /*
     public void addCustomer(Customer customer) {
         String sqlCountry = "IF NOT EXISTS (SELECT * FROM countries " +
                 "WHERE name = ?) " +
@@ -41,34 +42,32 @@ public class CustomerRepo {
                 "VALUES (DEFAULT, ?);";
         jdbcTemplate.update(sqlCountry, customer.getCountry(), customer.getCountry());
     }
+*/
 
-    /*
     public void addCustomer(Customer customer) {
-        String sqlZipCity = "INSERT INTO zipcity (zip_id, zip, city, country) VALUES (DEFAULT, ?, ?, 'Denmark')";
+        String sqlZipCity = "INSERT INTO zip_codes (id, zip, city, countries_fk) VALUES (DEFAULT, ?, ?, '58')";
 
         jdbcTemplate.update(sqlZipCity, customer.getZip(), customer.getCity());
-        String sqlLastAddedZip = "SELECT zip_id FROM kailua_cars.zipcity ORDER BY zip_id DESC limit 1;";
+        String sqlLastAddedZip = "SELECT id FROM NMR.zip_codes ORDER BY id DESC limit 1;";
         SqlRowSet zip = jdbcTemplate.queryForRowSet(sqlLastAddedZip);
         zip.next();
-        int zipInt = zip.getInt("zip_id");
+        int zipInt = zip.getInt("id");
 
-        String sqlAddress = "INSERT INTO address (address_id, address_zip, address_street, address_number, address_floor) VALUES (DEFAULT," + zipInt + ",?,?,?);";
+        String sqlAddress = "INSERT INTO addresses (id, street, floor, zip_codes_fk) VALUES (DEFAULT,?,?," + zipInt + ");";
 
-        jdbcTemplate.update(sqlAddress,customer.getAddress_street(),customer.getAddress_number(),customer.getAddress_floor());
-        String sqlLastAddedAddress = "SELECT address_id FROM kailua_cars.address ORDER BY address_id DESC limit 1;";
+        jdbcTemplate.update(sqlAddress,customer.getStreet(),customer.getFloor());
+        String sqlLastAddedAddress = "SELECT id FROM NMR.addresses ORDER BY id DESC limit 1;";
         SqlRowSet adr = jdbcTemplate.queryForRowSet(sqlLastAddedAddress);
         adr.next();
-        int addressInt = adr.getInt("address_id");
+        int addressInt = adr.getInt("id");
 
-        String sqlCustomer = "INSERT INTO customers (customers_id, customers_address ,customers_name, customers_mobile, customers_phone, customers_email, " +
-                "customers_drivers_license, customers_drivers_license_issuedate, customers_drivers_license_expiredate) " +
-                "VALUES (DEFAULT," + addressInt + ",?,?,?,?,?,?,?)";
+        String sqlCustomer = "INSERT INTO customers (id ,first_name, last_name , mobile, phone, email, " +
+                "drivers_license, dl_issuedate, dl_expiredate, addresses_fk) VALUES (DEFAULT,?,?,?,?,?,?,?,?," + addressInt + ")";
 
-        jdbcTemplate.update(sqlCustomer,customer.getCustomers_name(),customer.getCustomers_mobile(),
-                customer.getCustomers_phone(),customer.getCustomers_email(),customer.getCustomers_drivers_license(),
-                customer.getCustomers_drivers_license_issuedate(),customer.getCustomers_drivers_license_expiredate());
+        jdbcTemplate.update(sqlCustomer,customer.getFirst_name(),customer.getLast_name(),customer.getMobile(),
+                customer.getPhone(),customer.getEmail(),customer.getDrivers_license(),
+                customer.getDl_issue_date(),customer.getDl_expire_date());
     }
-*/
 
     public void initializeDatabase() {
         System.out.println("SKY NET INITIALIZED");
