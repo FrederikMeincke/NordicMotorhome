@@ -18,7 +18,7 @@ public class Customer {
     private String dl_expire_date;
     private String street;
     private String floor;
-    private int zip;
+    private String zip;
     private String city;
     private String country;
 
@@ -27,7 +27,7 @@ public class Customer {
 
     public Customer(int id, String first_name, String last_name, String mobile, String phone, String email,
                     String drivers_license, String dl_issue_date, String dl_expire_date, String street,
-                    int zip, String city, String country, String floor) {
+                    String zip, String city, String country, String floor) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -124,11 +124,11 @@ public class Customer {
         this.street = address;
     }
 
-    public int getZip() {
+    public String getZip() {
         return zip;
     }
 
-    public void setZip(int zip) {
+    public void setZip(String zip) {
         this.zip = zip;
     }
 

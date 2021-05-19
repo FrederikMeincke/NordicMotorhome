@@ -62,7 +62,7 @@ public class CustomerRepo {
         int addressInt = adr.getInt("id");
 
         String sqlCustomer = "INSERT INTO customers (id ,first_name, last_name , mobile, phone, email, " +
-                "drivers_license, dl_issuedate, dl_expiredate, addresses_fk) VALUES (DEFAULT,?,?,?,?,?,?,?,?," + addressInt + ")";
+                "drivers_license, dl_issue_date, dl_expire_date, addresses_fk) VALUES (DEFAULT,?,?,?,?,?,?,?,?," + addressInt + ");";
 
         jdbcTemplate.update(sqlCustomer,customer.getFirst_name(),customer.getLast_name(),customer.getMobile(),
                 customer.getPhone(),customer.getEmail(),customer.getDrivers_license(),
