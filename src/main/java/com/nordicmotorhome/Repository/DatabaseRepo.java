@@ -1,8 +1,18 @@
 package com.nordicmotorhome.Repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
+
+import javax.sql.RowSet;
+import java.io.File;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.util.List;
+import java.util.Scanner;
 
 @Repository
 public class DatabaseRepo {
@@ -149,6 +159,30 @@ public class DatabaseRepo {
         jdbcTemplate.update(sqlAccessories);
         jdbcTemplate.update(sqlRentals);
         jdbcTemplate.update(sqlRA);
+    }
 
+    // @author jimmy mads
+    public void dataDump() {
+        String sqlCheck = "SELECT COUNT('id') FROM NMR.countries;";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlCheck);
+        rowSet.next();
+        boolean empty = rowSet.getInt(1) == 0;
+
+        if(empty) {
+            String sqlDump = "";
+            try {
+                Scanner scanner = new Scanner(new File("dataDump.txt"));
+                while(scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    sqlDump += line + "\n";
+                    if(line.contains(";")) {
+                        jdbcTemplate.update(sqlDump);
+                        sqlDump = "";
+                    }
+                }
+            } catch (IOException ioException) {
+
+            }
+        }
     }
 }

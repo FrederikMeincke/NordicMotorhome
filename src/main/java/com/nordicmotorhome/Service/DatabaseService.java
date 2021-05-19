@@ -11,5 +11,6 @@ public class DatabaseService {
 
     public void initializeDatabase() {
         databaseRepo.initializeDatabase();
+        databaseRepo.dataDump();
     }
 }
