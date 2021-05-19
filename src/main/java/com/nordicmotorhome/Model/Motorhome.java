@@ -5,13 +5,22 @@ import java.util.List;
 
 public class Motorhome {
 
-    private enum fuelType {
+    private enum fuel_type {
         BENZIN,
-        DIEZEL,
+        DIESEL,
         BATTERY
     }
+    private enum type {
+        Class_A,
+        Class_B,
+        Class_C,
+        Fifth_Wheel_Camper,
+        Toy_Hauler,
+        Travel_Trailer,
+        Teardrop_Camper,
+        Pop_Up_Camper
+    }
     private int id;
-    private String type;
     private String brand;
     private String model;
     private double price;
@@ -22,15 +31,14 @@ public class Motorhome {
     private int bed_Amount;
     private double odometer;
     private List<Utility> utilityList;
-    private String service_report;
+    private String service_raport;
 
     public Motorhome() {
     }
 
-    public Motorhome(int id, String type, String brand, String model, double price, double width, double height, Date register_Date,
+    public Motorhome(int id, String brand, String model, double price, double width, double height, Date register_Date,
                      String license_plate, int bed_Amount, double odometer, List<Utility> utilityList, String service_report) {
         this.id = id;
-        this.type = type;
         this.brand = brand;
         this.model = model;
         this.price = price;
@@ -41,7 +49,7 @@ public class Motorhome {
         this.bed_Amount = bed_Amount;
         this.odometer = odometer;
         this.utilityList = utilityList;
-        this.service_report = service_report;
+        this.service_raport = service_report;
     }
 
     public int getId() {
@@ -50,14 +58,6 @@ public class Motorhome {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getBrand() {
@@ -140,11 +140,11 @@ public class Motorhome {
         this.utilityList = utilityList;
     }
 
-    public String getService_report() {
-        return service_report;
+    public String getService_raport() {
+        return service_raport;
     }
 
-    public void setService_report(String service_report) {
-        this.service_report = service_report;
+    public void setService_raport(String service_raport) {
+        this.service_raport = service_raport;
     }
 }
