@@ -17,8 +17,12 @@ public class CustomerService {
         return customerRepo.fetchAllCustomers();
     }
 
+<<<<<<< Updated upstream
     public void addCustomer(Customer customer){
         customerRepo.addCustomer(customer);
     }
+=======
+
+>>>>>>> Stashed changes
 
 }

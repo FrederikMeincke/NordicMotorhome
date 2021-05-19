@@ -2,6 +2,7 @@ package com.nordicmotorhome.Controller;
 
 import com.nordicmotorhome.Model.Customer;
 import com.nordicmotorhome.Service.CustomerService;
+import com.nordicmotorhome.Service.DatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +16,12 @@ import java.util.List;
 public class HomeController {
     @Autowired
     CustomerService customerService;
+    @Autowired
+    DatabaseService databaseService;
 
     @GetMapping("/")
     public String index() {
+        databaseService.initializeDatabase();
         return "home/index";
     }
 
