@@ -1,122 +1,122 @@
-
+DROP DATABASE IF EXISTS NMR;
 
 CREATE DATABASE IF NOT EXISTS NMR;
 CREATE TABLE IF NOT EXISTS NMR.countries (
-id INT NOT NULL UNIQUE PRIMARY KEY,
-iso VARCHAR(2) NOT NULL,
-name VARCHAR(80) NOT NULL,
-phonecode INT(5) NOT NULL);
+    id          INT NOT     NULL        UNIQUE  PRIMARY KEY,
+    iso         VARCHAR(2)  NOT NULL,
+    name        VARCHAR(80) NOT NULL,
+    phonecode   INT(5)      NOT NULL);
 
 CREATE TABLE IF NOT EXISTS NMR.zip_codes (
-id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
-zip INT NOT NULL,
-city VARCHAR(45) NOT NULL,
-countries_fk INT NOT NULL,
-CONSTRAINT zip_codes_countries_fk
-	FOREIGN KEY (countries_fk) REFERENCES NMR.countries (id));
+    id           INT         NOT NULL   UNIQUE  PRIMARY KEY   AUTO_INCREMENT,
+    zip          INT         NOT NULL,
+    city         VARCHAR(45) NOT NULL,
+    countries_fk INT         NOT NULL,
+    CONSTRAINT zip_codes_countries_fk
+        FOREIGN KEY (countries_fk) REFERENCES NMR.countries (id));
 
 CREATE TABLE IF NOT EXISTS NMR.addresses (
-id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
-street VARCHAR(45) NOT NULL,
-floor VARCHAR(45),
-zip_codes_fk INT NOT NULL,
-CONSTRAINT addresses_zip_codes_fk
-	FOREIGN KEY (zip_codes_fk) REFERENCES NMR.zip_codes(id));
+    id              INT         NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
+    street          VARCHAR(45) NOT NULL,
+    floor           VARCHAR(45),
+    zip_codes_fk    INT         NOT NULL,
+    CONSTRAINT addresses_zip_codes_fk
+        FOREIGN KEY (zip_codes_fk) REFERENCES NMR.zip_codes(id));
 
 CREATE TABLE IF NOT EXISTS NMR.customers (
-id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
-first_name VARCHAR(45) NOT NULL,
-last_name VARCHAR(45) NOT NULL,
-mobile VARCHAR(45) NOT NULL,
-phone VARCHAR(45),
-email VARCHAR(45) NOT NULL,
-drivers_license VARCHAR(45) NOT NULL,
-dl_issue_date DATE NOT NULL,
-dl_expire_date DATE NOT NULL,
-addresses_fk INT NOT NULL,
-CONSTRAINT customers_addresses_fk
-	FOREIGN KEY (addresses_fk) REFERENCES NMR.addresses(id));
+    id                  INT         NOT NULL    UNIQUE  PRIMARY   KEY AUTO_INCREMENT,
+    first_name          VARCHAR(45) NOT NULL,
+    last_name           VARCHAR(45) NOT NULL,
+    mobile              VARCHAR(45) NOT NULL,
+    phone               VARCHAR(45),
+    email               VARCHAR(45) NOT NULL,
+    drivers_license     VARCHAR(45) NOT NULL,
+    dl_issue_date       DATE        NOT NULL,
+    dl_expire_date      DATE        NOT NULL,
+    addresses_fk        INT         NOT NULL,
+    CONSTRAINT customers_addresses_fk
+        FOREIGN KEY (addresses_fk) REFERENCES NMR.addresses(id));
 
 CREATE TABLE IF NOT EXISTS NMR.brands (
-id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
-name VARCHAR(45) NOT NULL);
+    id      INT         NOT NULL    UNIQUE  PRIMARY KEY  AUTO_INCREMENT,
+    name    VARCHAR(45) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS NMR.models (
-id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
-name VARCHAR(45) NOT NULL,
-fuel_type ENUM('BENZIN', 'DIESEL', 'BATTERY') NOT NULL,
-width DOUBLE NOT NULL,
-height DOUBLE NOT NULL,
-weight DOUBLE NOT NULL,
-brands_fk INT NOT NULL,
-CONSTRAINT models_brands_fk
-	FOREIGN KEY (brands_fk) REFERENCES NMR.brands(id));
+    id          INT         NOT NULL    UNIQUE PRIMARY KEY  AUTO_INCREMENT,
+    name        VARCHAR(45) NOT NULL,
+    fuel_type   ENUM('BENZIN', 'DIESEL', 'BATTERY') NOT NULL,
+    width       DOUBLE      NOT NULL,
+    height      DOUBLE      NOT NULL,
+    weight      DOUBLE      NOT NULL,
+    brands_fk   INT         NOT NULL,
+    CONSTRAINT models_brands_fk
+        FOREIGN KEY (brands_fk) REFERENCES NMR.brands(id));
 
 CREATE TABLE IF NOT EXISTS NMR.motorhomes (
-id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
-type ENUM('Class A', 'Class B' , 'Class C', 'Fifth Wheel Camper', 'Toy Hauler', 'Travel Trailer', 'Teardrop Camper', 'Pop-Up Camper') NOT NULL,
-bed_amount INT NOT NULL,
-license_plate VARCHAR(45) NOT NULL,
-register_date DATE NOT NULL,
-price DOUBLE NOT NULL,
-odometer DOUBLE NOT NULL,
-ready_status TINYINT NOT NULL,
-models_fk INT NOT NULL,
-CONSTRAINT motorhomes_models_fk
-	FOREIGN KEY (models_fk) REFERENCES NMR.models(id));
+    id              INT NOT NULL    UNIQUE PRIMARY KEY  AUTO_INCREMENT,
+    type ENUM('Class A', 'Class B' , 'Class C', 'Fifth Wheel Camper', 'Toy Hauler', 'Travel Trailer', 'Teardrop Camper', 'Pop-Up Camper') NOT NULL,
+    bed_amount      INT         NOT NULL,
+    license_plate   VARCHAR(45) NOT NULL,
+    register_date   DATE        NOT NULL,
+    price           DOUBLE      NOT NULL,
+    odometer        DOUBLE      NOT NULL,
+    ready_status    TINYINT     NOT NULL,
+    models_fk       INT         NOT NULL,
+    CONSTRAINT motorhomes_models_fk
+        FOREIGN KEY (models_fk) REFERENCES NMR.models(id));
 
 CREATE TABLE IF NOT EXISTS NMR.utilities (
-id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
-name VARCHAR(45) NOT NULL,
-price DOUBLE NOT NULL);
+    id      INT         NOT NULL    UNIQUE  PRIMARY KEY  AUTO_INCREMENT,
+    name    VARCHAR(45) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS NMR.motorhome_utilities (
-id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
-motorhomes_fk INT NOT NULL,
-utilities_fk INT NOT NULL,
-CONSTRAINT mu_motorhomes_fk
-	FOREIGN KEY (motorhomes_fk) REFERENCES NMR.motorhomes(id),
-CONSTRAINT mu_utilities_fk
-	FOREIGN KEY (utilities_fk) REFERENCES NMR.utilities(id));
+    id              INT NOT NULL    UNIQUE  PRIMARY KEY  AUTO_INCREMENT,
+    motorhomes_fk   INT NOT NULL,
+    utilities_fk    INT NOT NULL,
+    CONSTRAINT mu_motorhomes_fk
+        FOREIGN KEY (motorhomes_fk) REFERENCES NMR.motorhomes(id),
+    CONSTRAINT mu_utilities_fk
+        FOREIGN KEY (utilities_fk) REFERENCES NMR.utilities(id));
 
 CREATE TABLE IF NOT EXISTS NMR.seasons (
-id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
-name VARCHAR(45) NOT NULL,
-rate INT(100) NOT NULL);
+    id          INT      NOT NULL   UNIQUE  PRIMARY KEY  AUTO_INCREMENT,
+    name        ENUM('Low' , 'Middle', 'Peak') NOT NULL,
+    rate        DOUBLE   NOT NULL,
+    start_date  DATE NOT NULL,
+    end_date    DATE NOT NULL);
 
 CREATE TABLE IF NOT EXISTS NMR.accessories (
-id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
-name VARCHAR(45) NOT NULL,
-price DOUBLE NOT NULL);
+    id      INT         NOT NULL    UNIQUE  PRIMARY KEY  AUTO_INCREMENT,
+    name    VARCHAR(45) NOT NULL,
+    price   DOUBLE      NOT NULL);
 
 CREATE TABLE IF NOT EXISTS NMR.rentals (
-id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
-start_date DATE NOT NULL,
-end_date DATE NOT NULL,
-pick_up_location VARCHAR(45) NOT NULL,
-drop_off_location VARCHAR(45) NOT NULL,
-total_price DOUBLE NOT NULL,
-customers_fk INT NOT NULL,
-motorhomes_fk INT NOT NULL,
-seasons_fk INT NOT NULL,
-CONSTRAINT rentals_customers_fk
-	FOREIGN KEY (customers_fk) REFERENCES NMR.customers(id),
-CONSTRAINT rentals_motorhomes_fk
-	FOREIGN KEY (motorhomes_fk) REFERENCES NMR.motorhomes(id),
-CONSTRAINT rentals_seasons_fk
-	FOREIGN KEY (seasons_fk) REFERENCES NMR.seasons(id));
+    id                  INT         NOT NULL    UNIQUE  PRIMARY KEY  AUTO_INCREMENT,
+    start_date          DATE        NOT NULL,
+    end_date            DATE        NOT NULL,
+    pick_up_location    VARCHAR(45),
+    drop_off_location   VARCHAR(45),
+    total_price         DOUBLE      NOT NULL,
+    customers_fk        INT         NOT NULL,
+    motorhomes_fk       INT         NOT NULL,
+    seasons_fk          INT         NOT NULL,
+    CONSTRAINT rentals_customers_fk
+        FOREIGN KEY (customers_fk) REFERENCES NMR.customers(id),
+    CONSTRAINT rentals_motorhomes_fk
+        FOREIGN KEY (motorhomes_fk) REFERENCES NMR.motorhomes(id),
+    CONSTRAINT rentals_seasons_fk
+        FOREIGN KEY (seasons_fk) REFERENCES NMR.seasons(id));
 
 CREATE TABLE IF NOT EXISTS NMR.rental_accessories (
-id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
-accessories_fk INT NOT NULL,
-rentals_fk INT NOT NULL,
-CONSTRAINT ra_accessories_fk
-	FOREIGN KEY (accessories_fk) REFERENCES NMR.accessories(id),
-CONSTRAINT ra_rentals_fk
-	FOREIGN KEY (rentals_fk) REFERENCES NMR.rentals(id));
+    id              INT NOT NULL    UNIQUE  PRIMARY KEY  AUTO_INCREMENT,
+    accessories_fk  INT NOT NULL,
+    rentals_fk      INT NOT NULL,
+    CONSTRAINT ra_accessories_fk
+        FOREIGN KEY (accessories_fk) REFERENCES NMR.accessories(id),
+    CONSTRAINT ra_rentals_fk
+        FOREIGN KEY (rentals_fk) REFERENCES NMR.rentals(id));
 
 USE NMR;
-
 
 --
 -- Data dump for countries
@@ -953,92 +953,91 @@ INSERT INTO `zip_codes` (id, `zip`, `city`, `countries_fk`) VALUES
 -- Data dump for addresses
 --
 INSERT INTO `addresses` (`id`, `street`, `floor`, `zip_codes_fk`) VALUES
-(DEFAULT, 'Naturparken 20', '2', 1),
-(DEFAULT, 'Holmevej 69', '', 17),
-(DEFAULT, 'Møllebakken 87', '6', 10),
-(DEFAULT, 'Vestergade 83', '', 55),
-(DEFAULT, 'Trollegade 70', '', 50),
-(DEFAULT, 'Skelvænget 56', '3', 20),
-(DEFAULT, 'Søndervænget 65', '', 25),
-(DEFAULT, 'Skolegade 61', '', 71),
-(DEFAULT, 'Rynkebyvej 70', '', 100),
-(DEFAULT, 'Stokløkken 75', '2', 90),
-(DEFAULT, 'Østerøvej 32', '', 80),
-(DEFAULT, 'Pilekrogen 43', '', 56),
-(DEFAULT, 'Lille Vibyvej 97', '3', 9),
-(DEFAULT, 'Toftvej 28', '', 65),
-(DEFAULT, 'Sandagervej 46', '', 45),
-(DEFAULT, 'Hindsholmvej 4', '1', 222),
-(DEFAULT, 'Skovvej 7', '', 199),
-(DEFAULT, 'Eskelundsvej 15', '', 179),
-(DEFAULT, 'Erhvervsvangen 76', '', 126),
-(DEFAULT, 'Kamperhoug 50', '1', 123),
-(DEFAULT, 'Brogade 40', '', 216),
-(DEFAULT, 'Strandvej 6', '', 261),
-(DEFAULT, 'Lundevænget 99', '', 5),
-(DEFAULT, 'Håndværkervej 25', '', 278),
-(DEFAULT, 'Slipager 5', '', 189),
-(DEFAULT, 'Lundsbjergvej 48', '3', 234),
-(DEFAULT, 'Pilekrogen 59', '', 157),
-(DEFAULT, 'Jernbanegade 64', '', 180),
-(DEFAULT, 'Rynkebyvej 96', '6', 247),
-(DEFAULT, 'Algade 64', '', 170),
-(DEFAULT, 'Gartnervænget 3', '', 47),
-(DEFAULT, 'Tarupvej 60', '', 100),
-(DEFAULT, 'Faaborgvej 41', '', 32),
-(DEFAULT, 'Lykkesholmvej 19', '2', 29),
-(DEFAULT, 'Præstevænget 8', '', 92),
-(DEFAULT, 'Torpegårdsvej 23', '', 85),
-(DEFAULT, 'Grønlandsgade 64', '', 279),
-(DEFAULT, 'Stokløkken 31', '10', 59),
-(DEFAULT, 'Andekæret 1', '', 127),
-(DEFAULT, 'Præstevænget 31', '1', 211),
-(DEFAULT, 'Mellemvej 73', '', 194),
-(DEFAULT, 'Søndre Havnekaj 36', '', 132),
-(DEFAULT, 'Øksendrupvej 20', '', 71),
-(DEFAULT, 'Lersey Allé 69', '', 61),
-(DEFAULT, 'Hyrdevej 31', '1', 131),
-(DEFAULT, 'Tårup Byvej 9', '', 13),
-(DEFAULT, 'Sibiriensvej 82', '', 81),
-(DEFAULT, 'Tårup Byvej 9', '1', 95),
-(DEFAULT, 'Bygmestervej 2', '', 37),
-(DEFAULT, 'Klintevej 32', '7', 45);
-
+(DEFAULT, 'Naturparken 20'   	,'2'	, 1),
+(DEFAULT, 'Holmevej 69' 		,''	    , 17),
+(DEFAULT, 'Møllebakken 87'	    ,'6'	, 10),
+(DEFAULT, 'Vestergade 83' 		,''	    , 55),
+(DEFAULT, 'Trollegade 70' 		,''	    , 50),
+(DEFAULT, 'Skelvænget 56' 		,'3'	, 20),
+(DEFAULT, 'Søndervænget 65' 	,''	    , 25),
+(DEFAULT, 'Skolegade 61' 		,''	    , 71),
+(DEFAULT, 'Rynkebyvej 70' 		,''	    , 100),
+(DEFAULT, 'Stokløkken 75'		,'2'	, 90),
+(DEFAULT, 'Østerøvej 32' 		,''	    , 80),
+(DEFAULT, 'Pilekrogen 43' 		,''	    , 56),
+(DEFAULT, 'Lille Vibyvej 97' 	,'3'	, 9),
+(DEFAULT, 'Toftvej 28' 		    ,''	    , 65),
+(DEFAULT, 'Sandagervej 46' 	    ,''	    , 45),
+(DEFAULT, 'Hindsholmvej 4' 	    ,'1'	, 222),
+(DEFAULT, 'Skovvej 7' 			,''	    , 199),
+(DEFAULT, 'Eskelundsvej 15' 	,''	    , 179),
+(DEFAULT, 'Erhvervsvangen 76' 	,''	    , 126),
+(DEFAULT, 'Kamperhoug 50' 		,'1'	, 123),
+(DEFAULT, 'Brogade 40' 		    ,''	    , 216),
+(DEFAULT, 'Strandvej 6' 		,''	    , 261),
+(DEFAULT, 'Lundevænget 99'	    ,''	    , 5),
+(DEFAULT, 'Håndværkervej 25' 	,''	    , 278),
+(DEFAULT, 'Slipager 5' 		    ,''	    , 189),
+(DEFAULT, 'Lundsbjergvej 48' 	,'3'	, 234),
+(DEFAULT, 'Pilekrogen 59' 	    ,''	    , 157),
+(DEFAULT, 'Jernbanegade 64' 	,''	    , 180),
+(DEFAULT, 'Rynkebyvej 96' 		,'6'	, 247),
+(DEFAULT, 'Algade 64' 			,''	    , 170),
+(DEFAULT, 'Gartnervænget 3' 	,''	    , 47),
+(DEFAULT, 'Tarupvej 60' 		,''	    , 100),
+(DEFAULT, 'Faaborgvej 41' 		,''	    , 32),
+(DEFAULT, 'Lykkesholmvej 19' 	,'2'	, 29),
+(DEFAULT, 'Præstevænget 8' 	    ,''	    , 92),
+(DEFAULT, 'Torpegårdsvej 23' 	,''	    , 85),
+(DEFAULT, 'Grønlandsgade 64' 	,''	    , 279),
+(DEFAULT, 'Stokløkken 31' 		,'10'   , 59),
+(DEFAULT, 'Andekæret 1' 		,''	    , 127),
+(DEFAULT, 'Præstevænget 31' 	,'1'	, 211),
+(DEFAULT, 'Mellemvej 73' 		,''	    , 194),
+(DEFAULT, 'Søndre Havnekaj 36'  ,''	    , 132),
+(DEFAULT, 'Øksendrupvej 20' 	,''	    , 71),
+(DEFAULT, 'Lersey Allé 69' 	    ,''	    , 61),
+(DEFAULT, 'Hyrdevej 31' 		,'1'	, 131),
+(DEFAULT, 'Tårup Byvej 9' 		,''	    , 13),
+(DEFAULT, 'Sibiriensvej 82' 	,''	    , 81),
+(DEFAULT, 'Tårup Byvej 9' 		,'1'	, 95),
+(DEFAULT, 'Bygmestervej 2' 	    ,''	    , 37),
+(DEFAULT, 'Klintevej 32' 		,'7'	, 45);
 
 --
 -- Data dump for customers
 --
 INSERT INTO customers VALUES
- (DEFAULT, 'George', 'Bonner', '60187472', NULL, 'Puffy@mail.com', '049R4GST', '2016-04-08', '2027-03-22', 16),
- (DEFAULT, 'Joaquin', 'Wilkening', '88067494', NULL, 'Long@mail.com', 'LUJ7BCAK', '2012-01-05', '2022-12-18', 13),
- (DEFAULT, 'Branson', 'Plant', '89926122', NULL, 'Irritating@mail.com', '0SL28DFB', '2017-03-24', '2028-03-06', 48),
- (DEFAULT, 'Jefferson', 'Wathelet', '21762166', NULL, 'Goofy@mail.com', 'LTFI78FH', '2018-04-25', '2029-04-07', 22),
- (DEFAULT, 'Conner', 'Austen', '90395910', NULL, 'Kind@mail.com', '533ILRLJ', '2012-11-17', '2023-10-31', 31),
- (DEFAULT, 'Jax', 'Cote', '53094245', NULL, 'Lyrical@mail.com', '1N74IB5P', '2016-05-01', '2027-04-14', 22),
- (DEFAULT, 'Aiden', 'Palleschi', '95632935', '23214124', 'Painful@mail.com', '8O6BWULP', '2017-11-04', '2028-10-17', 13),
- (DEFAULT, 'Kendall', 'Penrose', '55322968', NULL, 'Chubby@mail.com', 'LZPQO2WW', '2017-10-23', '2028-10-05', 35),
- (DEFAULT, 'Corbin', 'Hanning', '26509958', NULL, 'Sturdy@mail.com', '0DYHTDK4', '2011-09-19', '2022-09-01', 10),
- (DEFAULT, 'Kadin', 'Orfanos', '43599465', NULL, 'Eight@mail.com', 'U78AUTSF', '2017-05-26', '2028-05-08',  8),
- (DEFAULT, 'Greyson', 'Tobias', '19854124', NULL, 'Willing@mail.com', 'YZSEEOG6', '2012-11-10', '2023-10-24', 46),
- (DEFAULT, 'Nicholas', 'Blotner', '34310089', NULL, 'Extra-large@mail.com', 'X4IZ0416', '2018-06-12', '2029-05-25', 35),
- (DEFAULT, 'Bailey', 'Prodromou', '84634354', NULL, 'Real@mail.com', 'XP39JRTD', '2017-01-11', '2027-12-25', 36),
- (DEFAULT, 'Rigoberto', 'Sloane', '95408570', NULL, 'Nifty@mail.com', 'H2ZS8YX9', '2021-03-23', '2032-03-05', 39),
- (DEFAULT, 'Devin', 'Holton', '59087408', NULL, 'Level@mail.com', 'A3PK2JEU', '2019-06-15', '2030-05-28', 14),
- (DEFAULT, 'Giancarlo', 'Palke', '13184463', NULL, 'Tense@mail.com', 'CMIPONST', '2016-04-06', '2027-03-20', 36),
- (DEFAULT, 'Aaron', 'Cantwell', '74992900', NULL, 'Seemly@mail.com', '41T1QIHU', '2015-02-11', '2026-01-24', 13),
- (DEFAULT, 'Geovanni', 'Mcgirr', '14934380', NULL, 'Shaky@mail.com', 'V9MIEG2G', '2021-01-10', '2031-12-24', 12),
- (DEFAULT, 'Xzavier', 'Garboczi', '58520078', NULL, 'Fuzzy@mail.com', '9C1IBAUE', '2015-08-02', '2026-07-15', 32),
- (DEFAULT, 'Bridger', 'Radde', '29818828', NULL, 'Festive@mail.com', '3QNWSBCP', '2013-03-22', '2024-03-04', 44),
- (DEFAULT, 'Andy', 'Welby', '90782871', NULL, 'Like@mail.com', 'MPNQ1ZWB', '2018-09-27', '2029-09-09', 28),
- (DEFAULT, 'Leonard', 'Challis', '85742892', NULL, 'Spectacular@mail.com', 'H0PGKN6K', '2015-04-07', '2026-03-20', 45),
- (DEFAULT, 'Allan', 'Boos', '91975117', NULL, 'Abaft@mail.com', '6MF4S724', '2015-10-14', '2026-09-26', 47),
- (DEFAULT, 'Giovanni', 'Maharay', '97932135', NULL, 'Nappy@mail.com', '6ASQBJ5M', '2017-12-03', '2028-11-15', 31),
- (DEFAULT, 'Rudy', 'Lipkind', '89295944', NULL, 'Light@mail.com', 'TOFPMD98', '2013-03-02', '2024-02-13', 23),
- (DEFAULT, 'Quintin', 'Gonzaga', '91192278', NULL, 'Best@mail.com', 'IGTQMRJ3', '2021-04-29', '2032-04-11',  6),
- (DEFAULT, 'Corey', 'Giacomello', '34942010', NULL, 'One@mail.com', '9AMDH002', '2012-05-17', '2023-04-30',  6),
- (DEFAULT, 'Isaiah', 'Monari', '68044742', NULL, 'Confused@mail.com', 'BVM6CWJU', '2020-05-10', '2031-04-23',  7),
- (DEFAULT, 'Anton', 'Blasdel', '53837980', NULL, 'Limping@mail.com', '349MPRRK', '2020-03-04', '2031-02-15', 31),
- (DEFAULT, 'Baron', 'Schulze', '41726104', NULL, 'Decisive@mail.com', '043V7U49', '2017-08-21', '2028-08-03', 38);
+(DEFAULT, 'George'      , 'Bonner'      , '60187472', NULL          , 'Puffy@mail.com'      , '049R4GST', '2016-04-08', '2027-03-22', 16),
+(DEFAULT, 'Joaquin'     , 'Wilkening'   , '88067494', NULL          , 'Long@mail.com'       , 'LUJ7BCAK', '2012-01-05', '2022-12-18', 13),
+(DEFAULT, 'Branson'     , 'Plant'       , '89926122', NULL          , 'Irritating@mail.com' , '0SL28DFB', '2017-03-24', '2028-03-06', 48),
+(DEFAULT, 'Jefferson'   , 'Wathelet'    , '21762166', NULL          , 'Goofy@mail.com'      , 'LTFI78FH', '2018-04-25', '2029-04-07', 22),
+(DEFAULT, 'Conner'      , 'Austen'      , '90395910', NULL          , 'Kind@mail.com'       , '533ILRLJ', '2012-11-17', '2023-10-31', 31),
+(DEFAULT, 'Jax'         , 'Cote'        , '53094245', NULL          , 'Lyrical@mail.com'    , '1N74IB5P', '2016-05-01', '2027-04-14', 22),
+(DEFAULT, 'Aiden'       , 'Palleschi'   , '95632935', '23214124'    , 'Painful@mail.com'    , '8O6BWULP', '2017-11-04', '2028-10-17', 13),
+(DEFAULT, 'Kendall'     , 'Penrose'     , '55322968', NULL          , 'Chubby@mail.com'     , 'LZPQO2WW', '2017-10-23', '2028-10-05', 35),
+(DEFAULT, 'Corbin'      , 'Hanning'     , '26509958', NULL          , 'Sturdy@mail.com'     , '0DYHTDK4', '2011-09-19', '2022-09-01', 10),
+(DEFAULT, 'Kadin'       , 'Orfanos'     , '43599465', NULL          , 'Eight@mail.com'      , 'U78AUTSF', '2017-05-26', '2028-05-08',  8),
+(DEFAULT, 'Greyson'     , 'Tobias'      , '19854124', NULL          , 'Willing@mail.com'    , 'YZSEEOG6', '2012-11-10', '2023-10-24', 46),
+(DEFAULT, 'Nicholas'    , 'Blotner'     , '34310089', NULL          , 'Extra-large@mail.com', 'X4IZ0416', '2018-06-12', '2029-05-25', 35),
+(DEFAULT, 'Bailey'      , 'Prodromou'   , '84634354', NULL          , 'Real@mail.com'       , 'XP39JRTD', '2017-01-11', '2027-12-25', 36),
+(DEFAULT, 'Rigoberto'   , 'Sloane'      , '95408570', NULL          , 'Nifty@mail.com'      , 'H2ZS8YX9', '2021-03-23', '2032-03-05', 39),
+(DEFAULT, 'Devin'       , 'Holton'      , '59087408', NULL          , 'Level@mail.com'      , 'A3PK2JEU', '2019-06-15', '2030-05-28', 14),
+(DEFAULT, 'Giancarlo'   , 'Palke'       , '13184463', NULL          , 'Tense@mail.com'      , 'CMIPONST', '2016-04-06', '2027-03-20', 36),
+(DEFAULT, 'Aaron'       , 'Cantwell'    , '74992900', NULL          , 'Seemly@mail.com'     , '41T1QIHU', '2015-02-11', '2026-01-24', 13),
+(DEFAULT, 'Geovanni'    , 'Mcgirr'      , '14934380', NULL          , 'Shaky@mail.com'      , 'V9MIEG2G', '2021-01-10', '2031-12-24', 12),
+(DEFAULT, 'Xzavier'     , 'Garboczi'    , '58520078', NULL          , 'Fuzzy@mail.com'      , '9C1IBAUE', '2015-08-02', '2026-07-15', 32),
+(DEFAULT, 'Bridger'     , 'Radde'       , '29818828', NULL          , 'Festive@mail.com'    , '3QNWSBCP', '2013-03-22', '2024-03-04', 44),
+(DEFAULT, 'Andy'        , 'Welby'       , '90782871', NULL          , 'Like@mail.com'       , 'MPNQ1ZWB', '2018-09-27', '2029-09-09', 28),
+(DEFAULT, 'Leonard'     , 'Challis'     , '85742892', NULL          , 'Spectacular@mail.com', 'H0PGKN6K', '2015-04-07', '2026-03-20', 45),
+(DEFAULT, 'Allan'       , 'Boos'        , '91975117', NULL          , 'Abaft@mail.com'      , '6MF4S724', '2015-10-14', '2026-09-26', 47),
+(DEFAULT, 'Giovanni'    , 'Maharay'     , '97932135', NULL          , 'Nappy@mail.com'      , '6ASQBJ5M', '2017-12-03', '2028-11-15', 31),
+(DEFAULT, 'Rudy'        , 'Lipkind'     , '89295944', NULL          , 'Light@mail.com'      , 'TOFPMD98', '2013-03-02', '2024-02-13', 23),
+(DEFAULT, 'Quintin'     , 'Gonzaga'     , '91192278', NULL          , 'Best@mail.com'       , 'IGTQMRJ3', '2021-04-29', '2032-04-11',  6),
+(DEFAULT, 'Corey'       , 'Giacomello'  , '34942010', NULL          , 'One@mail.com'        , '9AMDH002', '2012-05-17', '2023-04-30',  6),
+(DEFAULT, 'Isaiah'      , 'Monari'      , '68044742', NULL          , 'Confused@mail.com'   , 'BVM6CWJU', '2020-05-10', '2031-04-23',  7),
+(DEFAULT, 'Anton'       , 'Blasdel'     , '53837980', NULL          , 'Limping@mail.com'    , '349MPRRK', '2020-03-04', '2031-02-15', 31),
+(DEFAULT, 'Baron'       , 'Schulze'     , '41726104', NULL          , 'Decisive@mail.com'   , '043V7U49', '2017-08-21', '2028-08-03', 38);
 
 --
 -- Data dump for brands
@@ -1062,17 +1061,17 @@ INSERT INTO brands VALUES
 --
 
 INSERT INTO models VALUES
-(DEFAULT, 'Bellagio', 'BENZIN', '2.90', '2.10', '2000', '1'),
-(DEFAULT, 'Edge', 'BENZIN', '3', '2', '2250', '2'),
-(DEFAULT, 'Auto Roller', 'BENZIN', '2.90', '2.25', '2375', '3'),
-(DEFAULT, 'Hymer', 'DIESEL', '2.75', '1.95', '2173', '4'),
-(DEFAULT, 'G740FC', 'BENZIN', '3', '2.10', '2350', '5'),
-(DEFAULT, 'Kreos', 'BENZIN', '3', '2.75', '2375', '6'),
-(DEFAULT, 'Plus 650', 'BENZIN', '2.15', '2.18', '2170', '7'),
-(DEFAULT, '7068XLB', 'BENZIN', '3.10', '2.05', '2289', '8'),
-(DEFAULT, 'Chic S', 'BENZIN', '2.95', '2.25', '2450', '9'),
-(DEFAULT, '7900 PLATIN', 'BENZIN', '3.5', '2.75', '2173', '10'),
-(DEFAULT, 'Just 90', 'BENZIN', '3', '2.25', '2222', '11');
+(DEFAULT, 'Bellagio' 		,'BENZIN' 	,'2.90' 	,'2.10' 	,'2000'	, '1'),
+(DEFAULT, 'Edge' 			,'BENZIN' 	,'3' 		,'2' 		,'2250'	, '2'),
+(DEFAULT, 'Auto Roller' 	,'BENZIN' 	,'2.90' 	,'2.25'		, '2375', '3'),
+(DEFAULT, 'Hymer' 			,'DIESEL' 	,'2.75' 	,'1.95'		, '2173', '4'),
+(DEFAULT, 'G740FC'	 		,'BENZIN' 	,'3' 		,'2.10'		, '2350', '5'),
+(DEFAULT, 'Kreos' 			,'BENZIN' 	,'3' 		,'2.75'		, '2375', '6'),
+(DEFAULT, 'Plus 650' 		,'BENZIN' 	,'2.15' 	,'2.18'		, '2170', '7'),
+(DEFAULT, '7068XLB' 		,'BENZIN' 	,'3.10' 	,'2.05'		, '2289', '8'),
+(DEFAULT, 'Chic S'	 		,'BENZIN' 	,'2.95' 	,'2.25'		, '2450', '9'),
+(DEFAULT, '7900 PLATIN' 	,'BENZIN' 	,'3.5'	 	,'2.75'		, '2173', '10'),
+(DEFAULT, 'Just 90' 		,'BENZIN' 	,'3' 		,'2.25'		, '2222', '11');
 
 --
 -- Data dump for motorhomes
@@ -1116,20 +1115,80 @@ INSERT INTO motorhomes VALUES
 -- Data dump for utilities
 --
 
-
+INSERT INTO utilities VALUES
+(DEFAULT ,'TV'),
+(DEFAULT ,'Fridge'),
+(DEFAULT ,'Shower'),
+(DEFAULT ,'Toilet'),
+(DEFAULT ,'Sofa'),
+(DEFAULT ,'Table'),
+(DEFAULT ,'Kitchen'),
+(DEFAULT ,'Markise');
 
 --
 -- Data dump for seasons
 --
 
-
+INSERT INTO seasons VALUES
+(DEFAULT ,'Low'     ,'1.0' ,'11-1' ,'03-1'),
+(DEFAULT ,'Middle'  ,'1.3' ,'03-1' ,'05-1'),
+(DEFAULT ,'Peak'    ,'1.6' ,'05-1' ,'09-1');
 
 --
 -- Data dump for accessories
 --
 
-
+INSERT INTO accessories VALUES
+(DEFAULT ,'Child chairs'       ,'50'),
+(DEFAULT ,'Wifi hotspot'       ,'140'),
+(DEFAULT ,'Powerbank'          ,'100'),
+(DEFAULT ,'Parasol'            ,'125'),
+(DEFAULT ,'Sun chairs'         ,'125'),
+(DEFAULT ,'Portable Grill'     ,'200'),
+(DEFAULT ,'Portable Lamp'      ,'150'),
+(DEFAULT ,'Tents'              ,'275'),
+(DEFAULT ,'Minigolf set'       ,'350'),
+(DEFAULT ,'Electric Generator' ,'550'),
+(DEFAULT ,'Blowdryer'          ,'25'),
+(DEFAULT ,'Dryingrack'         ,'35'),
+(DEFAULT ,'Bug Zapper'         ,'250'),
+(DEFAULT ,'Sun Chairs'         ,'75'),
+(DEFAULT ,'Mounted Bikerack'   ,'350'),
+(DEFAULT ,'Fold out chairs'    ,'60'),
+(DEFAULT ,'Sunblanket'         ,'25');
 
 --
 -- Data dump for rentals
 --
+
+INSERT INTO rentals VALUES
+(DEFAULT    ,'2021-05-12'   ,'2021-05-17'   ,''   ,''    ,''   ,'1'   ,'9'   ,'1'),
+(DEFAULT    ,'2021-03-26'   ,'2021-07-24'   ,''   ,''    ,''   ,'2'   ,'1'   ,'1'),
+(DEFAULT    ,'2021-04-21'   ,'2021-07-18'   ,''   ,''    ,''   ,'3'   ,'25'  ,'1'),
+(DEFAULT    ,'2021-03-31'   ,'2021-05-09'   ,''   ,''    ,''   ,'4'   ,'20'  ,'1'),
+(DEFAULT    ,'2021-05-21'   ,'2021-06-02'   ,''   ,''    ,''   ,'5'   ,'24'  ,'1'),
+(DEFAULT    ,'2021-04-23'   ,'2021-07-18'   ,''   ,''    ,''   ,'6'   ,'20'  ,'1'),
+(DEFAULT    ,'2021-04-06'   ,'2021-05-21'   ,''   ,''    ,''   ,'7'   ,'26'  ,'1'),
+(DEFAULT    ,'2021-04-29'   ,'2021-07-02'   ,''   ,''    ,''   ,'8'   ,'14'  ,'1'),
+(DEFAULT    ,'2021-05-09'   ,'2021-06-05'   ,''   ,''    ,''   ,'9'   ,'7'   ,'1'),
+(DEFAULT    ,'2021-03-23'   ,'2021-04-24'   ,''   ,''    ,''   ,'10'  ,'31'  ,'1'),
+(DEFAULT    ,'2021-03-23'   ,'2021-05-21'   ,''   ,''    ,''   ,'11'  ,'22'  ,'1'),
+(DEFAULT    ,'2021-06-15'   ,'2021-06-26'   ,''   ,''    ,''   ,'12'  ,'32'  ,'1'),
+(DEFAULT    ,'2021-03-12'   ,'2021-04-15'   ,''   ,''    ,''   ,'13'  ,'20'  ,'1'),
+(DEFAULT    ,'2021-04-06'   ,'2021-06-03'   ,''   ,''    ,''   ,'14'  ,'10'  ,'1'),
+(DEFAULT    ,'2021-03-15'   ,'2021-04-10'   ,''   ,''    ,''   ,'15'  ,'30'  ,'1'),
+(DEFAULT    ,'2021-04-06'   ,'2021-05-08'   ,''   ,''    ,''   ,'16'  ,'9'   ,'1'),
+(DEFAULT    ,'2021-02-22'   ,'2021-03-02'   ,''   ,''    ,''   ,'17'  ,'18'  ,'1'),
+(DEFAULT    ,'2021-03-22'   ,'2021-04-19'   ,''   ,''    ,''   ,'18'  ,'17'  ,'1'),
+(DEFAULT    ,'2021-03-21'   ,'2021-05-16'   ,''   ,''    ,''   ,'19'  ,'27'  ,'1'),
+(DEFAULT    ,'2021-03-13'   ,'2021-03-30'   ,''   ,''    ,''   ,'20'  ,'5'   ,'1'),
+(DEFAULT    ,'2021-03-01'   ,'2021-04-01'   ,''   ,''    ,''   ,'21'  ,'23'  ,'1'),
+(DEFAULT    ,'2021-02-01'   ,'2021-04-21'   ,''   ,''    ,''   ,'22'  ,'13'  ,'1'),
+(DEFAULT    ,'2021-04-12'   ,'2021-05-07'   ,''   ,''    ,''   ,'23'  ,'17'  ,'1'),
+(DEFAULT    ,'2021-04-16'   ,'2021-04-24'   ,''   ,''    ,''   ,'24'  ,'2'   ,'1'),
+(DEFAULT    ,'2021-03-11'   ,'2021-03-21'   ,''   ,''    ,''   ,'25'  ,'1'   ,'1'),
+(DEFAULT    ,'2021-03-01'   ,'2021-04-29'   ,''   ,''    ,''   ,'26'  ,'16'  ,'1'),
+(DEFAULT    ,'2021-02-08'   ,'2021-05-14'   ,''   ,''    ,''   ,'27'  ,'18'  ,'1'),
+(DEFAULT    ,'2021-03-02'   ,'2021-03-26'   ,''   ,''    ,''   ,'28'  ,'32'  ,'1'),
+(DEFAULT    ,'2021-03-05'   ,'2021-05-12'   ,''   ,''    ,''   ,'29'  ,'28'  ,'1'),
+(DEFAULT    ,'2021-02-27'   ,'2021-03-21'   ,''   ,''    ,''   ,'30'  ,'9'   ,'1');
