@@ -17,6 +17,7 @@ public class CustomerRepo {
     JdbcTemplate jdbcTemplate;
 
     public List<Customer> fetchAllCustomers() {
+        String sqluse = "USE NMR;";
         String sqlCustomer =
                 "SELECT customers.id, first_name, last_name, mobile, phone, email, drivers_license, dl_issue_date, " +
                 "dl_expire_date, street, floor, zip, city, name as 'country' FROM NMR.customers " +
@@ -24,6 +25,7 @@ public class CustomerRepo {
                 "INNER JOIN zip_codes on zip_codes.id = zip_codes_fk " +
                 "INNER JOIN countries on countries.id = countries_fk;";
         RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
+        jdbcTemplate.update(sqluse);
         return jdbcTemplate.query(sqlCustomer,rowMapper);
     }
 
