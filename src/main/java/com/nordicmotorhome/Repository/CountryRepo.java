@@ -15,6 +15,11 @@ public class CountryRepo {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+
+    /**
+     * @Author Kasper N. Jensen
+     * @return jdbcTemplate
+     */
     public List<Country> fetchAllCountries(){
         String sqlUse = "USE NMR;";
         String sqlZip = "SELECT * FROM NMR.countries;";
