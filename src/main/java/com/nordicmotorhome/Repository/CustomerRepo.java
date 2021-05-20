@@ -2,6 +2,7 @@ package com.nordicmotorhome.Repository;
 
 import com.nordicmotorhome.Model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -47,7 +48,7 @@ public class CustomerRepo {
 */
 
     /**
-     * @Author Kasper N. Jensen
+     * @Author Kasper N. Jensen, Jimmy Losang
      * @param customer Customer
      * This method adds a customer to our MySQL database.
      * Adding a customer to a database over multiple tables with dependencies and forign keys,
@@ -57,30 +58,7 @@ public class CustomerRepo {
      * in SQL so that if there are any data loss we can rollback in the DB.
      */
     public void addCustomer(Customer customer) {
-        int countryForeignKey = getCountryForeignKey(customer.getCountry());
-        int zipParse = Integer.parseInt(customer.getZip());
-        int zipInt;
-        // If the zip already exists, the program performs an action X, otherwise Y.
-        if (validateZipForCustomer(zipParse,countryForeignKey)) {
-            // SELECT STATEMENT
-            zipInt = getZipCodePrimaryKey(zipParse, countryForeignKey);
-        } else {
-            //SQL Statement that inserts later declared wildcard variables (?) into the DB
-            String sqlZipCity = "INSERT INTO zip_codes (id, zip, city, countries_fk) VALUES (DEFAULT, ?, ?, ?)";
-
-            //Using the jdbcTemplate method 'update', we take the SQL statement, and the needed
-            // values from our Customer object using getters
-            jdbcTemplate.update(sqlZipCity, customer.getZip(), customer.getCity(), customer.getCountry());
-
-            //Finds the latest added zip entry in the DB and saves the id into a variable
-            String sqlLastAddedZip = "SELECT id FROM NMR.zip_codes ORDER BY id DESC limit 1;";
-
-            //queryForRowSet returns a SqlRowSet, much like a ResultSet, we use this to get access to the rows that has
-            // the value of sqlLastAddedZip in the id column with zip.next().
-            SqlRowSet zip = jdbcTemplate.queryForRowSet(sqlLastAddedZip);
-            zip.next();
-            zipInt = zip.getInt("id");
-        }
+        int zipInt = giveProperZipCode(customer);
 
         //The saved zipcode id zipInt is then used as the forign key in the address SQL Query
         String sqlAddress = "INSERT INTO addresses (id, street, floor, zip_codes_fk) VALUES (DEFAULT,?,?," + zipInt + ");";
@@ -100,6 +78,52 @@ public class CustomerRepo {
                 customer.getPhone(),customer.getEmail(),customer.getDrivers_license(),
                 customer.getDl_issue_date(),customer.getDl_expire_date());
     }
+
+    /**
+     * hmm
+     * @param id
+     * @return
+     */
+    public Customer findCustomerByID(int id){
+        String sqlFindCustomerById = "SELECT *" +
+                " FROM NMR.customers" +
+                " inner join addresses on addresses_fk = addresses.id" +
+                " inner join zip_codes on zip_codes_fk = zip_codes.id" +
+                " WHERE customers.id = ?;";
+        RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
+        Customer customer = jdbcTemplate.queryForObject(sqlFindCustomerById, rowMapper, id);
+        return customer;
+    }
+
+    /**
+     * We also need to check for a new zip code for the updated customer, since they may move to an existing zip code.
+     * @param customer
+     */
+    public void updateCustomer(Customer customer, int id) { //TODO: Test in html
+        int zipInt = giveProperZipCode(customer);
+
+        //this query may not return the correct addressID since we dont validate for identical addresses.
+        String sqlAddressId = "SELECT id FROM NMR.addresses " +
+                "WHERE street = ?, floor = ?, zip_codes_fk = ?;";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlAddressId);
+        rowSet.next();
+        int addressId = rowSet.getInt(1);
+        String sqlAddress = "UPDATE NMR.addresses " +
+                "SET street = ?, floor = ?, zip_codes_fk = ? " +
+                "WHERE id = ?;";
+        jdbcTemplate.update(sqlAddress, customer.getStreet(), customer.getFloor(), zipInt, addressId);
+
+        String sqlCustomer = "UPDATE NMR.customers " +
+                "SET first_name = ?, last_name = ?, mobile = ?, phone = ?, email = ?, drivers_license = ?, " +
+                "dl_issue_date = ?, dl_expire_date = ?, addresses_fk = ? " +
+                "WHERE id = ?;";
+
+        // Lastly everything can be added into the customer using the address forgin key that then uses the zip forgin key
+        jdbcTemplate.update(sqlCustomer,customer.getFirst_name(),customer.getLast_name(),customer.getMobile(),
+                customer.getPhone(),customer.getEmail(),customer.getDrivers_license(),
+                customer.getDl_issue_date(),customer.getDl_expire_date(), addressId, id);
+    }
+
 
     /**
      * @Author Jimmy
@@ -123,15 +147,24 @@ public class CustomerRepo {
         rowSet.next();
         return Boolean.parseBoolean(rowSet.getString(1));
     }
-
-    public int getCountryForeignKey(String country) {
+    // TODO: Maybe move these to an Adapter class? Maybe also SQL statements in general?
+    /*
+    public int getCountryForeignKeyFromName(String country) {
         String sqlGetCountry = "SELECT id FROM NMR.countries " +
                 "WHERE countries.name = ?;";
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlGetCountry, country);
         rowSet.next();
+        System.out.println("Country: " + country);
         return rowSet.getInt(1);
     }
+     */
 
+    /**
+     * Returns the primary key for a zip code, given the zip code and country.
+     * @param zipcode
+     * @param country
+     * @return
+     */
     public int getZipCodePrimaryKey(int zipcode, int country) {
         String sql = "SELECT id FROM NMR.zip_codes " +
                 "WHERE zip = ? AND countries_fk = ?;";
@@ -139,5 +172,46 @@ public class CustomerRepo {
         rowSet.next();
         return rowSet.getInt(1);
     }
+    /**
+     * Deletes a customer entity from the database with a given primary key
+     * @param id the primary key in customer table in the Database
+     * @author Mads
+     */
+    public void deleteCustomer(int id) {
+        String sql = "DELETE FROM customers WHERE id = ?";
+        try {
+            jdbcTemplate.update(sql, id);
+        } catch (DataAccessException e) {
+            System.out.println("SQL Error when deleting customer");
+            e.printStackTrace();
+        }
+    }
 
+    public int giveProperZipCode(Customer customer) {
+        int countryForeignKey = Integer.parseInt(customer.getCountry());
+        int zipParse = Integer.parseInt(customer.getZip());
+        int zipInt;
+        if (validateZipForCustomer(zipParse,countryForeignKey)) {
+            // SELECT STATEMENT
+            zipInt = getZipCodePrimaryKey(zipParse, countryForeignKey);
+        } else {
+            //SQL Statement that inserts later declared wildcard variables (?) into the DB
+            String sqlZipCity = "INSERT INTO zip_codes (id, zip, city, countries_fk) VALUES (DEFAULT, ?, ?, ?)";
+
+            //Using the jdbcTemplate method 'update', we take the SQL statement, and the needed
+            // values from our Customer object using getters
+            jdbcTemplate.update("USE NMR;");
+            jdbcTemplate.update(sqlZipCity, customer.getZip(), customer.getCity(), customer.getCountry());
+
+            //Finds the latest added zip entry in the DB and saves the id into a variable
+            String sqlLastAddedZip = "SELECT id FROM NMR.zip_codes ORDER BY id DESC limit 1;";
+
+            //queryForRowSet returns a SqlRowSet, much like a ResultSet, we use this to get access to the rows that has
+            // the value of sqlLastAddedZip in the id column with zip.next().
+            SqlRowSet zip = jdbcTemplate.queryForRowSet(sqlLastAddedZip);
+            zip.next();
+            zipInt = zip.getInt("id");
+        }
+        return zipInt;
+    }
 }

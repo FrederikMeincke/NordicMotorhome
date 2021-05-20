@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -52,6 +53,20 @@ public class HomeController {
         return "home/addNewCustomer";
     }
 
+    @GetMapping("/updateCustomer/{id}")
+    public String updateCustomer(@PathVariable("id") int id, Model model) {
+        Customer customer = customerService.findCustomerByID(id);
+        model.addAttribute(customer);
+
+        return "home/updateCustomer";
+    }
+
+    @PostMapping("/updateCustomer/{id}")
+    public String updateCustomer(@PathVariable("id") int id, @ModelAttribute Customer customer) {
+        customerService.updateCustomer(customer, id);
+        return "redirect:/showAllCustomers";
+    }
+
     /**
      * @Author Kasper N. Jensen
      * @param customer Customer
@@ -72,6 +87,18 @@ public class HomeController {
         }
 
         customerService.addCustomer(customer);
+        return "redirect:/showAllCustomers";
+    }
+
+
+    /**
+     * @author Mads
+     * @param id the customer to delete
+     * @return url to the page that displays all customers
+     */
+    @GetMapping("/deleteCustomer/{id}")
+    public String deleteCustomer(@PathVariable("id") int id) {
+        customerService.deleteCustomer(id);
         return "redirect:/showAllCustomers";
     }
 
