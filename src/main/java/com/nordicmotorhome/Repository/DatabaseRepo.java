@@ -98,8 +98,7 @@ public class DatabaseRepo {
 
         String sqlUtilities = "CREATE TABLE IF NOT EXISTS NMR.utilities (\n" +
                 "id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,\n" +
-                "name VARCHAR(45) NOT NULL,\n" +
-                "price DOUBLE NOT NULL);";
+                "name VARCHAR(45) NOT NULL);";
 
         String sqlMU = "CREATE TABLE IF NOT EXISTS NMR.motorhome_utilities (\n" +
                 "id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,\n" +
