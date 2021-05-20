@@ -75,7 +75,7 @@ public class DatabaseRepo {
         String sqlModels = "CREATE TABLE IF NOT EXISTS NMR.models (\n" +
                 "id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,\n" +
                 "name VARCHAR(45) NOT NULL,\n" +
-                "fuel_type ENUM('BENZIN', 'DIESEL', 'BATTERY') NOT NULL,\n" +
+                "fuel_type ENUM('PETROL', 'DIESEL', 'ELECTRIC') NOT NULL,\n" +
                 "width DOUBLE NOT NULL,\n" +
                 "height DOUBLE NOT NULL,\n" +
                 "weight DOUBLE NOT NULL,\n" +
@@ -98,8 +98,7 @@ public class DatabaseRepo {
 
         String sqlUtilities = "CREATE TABLE IF NOT EXISTS NMR.utilities (\n" +
                 "id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,\n" +
-                "name VARCHAR(45) NOT NULL,\n" +
-                "price DOUBLE NOT NULL);";
+                "name VARCHAR(45) NOT NULL);";
 
         String sqlMU = "CREATE TABLE IF NOT EXISTS NMR.motorhome_utilities (\n" +
                 "id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,\n" +
@@ -113,7 +112,9 @@ public class DatabaseRepo {
         String sqlSeasons = "CREATE TABLE IF NOT EXISTS NMR.seasons (\n" +
                 "id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,\n" +
                 "name VARCHAR(45) NOT NULL,\n" +
-                "rate INT(100) NOT NULL);";
+                "rate INT(100) NOT NULL," +
+                "start_date DATE NOT NULL, " +
+                "end_date DATE NOT NULL);";
 
         String sqlAccessories = "CREATE TABLE IF NOT EXISTS NMR.accessories (\n" +
                 "id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,\n" +

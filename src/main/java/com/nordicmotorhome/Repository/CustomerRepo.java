@@ -46,17 +46,38 @@ public class CustomerRepo {
     }
 */
 
-    public void addCustomer(Customer customer) {
+    /**
+     * @Author Kasper N. Jensen
+     * @param customer Customer
+     * This method adds a customer to our MySQL database.
+     * Adding a customer to a database over multiple tables with dependencies and forign keys,
+     * has to be done in a specific order as you can't add a customer before you have added its address furthermore
+     * a zip and city has to be created before the address can be added, this results in 3 SQL statements that has to
+     * executed one after another. The method is synchronized, meaning it's vital that all of the SQL calls
+     * gets executed.
+     */
+    public synchronized void addCustomer(Customer customer) {
+
+        //SQL Statement that inserts later declared wildcard variables (?) into the DB
         String sqlZipCity = "INSERT INTO zip_codes (id, zip, city, countries_fk) VALUES (DEFAULT, ?, ?, '58')";
 
+        //Using the jdbcTemplate method 'update', we take the SQL statement, and the needed
+        // values from our Customer object using getters
         jdbcTemplate.update(sqlZipCity, customer.getZip(), customer.getCity());
+
+        //Finds the latest added zip entry in the DB and saves the id into a variable
         String sqlLastAddedZip = "SELECT id FROM NMR.zip_codes ORDER BY id DESC limit 1;";
+
+        //queryForRowSet returns a SqlRowSet, much like a ResultSet, we use this to get access to the rows that has
+        // the value of sqlLastAddedZip in the id column with zip.next().
         SqlRowSet zip = jdbcTemplate.queryForRowSet(sqlLastAddedZip);
         zip.next();
         int zipInt = zip.getInt("id");
 
+        //The saved zipcode id zipInt is then used as the forign key in the address SQL Query
         String sqlAddress = "INSERT INTO addresses (id, street, floor, zip_codes_fk) VALUES (DEFAULT,?,?," + zipInt + ");";
 
+        //–||–
         jdbcTemplate.update(sqlAddress,customer.getStreet(),customer.getFloor());
         String sqlLastAddedAddress = "SELECT id FROM NMR.addresses ORDER BY id DESC limit 1;";
         SqlRowSet adr = jdbcTemplate.queryForRowSet(sqlLastAddedAddress);
@@ -66,6 +87,7 @@ public class CustomerRepo {
         String sqlCustomer = "INSERT INTO customers (id ,first_name, last_name , mobile, phone, email, " +
                 "drivers_license, dl_issue_date, dl_expire_date, addresses_fk) VALUES (DEFAULT,?,?,?,?,?,?,?,?," + addressInt + ");";
 
+        // Lastly everything can be added into the customer using the address forgin key that then uses the zip forgin key
         jdbcTemplate.update(sqlCustomer,customer.getFirst_name(),customer.getLast_name(),customer.getMobile(),
                 customer.getPhone(),customer.getEmail(),customer.getDrivers_license(),
                 customer.getDl_issue_date(),customer.getDl_expire_date());

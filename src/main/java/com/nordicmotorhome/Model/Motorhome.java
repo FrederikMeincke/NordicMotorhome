@@ -6,9 +6,9 @@ import java.util.List;
 public class Motorhome {
 
     private enum fuel_type {
-        BENZIN,
+        PETROL,
         DIESEL,
-        BATTERY
+        ELECTRIC
     }
     private enum type {
         Class_A,
@@ -32,6 +32,64 @@ public class Motorhome {
     private double odometer;
     private List<Utility> utilityList;
     private String service_raport;
+
+    private fuel_type petrol = fuel_type.PETROL;
+    private fuel_type diesel = fuel_type.DIESEL;
+    private fuel_type electric = fuel_type.ELECTRIC;
+
+    private type class_a = type.Class_A;
+    private type class_b = type.Class_B;
+    private type class_c = type.Class_C;
+    private type fifth_wheel = type.Fifth_Wheel_Camper;
+    private type toy_hauler = type.Toy_Hauler;
+    private type travel_trailer = type.Travel_Trailer;
+
+    public fuel_type getPetrol() {
+        return petrol;
+    }
+
+    public fuel_type getDiesel() {
+        return diesel;
+    }
+
+    public fuel_type getElectric() {
+        return electric;
+    }
+
+    public type getClass_a() {
+        return class_a;
+    }
+
+    public type getClass_b() {
+        return class_b;
+    }
+
+    public type getClass_c() {
+        return class_c;
+    }
+
+    public type getFifth_wheel() {
+        return fifth_wheel;
+    }
+
+    public type getToy_hauler() {
+        return toy_hauler;
+    }
+
+    public type getTravel_trailer() {
+        return travel_trailer;
+    }
+
+    public type getTeardrop_camper() {
+        return teardrop_camper;
+    }
+
+    public type getPop_up_camper() {
+        return pop_up_camper;
+    }
+
+    private type teardrop_camper = type.Teardrop_Camper;
+    private type pop_up_camper = type.Pop_Up_Camper;
 
     public Motorhome() {
     }

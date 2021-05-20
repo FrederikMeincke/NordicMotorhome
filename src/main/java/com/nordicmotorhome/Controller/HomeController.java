@@ -1,8 +1,10 @@
 package com.nordicmotorhome.Controller;
 
 import com.nordicmotorhome.Model.Customer;
+import com.nordicmotorhome.Model.Motorhome;
 import com.nordicmotorhome.Service.CustomerService;
 import com.nordicmotorhome.Service.DatabaseService;
+import com.nordicmotorhome.Service.MotorhomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ public class HomeController {
     CustomerService customerService;
     @Autowired
     DatabaseService databaseService;
+    @Autowired
+    MotorhomeService motorhomeService;
 
     @GetMapping("/")
     public String index() {
@@ -42,9 +46,14 @@ public class HomeController {
         return "home/addNewCustomer";
     }
 
+    /**
+     * @Author Kasper N. Jensen
+     * @param customer Customer
+     * @return String/URL
+     */
     @PostMapping("/addNewCustomer")
     public String addNewCustomer(@ModelAttribute Customer customer) {
-       /* boolean emptyField =
+        boolean emptyField =
                         customer.getFirst_name().isEmpty() || customer.getLast_name().isEmpty() ||
                         customer.getMobile().isEmpty() || customer.getPhone().isEmpty() || customer.getEmail().isEmpty() ||
                         customer.getDrivers_license().isEmpty() || customer.getDl_issue_date().isEmpty() ||
@@ -56,13 +65,14 @@ public class HomeController {
             return "home/error/errorPage";
         }
 
-        */
         customerService.addCustomer(customer);
         return "redirect:/showAllCustomers";
     }
 
     @GetMapping("/showAllMotorhomes")
-    public String showAllMotorhomes(){
+    public String showAllMotorhomes(Model model){
+        List<Motorhome> motorhomeList = motorhomeService.fetchAllMotorhomes();
+        model.addAttribute("motorhomeList", motorhomeList);
         return "home/showAllMotorhomes";
     }
 
