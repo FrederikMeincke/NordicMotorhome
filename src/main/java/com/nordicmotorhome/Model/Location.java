@@ -1,6 +1,7 @@
 package com.nordicmotorhome.Model;
 
 public class Location {
+    //TODO: FIX THIS
     private int id;
     private String address;
     private double distance;

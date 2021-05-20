@@ -57,22 +57,30 @@ public class CustomerRepo {
      * in SQL so that if there are any data loss we can rollback in the DB.
      */
     public void addCustomer(Customer customer) {
+        int countryForeignKey = getCountryForeignKey(customer.getCountry());
+        int zipParse = Integer.parseInt(customer.getZip());
+        int zipInt;
+        // If the zip already exists, the program performs an action X, otherwise Y.
+        if (validateZipForCustomer(zipParse,countryForeignKey)) {
+            // SELECT STATEMENT
+            zipInt = getZipCodePrimaryKey(zipParse, countryForeignKey);
+        } else {
+            //SQL Statement that inserts later declared wildcard variables (?) into the DB
+            String sqlZipCity = "INSERT INTO zip_codes (id, zip, city, countries_fk) VALUES (DEFAULT, ?, ?, '58')";
 
-        //SQL Statement that inserts later declared wildcard variables (?) into the DB
-        String sqlZipCity = "INSERT INTO zip_codes (id, zip, city, countries_fk) VALUES (DEFAULT, ?, ?, '58')";
+            //Using the jdbcTemplate method 'update', we take the SQL statement, and the needed
+            // values from our Customer object using getters
+            jdbcTemplate.update(sqlZipCity, customer.getZip(), customer.getCity());
 
-        //Using the jdbcTemplate method 'update', we take the SQL statement, and the needed
-        // values from our Customer object using getters
-        jdbcTemplate.update(sqlZipCity, customer.getZip(), customer.getCity());
+            //Finds the latest added zip entry in the DB and saves the id into a variable
+            String sqlLastAddedZip = "SELECT id FROM NMR.zip_codes ORDER BY id DESC limit 1;";
 
-        //Finds the latest added zip entry in the DB and saves the id into a variable
-        String sqlLastAddedZip = "SELECT id FROM NMR.zip_codes ORDER BY id DESC limit 1;";
-
-        //queryForRowSet returns a SqlRowSet, much like a ResultSet, we use this to get access to the rows that has
-        // the value of sqlLastAddedZip in the id column with zip.next().
-        SqlRowSet zip = jdbcTemplate.queryForRowSet(sqlLastAddedZip);
-        zip.next();
-        int zipInt = zip.getInt("id");
+            //queryForRowSet returns a SqlRowSet, much like a ResultSet, we use this to get access to the rows that has
+            // the value of sqlLastAddedZip in the id column with zip.next().
+            SqlRowSet zip = jdbcTemplate.queryForRowSet(sqlLastAddedZip);
+            zip.next();
+            zipInt = zip.getInt("id");
+        }
 
         //The saved zipcode id zipInt is then used as the forign key in the address SQL Query
         String sqlAddress = "INSERT INTO addresses (id, street, floor, zip_codes_fk) VALUES (DEFAULT,?,?," + zipInt + ");";
@@ -93,6 +101,43 @@ public class CustomerRepo {
                 customer.getDl_issue_date(),customer.getDl_expire_date());
     }
 
+    /**
+     * @Author Jimmy
+     * Method checks if an existing zip code, in regard to a country, already exists and returns the
+     * corresponding boolean.
+     * @param zip
+     * @param country
+     * @return
+     */
+    public boolean validateZipForCustomer(int zip, int country) {
+        // This sql statement will check for two conditions.
+        String sqlValidateZip = "SELECT\n" +
+                "\tCASE WHEN EXISTS \n" +
+                "    (\n" +
+                "    SELECT * FROM NMR.zip_codes WHERE zip = ? AND countries_fk = ?\n" +
+                "    )\n" +
+                "    THEN 'TRUE'\n" +
+                "    ELSE 'FALSE'\n" +
+                "END";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlValidateZip, zip, country);
+        rowSet.next();
+        return Boolean.parseBoolean(rowSet.getString(1));
+    }
 
+    public int getCountryForeignKey(String country) {
+        String sqlGetCountry = "SELECT id FROM NMR.countries " +
+                "WHERE countries.name = ?;";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlGetCountry, country);
+        rowSet.next();
+        return rowSet.getInt(1);
+    }
+
+    public int getZipCodePrimaryKey(int zipcode, int country) {
+        String sql = "SELECT id FROM NMR.zip_codes " +
+                "WHERE zip = ? AND countries_fk = ?;";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, zipcode, country);
+        rowSet.next();
+        return rowSet.getInt(1);
+    }
 
 }
