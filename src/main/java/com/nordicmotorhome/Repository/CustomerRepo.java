@@ -79,12 +79,27 @@ public class CustomerRepo {
                 customer.getDl_issue_date(),customer.getDl_expire_date());
     }
 
+    /**
+     * hmm
+     * @param id
+     * @return
+     */
+    public Customer findCustomerByID(int id){
+        String sqlFindCustomerById = "SELECT *" +
+                " FROM NMR.customers" +
+                " inner join addresses on addresses_fk = addresses.id" +
+                " inner join zip_codes on zip_codes_fk = zip_codes.id" +
+                " WHERE customers.id = ?;";
+        RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
+        Customer customer = jdbcTemplate.queryForObject(sqlFindCustomerById, rowMapper, id);
+        return customer;
+    }
 
     /**
      * We also need to check for a new zip code for the updated customer, since they may move to an existing zip code.
      * @param customer
      */
-    public void updateCustomer(Customer customer) { //TODO: Test in html
+    public void updateCustomer(Customer customer, int id) { //TODO: Test in html
         int zipInt = giveProperZipCode(customer);
 
         //this query may not return the correct addressID since we dont validate for identical addresses.
@@ -106,7 +121,7 @@ public class CustomerRepo {
         // Lastly everything can be added into the customer using the address forgin key that then uses the zip forgin key
         jdbcTemplate.update(sqlCustomer,customer.getFirst_name(),customer.getLast_name(),customer.getMobile(),
                 customer.getPhone(),customer.getEmail(),customer.getDrivers_license(),
-                customer.getDl_issue_date(),customer.getDl_expire_date(), addressId, customer.getId());
+                customer.getDl_issue_date(),customer.getDl_expire_date(), addressId, id);
     }
 
 
@@ -144,6 +159,12 @@ public class CustomerRepo {
     }
      */
 
+    /**
+     * Returns the primary key for a zip code, given the zip code and country.
+     * @param zipcode
+     * @param country
+     * @return
+     */
     public int getZipCodePrimaryKey(int zipcode, int country) {
         String sql = "SELECT id FROM NMR.zip_codes " +
                 "WHERE zip = ? AND countries_fk = ?;";

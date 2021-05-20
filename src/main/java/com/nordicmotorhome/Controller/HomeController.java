@@ -53,6 +53,20 @@ public class HomeController {
         return "home/addNewCustomer";
     }
 
+    @GetMapping("/updateCustomer/{id}")
+    public String updateCustomer(@PathVariable("id") int id, Model model) {
+        Customer customer = customerService.findCustomerByID(id);
+        model.addAttribute(customer);
+
+        return "home/updateCustomer";
+    }
+
+    @PostMapping("/updateCustomer/{id}")
+    public String updateCustomer(@PathVariable("id") int id, @ModelAttribute Customer customer) {
+        customerService.updateCustomer(customer, id);
+        return "redirect:/showAllCustomers";
+    }
+
     /**
      * @Author Kasper N. Jensen
      * @param customer Customer
