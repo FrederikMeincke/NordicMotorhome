@@ -53,10 +53,10 @@ public class CustomerRepo {
      * Adding a customer to a database over multiple tables with dependencies and forign keys,
      * has to be done in a specific order as you can't add a customer before you have added its address furthermore
      * a zip and city has to be created before the address can be added, this results in 3 SQL statements that has to
-     * executed one after another. The method is synchronized, meaning it's vital that all of the SQL calls
-     * gets executed.
+     * executed one after another. As all of these steps need to happen you could make these as a transaction
+     * in SQL so that if there are any data loss we can rollback in the DB.
      */
-    public synchronized void addCustomer(Customer customer) {
+    public void addCustomer(Customer customer) {
 
         //SQL Statement that inserts later declared wildcard variables (?) into the DB
         String sqlZipCity = "INSERT INTO zip_codes (id, zip, city, countries_fk) VALUES (DEFAULT, ?, ?, '58')";
