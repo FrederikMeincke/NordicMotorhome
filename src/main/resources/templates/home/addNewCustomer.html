@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -73,7 +73,14 @@
     <br><br>
     <label class="label-text">Country</label>
     <br>
-    <input class="labelcss" type="text" name="Country" placeholder="I.e. Denmark"> <span style="color: red">*</span>
+    <div class="select" for="countries" accesskey="countries" th:object="${country}">
+        <select class="form-control" id="countryOrder" name="Country">
+            <option value="">Select Country</option>
+            <option th:each="country : ${countries}"
+                    th:value="${country.id}"
+                    th:text="${country.name}"></option>
+        </select>
+    </div> <span style="color: red">*</span>
     <br><br>
 
     <p style="font-size: 14px">ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</p>
