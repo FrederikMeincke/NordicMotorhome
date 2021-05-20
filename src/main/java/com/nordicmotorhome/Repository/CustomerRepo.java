@@ -2,6 +2,7 @@ package com.nordicmotorhome.Repository;
 
 import com.nordicmotorhome.Model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -91,6 +92,21 @@ public class CustomerRepo {
         jdbcTemplate.update(sqlCustomer,customer.getFirst_name(),customer.getLast_name(),customer.getMobile(),
                 customer.getPhone(),customer.getEmail(),customer.getDrivers_license(),
                 customer.getDl_issue_date(),customer.getDl_expire_date());
+    }
+
+
+    /**
+     * Deletes a customer entity from the database with a given primary key
+     * @param id the primary key in customer table in the Database
+     * @author Mads
+     */
+    public void deleteCustomer(int id) {
+        String sql = "DELETE * FROM customers WHERE id = ?";
+        try {
+            jdbcTemplate.update(sql, id);
+        } catch (DataAccessException e) {
+            System.out.println("SQL Error when deleting customer");
+        }
     }
 
 
