@@ -150,11 +150,12 @@ public class CustomerRepo {
      * @author Mads
      */
     public void deleteCustomer(int id) {
-        String sql = "DELETE * FROM customers WHERE id = ?";
+        String sql = "DELETE FROM customers WHERE id = ?";
         try {
             jdbcTemplate.update(sql, id);
         } catch (DataAccessException e) {
             System.out.println("SQL Error when deleting customer");
+            e.printStackTrace();
         }
     }
 
