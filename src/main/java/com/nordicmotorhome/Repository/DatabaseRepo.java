@@ -24,6 +24,7 @@ public class DatabaseRepo {
         System.out.println("SKY NET INITIALIZED");
         createDatabase();
         createTables();
+        selectCase();
     }
 
     public void createDatabase() {
@@ -192,5 +193,20 @@ public class DatabaseRepo {
                 System.out.println("Data file not found or unreadable.");
             }
         }
+    }
+
+    public void selectCase() {
+        String sql = "SELECT\n" +
+                "\tCASE WHEN EXISTS \n" +
+                "    (\n" +
+                "    SELECT * FROM NMR.zip_codes WHERE zip = 9700 AND countries_fk = 58\n" +
+                "    )\n" +
+                "    THEN 'TRUE'\n" +
+                "    ELSE 'FALSE'\n" +
+                "END";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql);
+        rowSet.next();
+        String s = rowSet.getString(1);
+        boolean f = Boolean.parseBoolean(s);
     }
 }
