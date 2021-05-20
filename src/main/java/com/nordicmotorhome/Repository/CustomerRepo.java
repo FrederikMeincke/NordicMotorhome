@@ -59,11 +59,11 @@ public class CustomerRepo {
     public void addCustomer(Customer customer) {
 
         //SQL Statement that inserts later declared wildcard variables (?) into the DB
-        String sqlZipCity = "INSERT INTO zip_codes (id, zip, city, countries_fk) VALUES (DEFAULT, ?, ?, '58')";
+        String sqlZipCity = "INSERT INTO zip_codes (id, zip, city, countries_fk) VALUES (DEFAULT, ?, ?, ?)";
 
         //Using the jdbcTemplate method 'update', we take the SQL statement, and the needed
         // values from our Customer object using getters
-        jdbcTemplate.update(sqlZipCity, customer.getZip(), customer.getCity());
+        jdbcTemplate.update(sqlZipCity, customer.getZip(), customer.getCity(), customer.getCountry());
 
         //Finds the latest added zip entry in the DB and saves the id into a variable
         String sqlLastAddedZip = "SELECT id FROM NMR.zip_codes ORDER BY id DESC limit 1;";

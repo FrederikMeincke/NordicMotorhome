@@ -1,10 +1,10 @@
 package com.nordicmotorhome.Controller;
 
+import com.nordicmotorhome.Model.Country;
 import com.nordicmotorhome.Model.Customer;
 import com.nordicmotorhome.Model.Motorhome;
-import com.nordicmotorhome.Service.CustomerService;
-import com.nordicmotorhome.Service.DatabaseService;
-import com.nordicmotorhome.Service.MotorhomeService;
+import com.nordicmotorhome.Model.Zip;
+import com.nordicmotorhome.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +22,10 @@ public class HomeController {
     DatabaseService databaseService;
     @Autowired
     MotorhomeService motorhomeService;
+    @Autowired
+    CountryService countryService;
+    @Autowired
+    ZipService zipService;
 
     @GetMapping("/")
     public String index() {
@@ -42,7 +46,9 @@ public class HomeController {
     }
 
     @GetMapping("/addNewCustomer")
-    public String addNewCustomer(){
+    public String addNewCustomer(Model model){
+        List<Country> countries = countryService.fetchAllCountries();
+        model.addAttribute("countries",countries);
         return "home/addNewCustomer";
     }
 
