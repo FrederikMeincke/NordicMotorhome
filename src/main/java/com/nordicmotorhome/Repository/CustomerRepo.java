@@ -2,6 +2,7 @@ package com.nordicmotorhome.Repository;
 
 import com.nordicmotorhome.Model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -57,7 +58,7 @@ public class CustomerRepo {
      * in SQL so that if there are any data loss we can rollback in the DB.
      */
     public void addCustomer(Customer customer) {
-        int countryForeignKey = getCountryForeignKey(customer.getCountry());
+        int countryForeignKey = Integer.parseInt(customer.getCountry());
         int zipParse = Integer.parseInt(customer.getZip());
         int zipInt;
         // If the zip already exists, the program performs an action X, otherwise Y.
@@ -70,6 +71,7 @@ public class CustomerRepo {
 
             //Using the jdbcTemplate method 'update', we take the SQL statement, and the needed
             // values from our Customer object using getters
+            jdbcTemplate.update("USE NMR;");
             jdbcTemplate.update(sqlZipCity, customer.getZip(), customer.getCity(), customer.getCountry());
 
             //Finds the latest added zip entry in the DB and saves the id into a variable
@@ -123,14 +125,17 @@ public class CustomerRepo {
         rowSet.next();
         return Boolean.parseBoolean(rowSet.getString(1));
     }
-
-    public int getCountryForeignKey(String country) {
+    // TODO: Maybe move these to an Adapter class? Maybe also SQL statements in general?
+    /*
+    public int getCountryForeignKeyFromName(String country) {
         String sqlGetCountry = "SELECT id FROM NMR.countries " +
                 "WHERE countries.name = ?;";
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlGetCountry, country);
         rowSet.next();
+        System.out.println("Country: " + country);
         return rowSet.getInt(1);
     }
+     */
 
     public int getZipCodePrimaryKey(int zipcode, int country) {
         String sql = "SELECT id FROM NMR.zip_codes " +
@@ -139,5 +144,20 @@ public class CustomerRepo {
         rowSet.next();
         return rowSet.getInt(1);
     }
+    /**
+     * Deletes a customer entity from the database with a given primary key
+     * @param id the primary key in customer table in the Database
+     * @author Mads
+     */
+    public void deleteCustomer(int id) {
+        String sql = "DELETE * FROM customers WHERE id = ?";
+        try {
+            jdbcTemplate.update(sql, id);
+        } catch (DataAccessException e) {
+            System.out.println("SQL Error when deleting customer");
+        }
+    }
+
+
 
 }
