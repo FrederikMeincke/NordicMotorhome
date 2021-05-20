@@ -113,7 +113,9 @@ public class DatabaseRepo {
         String sqlSeasons = "CREATE TABLE IF NOT EXISTS NMR.seasons (\n" +
                 "id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,\n" +
                 "name VARCHAR(45) NOT NULL,\n" +
-                "rate INT(100) NOT NULL);";
+                "rate INT(100) NOT NULL," +
+                "start_date DATE NOT NULL, " +
+                "end_date DATE NOT NULL);";
 
         String sqlAccessories = "CREATE TABLE IF NOT EXISTS NMR.accessories (\n" +
                 "id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,\n" +
