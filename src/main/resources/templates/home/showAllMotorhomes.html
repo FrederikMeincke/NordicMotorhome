@@ -19,5 +19,52 @@
     <a class="login" href="/loginPage">Login</a>
 </div>
 
+<h1 class="h1">Car List</h1>
+
+<a href="/addNewCar">
+    <button class="button1 button-anc">Add new Car</button>
+</a>
+
+<table id="pagecss">
+    <thead>
+    <tr>
+        <th>Car ID</th>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Fuel Type</th>
+        <th>Car Type</th>
+        <th>License Plate</th>
+        <th>First Register Date</th>
+        <th>Current KM</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Display all car information-->
+    <tr th:each="car:${carList}">
+        <td th:text="${motorhome.id}"/>
+        <td th:text="${motorhome.brand}"/>
+        <td th:text="${motorhome.car_models_name}"/>
+        <td th:text="${motorhome.car_models_fueltype}"/>
+        <td th:text="${motorhome.cars_type}"/>
+        <td th:text="${motorhome.cars_license_plate}"/>
+        <td th:text="${motorhome.cars_first_reg}"/>
+        <td th:text="${motorhome.cars_current_km}"/>
+
+        <td>
+
+            <a th:href="@{'/updateCar/'+${car.cars_id}}">
+                <button class="btn-update" id="btn-update" title="Edit Car"><img src="edit.png" alt="Edit Car" width="25px" height="25px"></button>
+            </a>
+
+            <a th:href="@{'/deleteCar/'+${car.cars_id}}">
+                <button class="btn-delete" id="btn-delete" title="Delete Car"><img src="delete.png" alt="Delete Car" width="25px" height="25px"></button>
+            </a>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>

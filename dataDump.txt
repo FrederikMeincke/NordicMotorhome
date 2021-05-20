@@ -1062,17 +1062,17 @@ INSERT INTO brands VALUES
 --
 
 INSERT INTO models VALUES
-(DEFAULT, 'Bellagio', 'BENZIN', '2.90', '2.10', '2000', '1'),
-(DEFAULT, 'Edge', 'BENZIN', '3', '2', '2250', '2'),
-(DEFAULT, 'Auto Roller', 'BENZIN', '2.90', '2.25', '2375', '3'),
+(DEFAULT, 'Bellagio', 'PETROL', '2.90', '2.10', '2000', '1'),
+(DEFAULT, 'Edge', 'PETROL', '3', '2', '2250', '2'),
+(DEFAULT, 'Auto Roller', 'PETROL', '2.90', '2.25', '2375', '3'),
 (DEFAULT, 'Hymer', 'DIESEL', '2.75', '1.95', '2173', '4'),
-(DEFAULT, 'G740FC', 'BENZIN', '3', '2.10', '2350', '5'),
-(DEFAULT, 'Kreos', 'BENZIN', '3', '2.75', '2375', '6'),
-(DEFAULT, 'Plus 650', 'BENZIN', '2.15', '2.18', '2170', '7'),
-(DEFAULT, '7068XLB', 'BENZIN', '3.10', '2.05', '2289', '8'),
-(DEFAULT, 'Chic S', 'BENZIN', '2.95', '2.25', '2450', '9'),
-(DEFAULT, '7900 PLATIN', 'BENZIN', '3.5', '2.75', '2173', '10'),
-(DEFAULT, 'Just 90', 'BENZIN', '3', '2.25', '2222', '11');
+(DEFAULT, 'G740FC', 'PETROL', '3', '2.10', '2350', '5'),
+(DEFAULT, 'Kreos', 'PETROL', '3', '2.75', '2375', '6'),
+(DEFAULT, 'Plus 650', 'PETROL', '2.15', '2.18', '2170', '7'),
+(DEFAULT, '7068XLB', 'PETROL', '3.10', '2.05', '2289', '8'),
+(DEFAULT, 'Chic S', 'PETROL', '2.95', '2.25', '2450', '9'),
+(DEFAULT, '7900 PLATIN', 'PETROL', '3.5', '2.75', '2173', '10'),
+(DEFAULT, 'Just 90', 'PETROL', '3', '2.25', '2222', '11');
 
 --
 -- Data dump for motorhomes
