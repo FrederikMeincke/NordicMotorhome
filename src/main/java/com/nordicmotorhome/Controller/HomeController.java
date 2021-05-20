@@ -1,8 +1,10 @@
 package com.nordicmotorhome.Controller;
 
 import com.nordicmotorhome.Model.Customer;
+import com.nordicmotorhome.Model.Motorhome;
 import com.nordicmotorhome.Service.CustomerService;
 import com.nordicmotorhome.Service.DatabaseService;
+import com.nordicmotorhome.Service.MotorhomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ public class HomeController {
     CustomerService customerService;
     @Autowired
     DatabaseService databaseService;
+    @Autowired
+    MotorhomeService motorhomeService;
 
     @GetMapping("/")
     public String index() {
@@ -66,7 +70,9 @@ public class HomeController {
     }
 
     @GetMapping("/showAllMotorhomes")
-    public String showAllMotorhomes(){
+    public String showAllMotorhomes(Model model){
+        List<Motorhome> motorhomeList = motorhomeService.fetchAllMotorhomes();
+        model.addAttribute("motorhomeList", motorhomeList);
         return "home/showAllMotorhomes";
     }
 
