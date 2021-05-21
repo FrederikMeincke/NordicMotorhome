@@ -58,7 +58,7 @@ public class CustomerRepo {
      * in SQL so that if there are any data loss we can rollback in the DB.
      */
     public void addCustomer(Customer customer) {
-        int zipInt = giveProperZipCode(customer);
+        int zipInt = getProperZipCode(customer);
 
         //The saved zipcode id zipInt is then used as the forign key in the address SQL Query
         String sqlAddress = "INSERT INTO addresses (id, street, floor, zip_codes_fk) VALUES (DEFAULT,?,?," + zipInt + ");";
@@ -100,7 +100,7 @@ public class CustomerRepo {
      * @param customer
      */
     public void updateCustomer(Customer customer, int id) { //TODO: Test in html
-        int zipInt = giveProperZipCode(customer);
+        int zipInt = getProperZipCode(customer);
 
         //this query may not return the correct addressID since we dont validate for identical addresses.
         String sqlAddressId = "SELECT id FROM NMR.addresses " +
@@ -160,6 +160,7 @@ public class CustomerRepo {
      */
 
     /**
+     * @Author Jimmy
      * Returns the primary key for a zip code, given the zip code and country.
      * @param zipcode
      * @param country
@@ -187,7 +188,14 @@ public class CustomerRepo {
         }
     }
 
-    public int giveProperZipCode(Customer customer) {
+    /**
+     * @Author Jimmy
+     * Checks if a zip code already exists in the database and if so, returns that specific zip codes id (primary key),
+     * otherwise it returns the last added zip code id.
+     * @param customer
+     * @return
+     */
+    public int getProperZipCode(Customer customer) {
         int countryForeignKey = Integer.parseInt(customer.getCountry());
         int zipParse = Integer.parseInt(customer.getZip());
         int zipInt;
