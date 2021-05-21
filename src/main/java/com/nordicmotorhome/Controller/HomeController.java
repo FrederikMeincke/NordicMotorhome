@@ -42,6 +42,7 @@ public class HomeController {
     @GetMapping("/showAllCustomers")
     public String showAllCustomers(Model model){
         List<Customer> customerList = customerService.fetchAllCustomers();
+        System.out.println("Customer country: " + customerList.get(0).getCountry());
         model.addAttribute("customerList", customerList);
         return "home/showAllCustomers";
     }
@@ -56,8 +57,9 @@ public class HomeController {
     @GetMapping("/updateCustomer/{id}")
     public String updateCustomer(@PathVariable("id") int id, Model model) {
         Customer customer = customerService.findCustomerByID(id);
+        List<Country> countries = countryService.fetchAllCountries();
+        model.addAttribute("countries", countries);
         model.addAttribute(customer);
-
         return "home/updateCustomer";
     }
 

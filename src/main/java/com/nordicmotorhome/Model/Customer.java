@@ -17,30 +17,13 @@ public class Customer {
     private String dl_expire_date;
     private String street;
     private String floor;
+    private int addresses_fk;
     private String zip;
     private String city;
     private String country;
+    private String country_name;
 
     public Customer() {
-    }
-
-    public Customer(int id, String first_name, String last_name, String mobile, String phone, String email,
-                    String drivers_license, String dl_issue_date, String dl_expire_date, String street,
-                    String zip, String city, String country, String floor) {
-        this.id = id;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.mobile = mobile;
-        this.phone = phone;
-        this.email = email;
-        this.drivers_license = drivers_license;
-        this.dl_issue_date = dl_issue_date;
-        this.dl_expire_date = dl_expire_date;
-        this.street = street;
-        this.zip = zip;
-        this.city = city;
-        this.country = country;
-        this.floor = floor;
     }
 
     public int getId() {
@@ -153,5 +136,21 @@ public class Customer {
 
     public void setFloor(String floor) {
         this.floor = floor;
+    }
+
+    public int getAddresses_fk() {
+        return addresses_fk;
+    }
+
+    public void setAddresses_fk(int addresses_fk) {
+        this.addresses_fk = addresses_fk;
+    }
+
+    public String getCountry_name() {
+        return country_name;
+    }
+
+    public void setCountry_name(String country_name) {
+        this.country_name = country_name;
     }
 }

@@ -21,7 +21,8 @@ public class CustomerRepo {
         String sqluse = "USE NMR;";
         String sqlCustomer =
                 "SELECT customers.id, first_name, last_name, mobile, phone, email, drivers_license, dl_issue_date, " +
-                "dl_expire_date, street, floor, zip, city, name as 'country' FROM NMR.customers " +
+                "dl_expire_date, street, floor, zip, city, countries.name as 'country', addresses_fk" +
+                        " FROM NMR.customers " +
                 "INNER JOIN addresses on addresses.id = addresses_fk " +
                 "INNER JOIN zip_codes on zip_codes.id = zip_codes_fk " +
                 "INNER JOIN countries on countries.id = countries_fk;";
@@ -97,31 +98,35 @@ public class CustomerRepo {
 
     /**
      * We also need to check for a new zip code for the updated customer, since they may move to an existing zip code.
-     * @param customer
+     * @param inputCustomer
      */
-    public void updateCustomer(Customer customer, int id) { //TODO: Test in html
-        int zipInt = getProperZipCode(customer);
-
+    public void updateCustomer(Customer inputCustomer, int id) { //TODO: Test in html
+        Customer customer = findCustomerByID(id);
+        int zipInt = getProperZipCode(inputCustomer);
+/*
         //this query may not return the correct addressID since we dont validate for identical addresses.
         String sqlAddressId = "SELECT id FROM NMR.addresses " +
-                "WHERE street = ?, floor = ?, zip_codes_fk = ?;";
-        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlAddressId);
+                "WHERE street = ? AND floor = ? AND zip_codes_fk = ?;";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlAddressId, customer.getStreet(), customer.getFloor(),zipInt);
         rowSet.next();
         int addressId = rowSet.getInt(1);
+
+ */
         String sqlAddress = "UPDATE NMR.addresses " +
                 "SET street = ?, floor = ?, zip_codes_fk = ? " +
                 "WHERE id = ?;";
-        jdbcTemplate.update(sqlAddress, customer.getStreet(), customer.getFloor(), zipInt, addressId);
+        jdbcTemplate.update(sqlAddress, inputCustomer.getStreet(), inputCustomer.getFloor(), zipInt, customer.getAddresses_fk());
 
+        //TODO: addresses_fk is only used here because we might have unique addresses in the future, but right now we don't
         String sqlCustomer = "UPDATE NMR.customers " +
                 "SET first_name = ?, last_name = ?, mobile = ?, phone = ?, email = ?, drivers_license = ?, " +
-                "dl_issue_date = ?, dl_expire_date = ?, addresses_fk = ? " +
+                "dl_issue_date = ?, dl_expire_date = ? " +
                 "WHERE id = ?;";
 
-        // Lastly everything can be added into the customer using the address forgin key that then uses the zip forgin key
-        jdbcTemplate.update(sqlCustomer,customer.getFirst_name(),customer.getLast_name(),customer.getMobile(),
-                customer.getPhone(),customer.getEmail(),customer.getDrivers_license(),
-                customer.getDl_issue_date(),customer.getDl_expire_date(), addressId, id);
+        // Lastly everything can be added into the customer using the address foreign key that then uses the zip foreign key
+        jdbcTemplate.update(sqlCustomer,inputCustomer.getFirst_name(),inputCustomer.getLast_name(),inputCustomer.getMobile(),
+                inputCustomer.getPhone(),inputCustomer.getEmail(),inputCustomer.getDrivers_license(),
+                inputCustomer.getDl_issue_date(),inputCustomer.getDl_expire_date(), id);
     }
 
 
@@ -159,20 +164,7 @@ public class CustomerRepo {
     }
      */
 
-    /**
-     * @Author Jimmy
-     * Returns the primary key for a zip code, given the zip code and country.
-     * @param zipcode
-     * @param country
-     * @return
-     */
-    public int getZipCodePrimaryKey(int zipcode, int country) {
-        String sql = "SELECT id FROM NMR.zip_codes " +
-                "WHERE zip = ? AND countries_fk = ?;";
-        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, zipcode, country);
-        rowSet.next();
-        return rowSet.getInt(1);
-    }
+
     /**
      * Deletes a customer entity from the database with a given primary key
      * @param id the primary key in customer table in the Database
@@ -187,7 +179,20 @@ public class CustomerRepo {
             e.printStackTrace();
         }
     }
-
+    /**
+     * @Author Jimmy
+     * Returns the primary key for a zip code, given the zip code and country.
+     * @param zipcode
+     * @param country
+     * @return
+     */
+    public int getZipCodePrimaryKey(int zipcode, int country) {
+        String sql = "SELECT id FROM NMR.zip_codes " +
+                "WHERE zip = ? AND countries_fk = ?;";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, zipcode, country);
+        rowSet.next();
+        return rowSet.getInt(1);
+    }
     /**
      * @Author Jimmy
      * Checks if a zip code already exists in the database and if so, returns that specific zip codes id (primary key),
