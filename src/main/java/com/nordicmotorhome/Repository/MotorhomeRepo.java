@@ -19,16 +19,12 @@ public class MotorhomeRepo {
 
     public List<Motorhome> fetchAllMotorhomes(){
         String sqluse = "USE NMR;";
-
-
-        //needs edit
         String sqlMotorhome =
-                "SELECT motorhomes.id, first_name, last_name, mobile, phone, email, drivers_license, dl_issue_date, " +
-                        "dl_expire_date, street, floor, zip, city, name as 'country' FROM NMR.customers " +
-                        "INNER JOIN utilities on addresses.id = addresses_fk " +
-                        "INNER JOIN motorhome_utilities on addresses.id = addresses_fk " +
-                        "INNER JOIN models on zip_codes.id = zip_codes_fk " +
-                        "INNER JOIN brands on countries.id = countries_fk;";
+                "SELECT motorhomes.id, b.name, m.name, price, m.fuel_type, type, bed_amount, m.weight, m.width, m.height,\n" +
+                        "       license_plate, register_date, odometer, ready_status FROM motorhomes\n" +
+                        "    INNER JOIN models m on motorhomes.models_fk = m.id\n" +
+                        "    INNER JOIN brands b on m.brands_fk = b.id\n" +
+                        "ORDER BY motorhomes.id;";
         RowMapper<Motorhome> rowMapper = new BeanPropertyRowMapper<>(Motorhome.class);
         jdbcTemplate.update(sqluse);
         return jdbcTemplate.query(sqlMotorhome,rowMapper);

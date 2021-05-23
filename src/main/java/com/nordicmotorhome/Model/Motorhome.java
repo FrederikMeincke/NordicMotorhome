@@ -26,87 +26,36 @@ public class Motorhome {
     private double price;
     private double width;
     private double height;
-    private Date register_Date;
+    private Date register_date;
     private String license_plate;
     private int bed_Amount;
     private double odometer;
     private List<Utility> utilityList;
+    private int ready_status;
     private String service_raport;
 
-    private fuel_type petrol = fuel_type.PETROL;
-    private fuel_type diesel = fuel_type.DIESEL;
-    private fuel_type electric = fuel_type.ELECTRIC;
+    private fuel_type fuel_type;
 
-    private type class_a = type.Class_A;
-    private type class_b = type.Class_B;
-    private type class_c = type.Class_C;
-    private type fifth_wheel = type.Fifth_Wheel_Camper;
-    private type toy_hauler = type.Toy_Hauler;
-    private type travel_trailer = type.Travel_Trailer;
+    private type type;
 
-    public fuel_type getPetrol() {
-        return petrol;
-    }
-
-    public fuel_type getDiesel() {
-        return diesel;
-    }
-
-    public fuel_type getElectric() {
-        return electric;
-    }
-
-    public type getClass_a() {
-        return class_a;
-    }
-
-    public type getClass_b() {
-        return class_b;
-    }
-
-    public type getClass_c() {
-        return class_c;
-    }
-
-    public type getFifth_wheel() {
-        return fifth_wheel;
-    }
-
-    public type getToy_hauler() {
-        return toy_hauler;
-    }
-
-    public type getTravel_trailer() {
-        return travel_trailer;
-    }
-
-    public type getTeardrop_camper() {
-        return teardrop_camper;
-    }
-
-    public type getPop_up_camper() {
-        return pop_up_camper;
-    }
-
-    private type teardrop_camper = type.Teardrop_Camper;
-    private type pop_up_camper = type.Pop_Up_Camper;
 
     public Motorhome() {
     }
 
-    public Motorhome(int id, String brand, String model, double price, double width, double height, Date register_Date,
-                     String license_plate, int bed_Amount, double odometer, List<Utility> utilityList, String service_report) {
+    public Motorhome(int id, String brand, String model, double price, double width, double height, Date register_date,
+                     String license_plate, int bed_Amount, double odometer, List<Utility> utilityList, int ready_status, String service_report) {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.price = price;
         this.width = width;
         this.height = height;
-        this.register_Date = register_Date;
+        this.register_date = register_date;
         this.license_plate = license_plate;
         this.bed_Amount = bed_Amount;
         this.odometer = odometer;
         this.utilityList = utilityList;
+        this.ready_status = ready_status;
         this.service_raport = service_report;
     }
 
@@ -158,12 +107,12 @@ public class Motorhome {
         this.height = height;
     }
 
-    public Date getRegister_Date() {
-        return register_Date;
+    public Date getRegister_date() {
+        return register_date;
     }
 
-    public void setRegister_Date(Date register_Date) {
-        this.register_Date = register_Date;
+    public void setRegister_date(Date register_date) {
+        this.register_date = register_date;
     }
 
     public String getLicense_plate() {
@@ -198,11 +147,35 @@ public class Motorhome {
         this.utilityList = utilityList;
     }
 
+    public int getReady_status() {
+        return ready_status;
+    }
+
+    public void setReady_status(int ready_status) {
+        this.ready_status = ready_status;
+    }
+
     public String getService_raport() {
         return service_raport;
     }
 
     public void setService_raport(String service_raport) {
         this.service_raport = service_raport;
+    }
+
+    public Motorhome.fuel_type getFuel_type() {
+        return fuel_type;
+    }
+
+    public void setFuel_type(Motorhome.fuel_type fuel_type) {
+        this.fuel_type = fuel_type;
+    }
+
+    public Motorhome.type getType() {
+        return type;
+    }
+
+    public void setType(Motorhome.type type) {
+        this.type = type;
     }
 }
