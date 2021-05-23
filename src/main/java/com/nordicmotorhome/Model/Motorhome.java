@@ -1,7 +1,6 @@
 package com.nordicmotorhome.Model;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class Motorhome {
 
@@ -31,7 +30,7 @@ public class Motorhome {
     private String license_plate;
     private int bed_amount;
     private double odometer;
-    private List<Utility> utilityList;
+    private boolean[] utilityArray = new boolean[8];
     private int ready_status_tmp;
     private boolean ready_status;
     private String service_raport;
@@ -45,7 +44,7 @@ public class Motorhome {
     }
 
     public Motorhome(int id, String brand, String model, double price, double width, double height, LocalDate register_date,
-                     String license_plate, int bed_amount, double odometer, List<Utility> utilityList, int ready_status_tmp, String service_report) {
+                     String license_plate, int bed_amount, double odometer, boolean[] utilityArray, int ready_status_tmp, String service_report) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -56,7 +55,7 @@ public class Motorhome {
         this.license_plate = license_plate;
         this.bed_amount = bed_amount;
         this.odometer = odometer;
-        this.utilityList = utilityList;
+        this.utilityArray = utilityArray;
         this.ready_status_tmp = ready_status_tmp;
         this.service_raport = service_report;
     }
@@ -141,12 +140,12 @@ public class Motorhome {
         this.odometer = odometer;
     }
 
-    public List<Utility> getUtilityList() {
-        return utilityList;
+    public boolean[] getUtilityArray() {
+        return utilityArray;
     }
 
-    public void setUtilityList(List<Utility> utilityList) {
-        this.utilityList = utilityList;
+    public void setUtilityArray(boolean[] utilityArray) {
+        this.utilityArray = utilityArray;
     }
 
     public int getReady_status_tmp() {
@@ -192,8 +191,6 @@ public class Motorhome {
     }
 
     public void setType(String type) {
-
-
         this.type = type;
     }
 

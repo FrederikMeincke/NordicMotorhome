@@ -42,6 +42,7 @@
         <th>Register<br>Date</th>
         <th>Odometer</th>
         <th>Ready<br>Status</th>
+        <th>Utilities</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -62,6 +63,17 @@
         <td th:text="${motorhome.register_date}"/>
         <td th:text="${motorhome.odometer}"/>
         <td><input type="checkbox" name="ready_status_check" th:checked="${motorhome.ready_status} ? 'checked'" disabled="disabled">
+
+        <td>
+        0<input type="checkbox" name="utility_0" th:checked="${motorhome.utilityArray[0]} ? 'checked'" disabled="disabled">
+        1<input type="checkbox" name="utility_1" th:checked="${motorhome.utilityArray[1]} ? 'checked'" disabled="disabled">
+        2<input type="checkbox" name="utility_2" th:checked="${motorhome.utilityArray[2]} ? 'checked'" disabled="disabled">
+        3<input type="checkbox" name="utility_3" th:checked="${motorhome.utilityArray[3]} ? 'checked'" disabled="disabled">
+        <br>
+        4<input type="checkbox" name="utility_4" th:checked="${motorhome.utilityArray[4]} ? 'checked'" disabled="disabled">
+        5<input type="checkbox" name="utility_5" th:checked="${motorhome.utilityArray[5]} ? 'checked'" disabled="disabled">
+        6<input type="checkbox" name="utility_6" th:checked="${motorhome.utilityArray[6]} ? 'checked'" disabled="disabled">
+        7<input type="checkbox" name="utility_7" th:checked="${motorhome.utilityArray[7]} ? 'checked'" disabled="disabled">
 
         <td>
 

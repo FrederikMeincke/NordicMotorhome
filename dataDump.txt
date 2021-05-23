@@ -1198,4 +1198,8 @@ INSERT INTO rentals VALUES
 --
 
 INSERT INTO motorhome_utilities VALUES
-(DEFAULT    ,'2'    ,'2');
+(DEFAULT    ,'2'    ,'2'),
+(DEFAULT    ,'2'    ,'5'),
+(DEFAULT    ,'2'    ,'3'),
+(DEFAULT    ,'2'    ,'1'),
+(DEFAULT    ,'2'    ,'8');
