@@ -20,7 +20,7 @@ public class MotorhomeRepo {
     public List<Motorhome> fetchAllMotorhomes(){
         String sqluse = "USE NMR;";
         String sqlMotorhome =
-                "SELECT motorhomes.id, b.name, m.name, price, m.fuel_type, type, bed_amount, m.weight, m.width, m.height,\n" +
+                "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type, bed_amount, m.weight, m.width, m.height,\n" +
                         "       license_plate, register_date, odometer, ready_status FROM motorhomes\n" +
                         "    INNER JOIN models m on motorhomes.models_fk = m.id\n" +
                         "    INNER JOIN brands b on m.brands_fk = b.id\n" +

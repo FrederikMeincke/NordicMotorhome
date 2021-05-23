@@ -19,7 +19,7 @@
     <a class="login" href="/loginPage">Login</a>
 </div>
 
-<h1 class="h1">Car List</h1>
+<h1 class="h1">Motorhome List</h1>
 
 <a href="/addNewMotorhome">
     <button class="button1 button-anc">Add new Motorhome</button>
@@ -28,20 +28,20 @@
 <table id="tablecss">
     <thead>
     <tr>
-        <th>Motorhome ID</th>
+        <th>ID</th>
         <th>Brand</th>
         <th>Model</th>
         <th>Price</th>
-        <th>Fuel Type</th>
-        <th>Class Type</th>
-        <th>Bed Amount</th>
+        <th>Fuel<br>Type</th>
+        <th>Class<br>Type</th>
+        <th>Bed<br>Amount</th>
         <th>Weight</th>
         <th>Width</th>
         <th>Height</th>
-        <th>License Plate</th>
-        <th>Register Date</th>
+        <th>License<br> Plate</th>
+        <th>Register<br>Date</th>
         <th>Odometer</th>
-        <th>Ready Status</th>
+        <th>Ready<br>Status</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -61,7 +61,7 @@
         <td th:text="${motorhome.license_plate}"/>
         <td th:text="${motorhome.register_date}"/>
         <td th:text="${motorhome.odometer}"/>
-        <td th:text="${motorhome.ready_status}"/>
+        <td><input type="checkbox" name="ready_status_check" th:checked="${motorhome.ready_status} ? 'checked'" disabled="disabled">
 
         <td>
 

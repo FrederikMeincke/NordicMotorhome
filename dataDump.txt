@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS NMR.brands (
 CREATE TABLE IF NOT EXISTS NMR.models (
     id          INT         NOT NULL    UNIQUE PRIMARY KEY  AUTO_INCREMENT,
     name        VARCHAR(45) NOT NULL,
-    fuel_type   ENUM('BENZIN', 'DIESEL', 'BATTERY') NOT NULL,
+    fuel_type   ENUM('PETROL', 'DIESEL', 'EV') NOT NULL,
     width       DOUBLE      NOT NULL,
     height      DOUBLE      NOT NULL,
     weight      DOUBLE      NOT NULL,
@@ -1061,17 +1061,17 @@ INSERT INTO brands VALUES
 --
 
 INSERT INTO models VALUES
-(DEFAULT, 'Bellagio' 		,'BENZIN' 	,'2.90' 	,'2.10' 	,'2000'	, '1'),
-(DEFAULT, 'Edge' 			,'BENZIN' 	,'3' 		,'2' 		,'2250'	, '2'),
-(DEFAULT, 'Auto Roller' 	,'BENZIN' 	,'2.90' 	,'2.25'		, '2375', '3'),
+(DEFAULT, 'Bellagio' 		,'PETROL' 	,'2.90' 	,'2.10' 	,'2000'	, '1'),
+(DEFAULT, 'Edge' 			,'EV'   	,'3' 		,'2' 		,'2250'	, '2'),
+(DEFAULT, 'Auto Roller' 	,'PETROL' 	,'2.90' 	,'2.25'		, '2375', '3'),
 (DEFAULT, 'Hymer' 			,'DIESEL' 	,'2.75' 	,'1.95'		, '2173', '4'),
-(DEFAULT, 'G740FC'	 		,'BENZIN' 	,'3' 		,'2.10'		, '2350', '5'),
-(DEFAULT, 'Kreos' 			,'BENZIN' 	,'3' 		,'2.75'		, '2375', '6'),
-(DEFAULT, 'Plus 650' 		,'BENZIN' 	,'2.15' 	,'2.18'		, '2170', '7'),
-(DEFAULT, '7068XLB' 		,'BENZIN' 	,'3.10' 	,'2.05'		, '2289', '8'),
-(DEFAULT, 'Chic S'	 		,'BENZIN' 	,'2.95' 	,'2.25'		, '2450', '9'),
-(DEFAULT, '7900 PLATIN' 	,'BENZIN' 	,'3.5'	 	,'2.75'		, '2173', '10'),
-(DEFAULT, 'Just 90' 		,'BENZIN' 	,'3' 		,'2.25'		, '2222', '11');
+(DEFAULT, 'G740FC'	 		,'PETROL' 	,'3' 		,'2.10'		, '2350', '5'),
+(DEFAULT, 'Kreos' 			,'PETROL' 	,'3' 		,'2.75'		, '2375', '6'),
+(DEFAULT, 'Plus 650' 		,'PETROL' 	,'2.15' 	,'2.18'		, '2170', '7'),
+(DEFAULT, '7068XLB' 		,'EV'    	,'3.10' 	,'2.05'		, '2289', '8'),
+(DEFAULT, 'Chic S'	 		,'PETROL' 	,'2.95' 	,'2.25'		, '2450', '9'),
+(DEFAULT, '7900 PLATIN' 	,'DIESEL' 	,'3.5'	 	,'2.75'		, '2173', '10'),
+(DEFAULT, 'Just 90' 		,'PETROL' 	,'3' 		,'2.25'		, '2222', '11');
 
 --
 -- Data dump for motorhomes
@@ -1093,7 +1093,7 @@ INSERT INTO motorhomes VALUES
 (DEFAULT, 'Pop-Up Camper'       , 4, '80XICCNX', '2013-05-24',  800, 44209, TRUE,  1),
 (DEFAULT, 'Pop-Up Camper'       , 4, 'O1KLCO1K', '2014-07-27',  950, 99206, TRUE,  2),
 (DEFAULT, 'Pop-Up Camper'       , 5, 'MDI57JKI', '2015-02-19', 1100,  3000, TRUE,  8),
-(DEFAULT, 'Teardrop Camper'     , 5, '2BNO9NEU', '2015-09-03',  950, 84321, TRUE,  1),
+(DEFAULT, 'Teardrop Camper'     , 5, '2BNO9NEU', '2015-09-03',  950, 84321, FALSE,  1),
 (DEFAULT, 'Travel Trailer'      , 3, '4SP9B7BY', '2015-10-05', 1200, 50911, TRUE,  1),
 (DEFAULT, 'Travel Trailer'      , 4, 'K0I5I5FQ', '2016-03-25', 1050, 23047, TRUE,  8),
 (DEFAULT, 'Travel Trailer'      , 3, '1EQQRMTM', '2016-06-05', 1050, 94961, TRUE, 11),
@@ -1104,7 +1104,7 @@ INSERT INTO motorhomes VALUES
 (DEFAULT, 'Class B'             , 3, 'QJH2CP0V', '2017-05-13',  850, 42552, TRUE,  1),
 (DEFAULT, 'Class B'             , 2, 'J9MOAB33', '2012-07-28',  850, 24740, TRUE, 10),
 (DEFAULT, 'Toy Hauler'          , 5, '9PUHAK8N', '2012-08-20',  850, 25552, TRUE,  4),
-(DEFAULT, 'Pop-Up Camper'       , 6, '2LZRVXJG', '2012-11-07',  900, 70279, TRUE,  5),
+(DEFAULT, 'Pop-Up Camper'       , 6, '2LZRVXJG', '2012-11-07',  900, 70279, FALSE,  5),
 (DEFAULT, 'Pop-Up Camper'       , 5, '9NLNDMA8', '2013-02-14', 1000,  2333, TRUE,  3),
 (DEFAULT, 'Fifth Wheel Camper'  , 5, 'JCFJLJQM', '2015-09-02', 1100, 19010, TRUE, 11),
 (DEFAULT, 'Class B'             , 3, 'XQ673BEA', '2016-10-02', 1150, 44847, TRUE, 11),
@@ -1192,3 +1192,10 @@ INSERT INTO rentals VALUES
 (DEFAULT    ,'2021-05-21'   ,'2021-05-27'   ,''   ,''    ,'22456'   ,'28'  ,'32'  ,'3'),
 (DEFAULT    ,'2021-03-11'   ,'2021-05-12'   ,''   ,''    ,'20700'   ,'29'  ,'28'  ,'2'),
 (DEFAULT    ,'2021-05-15'   ,'2021-05-19'   ,''   ,''    ,'9381'   ,'30'  ,'9'    ,'3');
+
+--
+-- Data dump for motorhome_utilities
+--
+
+INSERT INTO motorhome_utilities VALUES
+(DEFAULT    ,'2'    ,'2');

@@ -1,6 +1,6 @@
 package com.nordicmotorhome.Model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Motorhome {
@@ -8,7 +8,7 @@ public class Motorhome {
     private enum fuel_type {
         PETROL,
         DIESEL,
-        ELECTRIC
+        EV
     }
     private enum type {
         Class_A,
@@ -24,26 +24,28 @@ public class Motorhome {
     private String brand;
     private String model;
     private double price;
+    private double weight;
     private double width;
     private double height;
-    private Date register_date;
+    private LocalDate register_date;
     private String license_plate;
-    private int bed_Amount;
+    private int bed_amount;
     private double odometer;
     private List<Utility> utilityList;
-    private int ready_status;
+    private int ready_status_tmp;
+    private boolean ready_status;
     private String service_raport;
 
-    private fuel_type fuel_type;
+    private String fuel_type;
 
-    private type type;
+    private String type;
 
 
     public Motorhome() {
     }
 
-    public Motorhome(int id, String brand, String model, double price, double width, double height, Date register_date,
-                     String license_plate, int bed_Amount, double odometer, List<Utility> utilityList, int ready_status, String service_report) {
+    public Motorhome(int id, String brand, String model, double price, double width, double height, LocalDate register_date,
+                     String license_plate, int bed_amount, double odometer, List<Utility> utilityList, int ready_status_tmp, String service_report) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -52,10 +54,10 @@ public class Motorhome {
         this.height = height;
         this.register_date = register_date;
         this.license_plate = license_plate;
-        this.bed_Amount = bed_Amount;
+        this.bed_amount = bed_amount;
         this.odometer = odometer;
         this.utilityList = utilityList;
-        this.ready_status = ready_status;
+        this.ready_status_tmp = ready_status_tmp;
         this.service_raport = service_report;
     }
 
@@ -107,11 +109,11 @@ public class Motorhome {
         this.height = height;
     }
 
-    public Date getRegister_date() {
+    public LocalDate getRegister_date() {
         return register_date;
     }
 
-    public void setRegister_date(Date register_date) {
+    public void setRegister_date(LocalDate register_date) {
         this.register_date = register_date;
     }
 
@@ -123,12 +125,12 @@ public class Motorhome {
         this.license_plate = license_plate;
     }
 
-    public int getBed_Amount() {
-        return bed_Amount;
+    public int getBed_amount() {
+        return bed_amount;
     }
 
-    public void setBed_Amount(int bed_Amount) {
-        this.bed_Amount = bed_Amount;
+    public void setBed_amount(int bed_amount) {
+        this.bed_amount = bed_amount;
     }
 
     public double getOdometer() {
@@ -147,11 +149,25 @@ public class Motorhome {
         this.utilityList = utilityList;
     }
 
-    public int getReady_status() {
+    public int getReady_status_tmp() {
+        return ready_status_tmp;
+    }
+
+    public void setReady_status_tmp(int ready_status_tmp) {
+        this.ready_status_tmp = ready_status_tmp;
+        if (ready_status_tmp == 0) {
+            ready_status = false;
+        }
+        if (ready_status_tmp == 1) {
+            ready_status = true;
+        }
+    }
+
+    public boolean getReady_status() {
         return ready_status;
     }
 
-    public void setReady_status(int ready_status) {
+    public void setReady_status(boolean ready_status) {
         this.ready_status = ready_status;
     }
 
@@ -163,19 +179,29 @@ public class Motorhome {
         this.service_raport = service_raport;
     }
 
-    public Motorhome.fuel_type getFuel_type() {
+    public String getFuel_type() {
         return fuel_type;
     }
 
-    public void setFuel_type(Motorhome.fuel_type fuel_type) {
+    public void setFuel_type(String fuel_type) {
         this.fuel_type = fuel_type;
     }
 
-    public Motorhome.type getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Motorhome.type type) {
+    public void setType(String type) {
+
+
         this.type = type;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 }
