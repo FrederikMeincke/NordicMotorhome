@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Customers</title>
+    <link href="../MyCSS.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<!--@Author Kasper N. Jensen-->
+<!-- Menu Bar -->
+<div class="menubar">
+    <a class="unactive" href="/">Home</a>
+    <a class="active" href="/showAllCustomers">Customers</a>
+    <a class="unactive" href="/showAllMotorhomes">Motorhomes</a>
+    <a class="unactive" href="/showAllRentals">Rentals</a>
+    <a class="unactive" href="/showAllServiceReports">Service Reports</a>
+    <a class="login" href="/loginPage">Login</a>
+</div>
+
+<!-- Header -->
+<h1 class="h1">Accessory List</h1>
+
+<!-- Search Bar -->
+<div class="row">
+
+    <a href="/addNewAccessory">
+        <button class="button1 button-anc">Add new Accessory</button>
+    </a>
+
+</div>
+
+<!-- Table -->
+<table id="tablecss">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Display all customers information-->
+    <tr th:each="accessory:${accessoryList}">
+        <td th:text="${accessory.id}"/>
+        <td th:text="${accessory.name}"/>
+        <td th:text="${accessory.price}"/>
+        <td>
+            <a th:href="@{'/updateAccessory/'+${accessory.id}}">
+                <button class="btn-update" id="btn-update" title="Edit Accessory"><img src="edit.png" alt="Edit Accessory" width="25px" height="25px"></button>
+            </a>
+
+            <a th:href="@{'/deleteAccessory/'+${accessory.id}}">
+                <button class="btn-delete" id="btn-delete" title="Delete Accessory"><img src="delete.png" alt="Delete Accessory" width="25px" height="25px"></button>
+            </a>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
