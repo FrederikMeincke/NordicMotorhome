@@ -74,6 +74,11 @@ public class MotorhomeRepo {
     }
 
 
+    /**
+     * Author Kasper N. Jensen
+     * @param motorhome Motorhome
+     * This method adds a new motorhome to the db
+     */
     public void addMotorhome(Motorhome motorhome) {
 
         String brandsql = "INSERT INTO NMR.brands (id, name) " +
