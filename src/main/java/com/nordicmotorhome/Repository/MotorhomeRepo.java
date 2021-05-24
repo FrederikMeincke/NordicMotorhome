@@ -60,7 +60,32 @@ public class MotorhomeRepo {
         return motorhomeList;
     }
 
-    public void addMotorhome() {
-        
+    public void addMotorhome(Motorhome motorhome) {
+
+        System.out.println(motorhome.getWeight());
+        String brandsql = "INSERT INTO NMR.brands (id, name) " +
+                "VALUES (DEFAULT, ?);";
+        jdbcTemplate.update(brandsql, motorhome.getBrand());
+        String lastAddedBrand = "SELECT * FROM NMR.brands " +
+                "ORDER BY id DESC LIMIT 1;";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(lastAddedBrand);
+        rowSet.next();
+        int lastBrandId = rowSet.getInt("id");
+
+        String modelsql = "INSERT INTO NMR.models (id, name, fuel_type, width, height, weight, brands_fk) " +
+                "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?);";
+        jdbcTemplate.update(modelsql, motorhome.getModel(), motorhome.getFuel_type(), motorhome.getWidth(),
+                motorhome.getHeight(), motorhome.getWeight(), lastBrandId);
+
+        String lastAddedModel = "SELECT * FROM NMR.models " +
+                "ORDER BY id DESC LIMIT 1;";
+        rowSet = jdbcTemplate.queryForRowSet(lastAddedModel);
+        rowSet.next();
+        int lastModelId = rowSet.getInt("id");
+        String motorhomesql = "INSERT INTO NMR.motorhomes (id, type, bed_amount, license_plate, register_date, price, " +
+                "odometer, ready_status, models_fk) " +
+                "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(motorhomesql, motorhome.getType(), motorhome.getBed_amount(), motorhome.getLicense_plate(),
+                motorhome.getRegister_date(), motorhome.getPrice(), motorhome.getOdometer(), 1, lastModelId);
     }
 }

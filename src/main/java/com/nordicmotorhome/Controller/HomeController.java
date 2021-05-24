@@ -54,6 +54,29 @@ public class HomeController {
         return "home/addNewCustomer";
     }
 
+    /**
+     * @Author Kasper N. Jensen
+     * @param customer Customer
+     * @return String/URL
+     */
+    @PostMapping("/addNewCustomer")
+    public String addNewCustomer(@ModelAttribute Customer customer) {
+        boolean emptyField =
+                customer.getFirst_name().isEmpty() || customer.getLast_name().isEmpty() ||
+                        customer.getMobile().isEmpty() || customer.getPhone().isEmpty() || customer.getEmail().isEmpty() ||
+                        customer.getDrivers_license().isEmpty() || customer.getDl_issue_date().isEmpty() ||
+                        customer.getDl_expire_date().isEmpty() || customer.getStreet().isEmpty() ||
+                        customer.getFloor().isEmpty() || customer.getZip().isEmpty() || customer.getCity().isEmpty() ||
+                        customer.getCountry().isEmpty();
+
+        if (emptyField) {
+            return "home/error/errorPage";
+        }
+
+        customerService.addCustomer(customer);
+        return "redirect:/showAllCustomers";
+    }
+
     @GetMapping("/updateCustomer/{id}")
     public String updateCustomer(@PathVariable("id") int id, Model model) {
         Customer customer = customerService.findCustomerByID(id);
@@ -66,29 +89,6 @@ public class HomeController {
     @PostMapping("/updateCustomer/{id}")
     public String updateCustomer(@PathVariable("id") int id, @ModelAttribute Customer customer) {
         customerService.updateCustomer(customer, id);
-        return "redirect:/showAllCustomers";
-    }
-
-    /**
-     * @Author Kasper N. Jensen
-     * @param customer Customer
-     * @return String/URL
-     */
-    @PostMapping("/addNewCustomer")
-    public String addNewCustomer(@ModelAttribute Customer customer) {
-        boolean emptyField =
-                        customer.getFirst_name().isEmpty() || customer.getLast_name().isEmpty() ||
-                        customer.getMobile().isEmpty() || customer.getPhone().isEmpty() || customer.getEmail().isEmpty() ||
-                        customer.getDrivers_license().isEmpty() || customer.getDl_issue_date().isEmpty() ||
-                        customer.getDl_expire_date().isEmpty() || customer.getStreet().isEmpty() ||
-                        customer.getFloor().isEmpty() || customer.getZip().isEmpty() || customer.getCity().isEmpty() ||
-                        customer.getCountry().isEmpty();
-
-        if (emptyField) {
-            return "home/error/errorPage";
-        }
-
-        customerService.addCustomer(customer);
         return "redirect:/showAllCustomers";
     }
 
@@ -109,6 +109,21 @@ public class HomeController {
         List<Motorhome> motorhomeList = motorhomeService.fetchAllMotorhomes();
         model.addAttribute("motorhomeList", motorhomeList);
         return "home/showAllMotorhomes";
+    }
+
+    /**
+     * Author Kasper N. Jensen
+     * @return String url to the displayed page
+     */
+    @GetMapping("/addNewMotorhome")
+    public String addNewMotorhome(){
+        return "home/addNewMotorhome";
+    }
+
+    @PostMapping("/addNewMotorhome")
+    public String addNewMotorhome(@ModelAttribute Motorhome motorhome){
+        motorhomeService.addMotorhome(motorhome);
+        return "redirect:/showAllMotorhomes";
     }
 
     @GetMapping("/showAllRentals")

@@ -1,0 +1,101 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome to Nordic Motorhome Rental</title>
+  <link href="../MyCSS.css" rel="stylesheet" type="text/css">
+</head>
+<body class="index-background"> <!-- This adds the background cover -->
+
+<!--@Author Kasper N. Jensen-->
+<!-- Menu Bar -->
+<div class="menubar">
+  <a class="unactive" href="/">Home</a>
+  <a class="unactive" href="/showAllCustomers">Customers</a>
+  <a class="active" href="/showAllMotorhomes">Motorhomes</a>
+  <a class="unactive" href="/showAllRentals">Rentals</a>
+  <a class="unactive" href="/showAllServiceReports">Service Reports</a>
+  <a class="login" href="/loginPage">Login</a>
+</div>
+
+<h1 class="h1">Create Customer</h1>
+
+<!--@Author Kasper N. Jensen-->
+<form class="add-form" action="/addNewMotorhome" method="post">
+  <label class="label-text">Brand</label>
+  <br>
+  <input class="labelcss" type="text" name="brand" placeholder="I.e. Edward Snowden"> <span style="color: red">*</span>
+  <br><br>
+
+  <label class="label-text">Model</label>
+  <br>
+  <input class="labelcss" type="text" name="model" placeholder="I.e. Edward Snowden"> <span style="color: red">*</span>
+  <br><br>
+
+  <label class="select" for="fuel_type" accesskey="fuel_type">Fuel Type:<br></label>
+  <select class="select" name="fuel_type" id="fuel_type">
+    <option value="none" selected="selected"> -- choose one --
+    <option value="EV">EV (Electric Vehicle)
+    <option value="Petrol">Petrol
+    <option value="Diesel">Diesel
+  </select>
+  <span style="color: red">*</span>
+  <br><br>
+
+  <label class="select" for="type" accesskey="type">Motorhome Type:<br></label>
+  <select class="select" name="type" id="type">
+    <option value="none" selected="selected"> -- choose one --
+    <option value="Class A">Class A
+    <option value="Class B">Class B
+    <option value="Class C">Class C
+    <option value="Fifth Wheel Camper">Fifth Wheel Camper
+    <option value="Toy Hauler">Toy Hauler
+    <option value="Travel Trailer">Travel Trailer
+    <option value="Teardrop Camper">Teardrop Camper
+    <option value="Pop-Up Camper">Pop-Up Camper
+  </select>
+  <span style="color: red">*</span>
+  <br><br>
+
+  <label class="label-text">Width</label>
+  <br>
+  <input class="labelcss" type="text" name="width" placeholder="I.e. Nordics Corner"> <span style="color: red">*</span>
+  <br><br>
+
+  <label class="label-text">Height</label>
+  <br>
+  <input class="labelcss" type="text" name="height" placeholder="I.e. Nordics Corner"> <span style="color: red">*</span>
+  <br><br>
+
+  <label class="label-text">Weight</label>
+  <br>
+  <input class="labelcss" type="text" name="weight" placeholder="I.e. Nordics Corner"> <span style="color: red">*</span>
+  <br><br>
+
+  <label class="label-text">License Plate</label>
+  <br>
+  <input class="labelcss" type="text" name="license_plate" placeholder="I.e. 42042069"> <span style="color: red">*</span>
+  <br><br>
+
+  <label class="label-text">Register Date</label>
+  <br>
+  <input class="labelcss" type="date" name="register_date" placeholder="I.e. 69420420">
+  <br><br>
+
+  <label class="label-text">Price</label>
+  <br>
+  <input class="labelcss" type="text" name="price" placeholder="I.e. your@email.com"> <span style="color: red">*</span>
+  <br><br>
+
+  <label class="label-text">Odometer</label>
+  <br>
+  <input class="labelcss" type="text" name="odometer" placeholder="I.e. XY11111Z"> <span style="color: red">*</span>
+  <br><br>
+
+  <p style="font-size: 14px">ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</p>
+  <input class="button1 button-anc" type="submit" value="Add Customer">
+</form>
+
+</head>
+</body>
+</html>

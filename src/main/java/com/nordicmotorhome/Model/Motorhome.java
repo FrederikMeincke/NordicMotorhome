@@ -1,7 +1,5 @@
 package com.nordicmotorhome.Model;
 
-import java.time.LocalDate;
-
 public class Motorhome {
 
     private enum fuel_type {
@@ -22,14 +20,14 @@ public class Motorhome {
     private int id;
     private String brand;
     private String model;
-    private double price;
-    private double weight;
-    private double width;
-    private double height;
-    private LocalDate register_date;
+    private String price;
+    private String weight;
+    private String width;
+    private String height;
+    private String register_date;
     private String license_plate;
     private int bed_amount;
-    private double odometer;
+    private String odometer;
     private boolean[] utilityArray = new boolean[8];
     private boolean ready_status;
     private String service_raport;
@@ -68,35 +66,35 @@ public class Motorhome {
         this.model = model;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public double getWidth() {
+    public String getWidth() {
         return width;
     }
 
-    public void setWidth(double width) {
+    public void setWidth(String width) {
         this.width = width;
     }
 
-    public double getHeight() {
+    public String getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
-    public LocalDate getRegister_date() {
+    public String getRegister_date() {
         return register_date;
     }
 
-    public void setRegister_date(LocalDate register_date) {
+    public void setRegister_date(String register_date) {
         this.register_date = register_date;
     }
 
@@ -116,11 +114,11 @@ public class Motorhome {
         this.bed_amount = bed_amount;
     }
 
-    public double getOdometer() {
+    public String getOdometer() {
         return odometer;
     }
 
-    public void setOdometer(double odometer) {
+    public void setOdometer(String odometer) {
         this.odometer = odometer;
     }
 
@@ -164,11 +162,11 @@ public class Motorhome {
         this.type = type;
     }
 
-    public double getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 }
