@@ -38,6 +38,16 @@ public class MotorhomeRepo {
         List<Motorhome> motorhomeList = jdbcTemplate.query(sqlMotorhome,rowMapper);
 
         // adds the utilities to the motorhome object
+        motorhomeList = addUtilitiesToMotorhome(motorhomeList);
+        return motorhomeList;
+    }
+
+    /**
+     * @author Mads
+     * @param motorhomeList
+     * @return
+     */
+    public List<Motorhome> addUtilitiesToMotorhome(List<Motorhome> motorhomeList) {
         for (Motorhome motor: motorhomeList) {
             int id = motor.getId();
 
@@ -61,6 +71,33 @@ public class MotorhomeRepo {
     }
 
     public void addMotorhome() {
-        
+
+    }
+
+
+    public void update(Motorhome inputMotorhome, int id) {
+
+    }
+
+    /**
+     * @author Mads
+     * @param id
+     * @return
+     */
+    public Motorhome findById(int id) {
+        String sqlFind = "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type,\n" +
+                "bed_amount, m.weight, m.width, m.height,\n" +
+                "license_plate, register_date, odometer, ready_status FROM motorhomes\n" +
+                "INNER JOIN models m on motorhomes.models_fk = m.id\n" +
+                "INNER JOIN brands b on m.brands_fk = b.id\n" +
+                "WHERE motorhomes.id = ?;";
+
+        RowMapper rowMapper = new BeanPropertyRowMapper(Motorhome.class);
+        List<Motorhome> motorhomeList = jdbcTemplate.query(sqlFind, rowMapper);
+        //Dont know how to use queryForObject because it uses lambda expressions so this is done with a query instead
+        //even if its only returning one object
+
+        motorhomeList = addUtilitiesToMotorhome(motorhomeList);
+        return motorhomeList.get(0);
     }
 }
