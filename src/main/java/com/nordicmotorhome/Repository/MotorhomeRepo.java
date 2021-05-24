@@ -28,7 +28,7 @@ public class MotorhomeRepo {
         String sqlMotorhome =
                 "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type," +
                         " bed_amount, m.weight, m.width, m.height," +
-                        " license_plate, register_date, odometer, ready_status FROM motorhomes" +
+                        " license_plate, register_date, odometer, ready_status, models_fk FROM motorhomes" +
                         " INNER JOIN models m on motorhomes.models_fk = m.id" +
                         " INNER JOIN brands b on m.brands_fk = b.id" +
                         " ORDER BY motorhomes.id;";
@@ -48,6 +48,7 @@ public class MotorhomeRepo {
      * @return
      */
     public List<Motorhome> addUtilitiesToMotorhome(List<Motorhome> motorhomeList) {
+        // TODO: Maybe it doesn't need to return a list?
         for (Motorhome motor: motorhomeList) {
             int id = motor.getId();
 
@@ -100,7 +101,16 @@ public class MotorhomeRepo {
 
 
     public void update(Motorhome inputMotorhome, int id) {
+        Motorhome motorhome = findById(id);
 
+        String sql = "UPDATE nmr.motorhomes \n" +
+                "SET type = ?, bed_amount = ?, license_plate = ?, register_date = ?, " +
+                "price = ?, odometer = ?, ready_status = ?, models_fk = ?\n" +
+                "WHERE id = ?;";
+
+        jdbcTemplate.update(sql, inputMotorhome.getType(), inputMotorhome.getBed_amount(), inputMotorhome.getLicense_plate(),
+                inputMotorhome.getRegister_date(), inputMotorhome.getPrice(), inputMotorhome.getOdometer(),
+                inputMotorhome.getReady_status(), inputMotorhome.getModels_fk(), id);
     }
 
     /**
@@ -111,7 +121,7 @@ public class MotorhomeRepo {
     public Motorhome findById(int id) {
         String sqlFind = "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type,\n" +
                 "bed_amount, m.weight, m.width, m.height,\n" +
-                "license_plate, register_date, odometer, ready_status FROM motorhomes\n" +
+                "license_plate, register_date, odometer, ready_status, models_fk FROM motorhomes\n" +
                 "INNER JOIN models m on motorhomes.models_fk = m.id\n" +
                 "INNER JOIN brands b on m.brands_fk = b.id\n" +
                 "WHERE motorhomes.id = ?;";

@@ -1,5 +1,7 @@
 package com.nordicmotorhome.Model;
 
+import java.time.LocalDate;
+
 public class Motorhome {
 
     private enum fuel_type {
@@ -20,11 +22,12 @@ public class Motorhome {
     private int id;
     private String brand;
     private String model;
-    private String price;
-    private String weight;
-    private String width;
-    private String height;
-    private String register_date;
+    private int models_fk;
+    private double price;
+    private double weight;
+    private double width;
+    private double height;
+    private LocalDate register_date;
     private String license_plate;
     private int bed_amount;
     private String odometer;
@@ -40,6 +43,50 @@ public class Motorhome {
         for(boolean bool : utilityArray) {
             bool = false;
         }
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public LocalDate getRegister_date() {
+        return register_date;
+    }
+
+    public void setRegister_date(LocalDate register_date) {
+        this.register_date = register_date;
+    }
+
+    public boolean isReady_status() {
+        return ready_status;
     }
 
     public int getId() {
@@ -66,37 +113,6 @@ public class Motorhome {
         this.model = model;
     }
 
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public String getWidth() {
-        return width;
-    }
-
-    public void setWidth(String width) {
-        this.width = width;
-    }
-
-    public String getHeight() {
-        return height;
-    }
-
-    public void setHeight(String height) {
-        this.height = height;
-    }
-
-    public String getRegister_date() {
-        return register_date;
-    }
-
-    public void setRegister_date(String register_date) {
-        this.register_date = register_date;
-    }
 
     public String getLicense_plate() {
         return license_plate;
@@ -162,11 +178,11 @@ public class Motorhome {
         this.type = type;
     }
 
-    public String getWeight() {
-        return weight;
+    public int getModels_fk() {
+        return models_fk;
     }
 
-    public void setWeight(String weight) {
-        this.weight = weight;
+    public void setModels_fk(int models_fk) {
+        this.models_fk = models_fk;
     }
 }
