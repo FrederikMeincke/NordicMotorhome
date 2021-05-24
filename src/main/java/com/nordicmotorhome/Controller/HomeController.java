@@ -157,8 +157,14 @@ public class HomeController {
 
     @GetMapping("/deleteAccessory/{id}")
     public String deleteAccessory(@PathVariable("id") int id) {
-        accessoryService.delete(id);
-        return "redirect:/showAllAccessories";
+        if(!accessoryService.hasConstraint(id)) {
+            accessoryService.delete(id);
+            return "redirect:/showAllAccessories";
+        } else {
+            return "home/error/error420";
+        }
+
+        //return "redirect:/showAllAccessories";
     }
     @GetMapping("/showAllAccessories")
     public String showAllAccessories(Model model) {
@@ -173,4 +179,5 @@ public class HomeController {
     public String showAllServiceReports(){
         return "home/showAllServiceReports";
     }
+
 }

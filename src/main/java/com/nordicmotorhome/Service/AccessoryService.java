@@ -31,4 +31,8 @@ public class AccessoryService {
     public void delete(int id) {
         accessoryRepo.delete(id);
     }
+
+    public boolean hasConstraint(int id) {
+        return accessoryRepo.hasConstraint(id);
+    }
 }

@@ -55,4 +55,18 @@ public class AccessoryRepo {
                 "WHERE id = ?;";
         jdbcTemplate.update(sql, id);
     }
+
+    public boolean hasConstraint(int id) {
+        String sql = "SELECT\n" +
+                "\tCASE WHEN EXISTS \n" +
+                "    (\n" +
+                "    SELECT * FROM NMR.rental_Accessories WHERE accessories_fk = ?\n" +
+                "    )\n" +
+                "    THEN 'TRUE'\n" +
+                "    ELSE 'FALSE'\n" +
+                "END";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, id);
+        rowSet.next();
+        return Boolean.parseBoolean(rowSet.getString(1));
+    }
 }
