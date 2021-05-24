@@ -2,6 +2,8 @@ package com.nordicmotorhome.Repository;
 
 import com.nordicmotorhome.Model.Motorhome;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -101,6 +103,21 @@ public class MotorhomeRepo {
 
 
     }
+
+    /**
+     * Deleting a Motorhome from the database, and removes external settings(Brand, Model,Daily Price, etc)
+     * @param id
+     * @Author Frederik M.
+     */
+        public void deleteMotorhome(int id) {
+            String sql = "DELETE FROM motorhomes WHERE id = ?";
+            try {
+                jdbcTemplate.update(sql, id);
+            } catch (DataIntegrityViolationException e) {
+                System.out.println("An SQL Error occurred");
+                e.printStackTrace();
+            }
+        }
 
 
     public void update(Motorhome inputMotorhome, int id) {

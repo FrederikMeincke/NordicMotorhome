@@ -21,6 +21,10 @@ public class MotorhomeService {
         motorhomeRepo.addMotorhome(motorhome);
     }
 
+    public void deleteMotorhome(int id) {
+        motorhomeRepo.deleteMotorhome(id);
+    }
+
 }
 
 

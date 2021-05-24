@@ -126,6 +126,12 @@ public class HomeController {
         return "redirect:/showAllMotorhomes";
     }
 
+    @GetMapping("/deleteMotorhome/{id}")
+    public String deleteMotorhome(@PathVariable("id") int id) {
+        motorhomeService.deleteMotorhome(id);
+        return "redirect:/showAllMotorhomes";
+    }
+
     @GetMapping("/showAllRentals")
     public String showAllRentals(){
         return "home/showAllRentals";
