@@ -117,58 +117,25 @@ public class MotorhomeRepo {
                 "ORDER BY id DESC LIMIT 1;";
         rowSet = jdbcTemplate.queryForRowSet(lastAddedMotorhome);
         rowSet.next();
-        //TODO: Function of adding utils doesn't work yet
         int lastMotorhomeId = rowSet.getInt("id");
-        System.out.println(lastMotorhomeId);
-        System.out.println(motorhome.getUtility_0());
-        if(motorhome.getUtility_0() == 1) {
-            String util_1_sql = "INSERT INTO NMR.motorhome_utilities (id, motorhomes_fk, utilities_fk) " +
-                    "VALUES (DEFAULT, ?, ?);";
-            jdbcTemplate.update(util_1_sql, lastMotorhomeId, 1);
-        }
-        if(motorhome.getUtility_1() == 1) {
-            String util_2_sql = "INSERT INTO NMR.motorhome_utilities (id, motorhomes_fk, utilities_fk) " +
-                    "VALUES (DEFAULT, ?, ?);";
-            jdbcTemplate.update(util_2_sql, lastMotorhomeId, 2);
-        }
 
-        if (motorhome.getUtility_2() == 1) {
-            String util_3_sql = "INSERT INTO NMR.motorhome_utilities (id, motorhomes_fk, utilities_fk) " +
-                    "VALUES (DEFAULT, ?, ?);";
-            jdbcTemplate.update(util_3_sql, lastMotorhomeId, 3);
-        }
-
-        if (motorhome.getUtility_3() == 1) {
-            String util_4_sql = "INSERT INTO NMR.motorhome_utilities (id, motorhomes_fk, utilities_fk) " +
-                    "VALUES (DEFAULT, ?, ?);";
-            jdbcTemplate.update(util_4_sql, lastMotorhomeId, 4);
-        }
-
-        if (motorhome.getUtility_4() == 1) {
-            String util_5_sql = "INSERT INTO NMR.motorhome_utilities (id, motorhomes_fk, utilities_fk) " +
-                    "VALUES (DEFAULT, ?, ?);";
-            jdbcTemplate.update(util_5_sql, lastMotorhomeId, 5);
-        }
-
-        if (motorhome.getUtility_5() == 1) {
-            String util_6_sql = "INSERT INTO NMR.motorhome_utilities (id, motorhomes_fk, utilities_fk) " +
-                    "VALUES (DEFAULT, ?, ?);";
-            jdbcTemplate.update(util_6_sql, lastMotorhomeId, 6);
-        }
-
-        if (motorhome.getUtility_6() == 1) {
-            String util_7_sql = "INSERT INTO NMR.motorhome_utilities (id, motorhomes_fk, utilities_fk) " +
-                    "VALUES (DEFAULT, ?, ?);";
-            jdbcTemplate.update(util_7_sql, lastMotorhomeId, 7);
-        }
-
-        if (motorhome.getUtility_7() == 1) {
-            String util_8_sql = "INSERT INTO NMR.motorhome_utilities (id, motorhomes_fk, utilities_fk) " +
-                    "VALUES (DEFAULT, ?, ?);";
-            jdbcTemplate.update(util_8_sql, lastMotorhomeId, 8);
-        }
+        utilCheck(motorhome.getUtility_0(),lastMotorhomeId,1); //TV
+        utilCheck(motorhome.getUtility_1(),lastMotorhomeId,2); //Fridge
+        utilCheck(motorhome.getUtility_2(),lastMotorhomeId,3); //Shower
+        utilCheck(motorhome.getUtility_3(),lastMotorhomeId,4); //Toilet
+        utilCheck(motorhome.getUtility_4(),lastMotorhomeId,5); //Sofa
+        utilCheck(motorhome.getUtility_5(),lastMotorhomeId,6); //Table
+        utilCheck(motorhome.getUtility_6(),lastMotorhomeId,7); //Kitchen
+        utilCheck(motorhome.getUtility_7(),lastMotorhomeId,8); //Awning
     }
 
+    public void utilCheck(int utilTrue, int lastMotorhomeId, int utilNr){
+        if(utilTrue == 1) {
+            String util_1_sql = "INSERT INTO NMR.motorhome_utilities (id, motorhomes_fk, utilities_fk) " +
+                    "VALUES (DEFAULT, ?, ?);";
+            jdbcTemplate.update(util_1_sql, lastMotorhomeId, utilNr);
+        }
+    }
 
     /**
      * Deleting a Motorhome from the database, and removes external settings(Brand, Model,Daily Price, etc)
