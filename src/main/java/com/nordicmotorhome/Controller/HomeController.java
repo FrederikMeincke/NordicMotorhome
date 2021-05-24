@@ -129,6 +129,7 @@ public class HomeController {
         return "home/showAllRentals";
     }
 
+    // ACCESSORIES
 
     @GetMapping("/addNewAccessory")
     public String addNewAccessory() {
@@ -166,6 +167,8 @@ public class HomeController {
         return "home/showAllAccessories";
     }
 
+
+    // SERVICE REPORTS
     @GetMapping("/showAllServiceReports")
     public String showAllServiceReports(){
         return "home/showAllServiceReports";
