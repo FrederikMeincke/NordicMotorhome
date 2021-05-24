@@ -23,7 +23,7 @@ public class MotorhomeRepo {
      * @author Mads
      * @return
      */
-    public List<Motorhome> fetchAllMotorhomes(){
+    public List<Motorhome> fetchAllMotorhomes() {
         String sqluse = "USE NMR;";
         String sqlMotorhome =
                 "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type," +
@@ -38,6 +38,16 @@ public class MotorhomeRepo {
         List<Motorhome> motorhomeList = jdbcTemplate.query(sqlMotorhome,rowMapper);
 
         // adds the utilities to the motorhome object
+        motorhomeList = addUtilitiesToMotorhome(motorhomeList);
+        return motorhomeList;
+    }
+
+    /**
+     * @author Mads
+     * @param motorhomeList
+     * @return
+     */
+    public List<Motorhome> addUtilitiesToMotorhome(List<Motorhome> motorhomeList) {
         for (Motorhome motor: motorhomeList) {
             int id = motor.getId();
 
@@ -60,32 +70,35 @@ public class MotorhomeRepo {
         return motorhomeList;
     }
 
-    public void addMotorhome(Motorhome motorhome) {
+    public void addMotorhome() {
 
-        System.out.println(motorhome.getWeight());
-        String brandsql = "INSERT INTO NMR.brands (id, name) " +
-                "VALUES (DEFAULT, ?);";
-        jdbcTemplate.update(brandsql, motorhome.getBrand());
-        String lastAddedBrand = "SELECT * FROM NMR.brands " +
-                "ORDER BY id DESC LIMIT 1;";
-        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(lastAddedBrand);
-        rowSet.next();
-        int lastBrandId = rowSet.getInt("id");
-
-        String modelsql = "INSERT INTO NMR.models (id, name, fuel_type, width, height, weight, brands_fk) " +
-                "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?);";
-        jdbcTemplate.update(modelsql, motorhome.getModel(), motorhome.getFuel_type(), motorhome.getWidth(),
-                motorhome.getHeight(), motorhome.getWeight(), lastBrandId);
-
-        String lastAddedModel = "SELECT * FROM NMR.models " +
-                "ORDER BY id DESC LIMIT 1;";
-        rowSet = jdbcTemplate.queryForRowSet(lastAddedModel);
-        rowSet.next();
-        int lastModelId = rowSet.getInt("id");
-        String motorhomesql = "INSERT INTO NMR.motorhomes (id, type, bed_amount, license_plate, register_date, price, " +
-                "odometer, ready_status, models_fk) " +
-                "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(motorhomesql, motorhome.getType(), motorhome.getBed_amount(), motorhome.getLicense_plate(),
-                motorhome.getRegister_date(), motorhome.getPrice(), motorhome.getOdometer(), 1, lastModelId);
     }
+
+
+    public void update(Motorhome inputMotorhome, int id) {
+
+    }
+
+    /**
+     * @author Mads
+     * @param id
+     * @return
+     */
+    public Motorhome findById(int id) {
+        String sqlFind = "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type,\n" +
+                "bed_amount, m.weight, m.width, m.height,\n" +
+                "license_plate, register_date, odometer, ready_status FROM motorhomes\n" +
+                "INNER JOIN models m on motorhomes.models_fk = m.id\n" +
+                "INNER JOIN brands b on m.brands_fk = b.id\n" +
+                "WHERE motorhomes.id = ?;";
+
+        RowMapper rowMapper = new BeanPropertyRowMapper(Motorhome.class);
+        List<Motorhome> motorhomeList = jdbcTemplate.query(sqlFind, rowMapper);
+        //Dont know how to use queryForObject because it uses lambda expressions so this is done with a query instead
+        //even if its only returning one object
+
+        motorhomeList = addUtilitiesToMotorhome(motorhomeList);
+        return motorhomeList.get(0);
+    }
+
 }
