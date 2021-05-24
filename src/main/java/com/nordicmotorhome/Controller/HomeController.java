@@ -1,9 +1,6 @@
 package com.nordicmotorhome.Controller;
 
-import com.nordicmotorhome.Model.Country;
-import com.nordicmotorhome.Model.Customer;
-import com.nordicmotorhome.Model.Motorhome;
-import com.nordicmotorhome.Model.Zip;
+import com.nordicmotorhome.Model.*;
 import com.nordicmotorhome.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +24,8 @@ public class HomeController {
     CountryService countryService;
     @Autowired
     ZipService zipService;
+    @Autowired
+    AccessoryService accessoryService;
 
     @GetMapping("/")
     public String index() {
@@ -92,7 +91,6 @@ public class HomeController {
         return "redirect:/showAllCustomers";
     }
 
-
     /**
      * @author Mads
      * @param id the customer to delete
@@ -126,15 +124,46 @@ public class HomeController {
         return "redirect:/showAllMotorhomes";
     }
 
-    @GetMapping("/deleteMotorhome/{id}")
-    public String deleteMotorhome(@PathVariable("id") int id) {
-        motorhomeService.deleteMotorhome(id);
-        return "redirect:/showAllMotorhomes";
-    }
-
     @GetMapping("/showAllRentals")
     public String showAllRentals(){
         return "home/showAllRentals";
+    }
+
+
+    @GetMapping("/addNewAccessory")
+    public String addNewAccessory() {
+        return "home/addNewAccessory";
+    }
+
+    @PostMapping("/addNewAccessory")
+    public String addNewAccessory(@ModelAttribute Accessory accessory) {
+        accessoryService.addNew(accessory);
+        return "redirect:/showAllAccessories";
+    }
+
+    @GetMapping("/updateAccessory/{id}")
+    public String updateAccessory(@PathVariable("id") int id, Model model) {
+        Accessory accessory = accessoryService.findById(id);
+        model.addAttribute("accessory", accessory);
+        return "home/updateAccessory";
+    }
+
+    @PostMapping("/updateAccessory/{id}")
+    public String updateAccessory(@PathVariable("id") int id, @ModelAttribute Accessory accessory) {
+        accessoryService.update(accessory, id);
+        return "redirect:/showAllAccessories";
+    }
+
+    @GetMapping("/deleteAccessory/{id}")
+    public String deleteAccessory(@PathVariable("id") int id) {
+        accessoryService.delete(id);
+        return "redirect:/showAllAccessories";
+    }
+    @GetMapping("/showAllAccessories")
+    public String showAllAccessories(Model model) {
+        List<Accessory> accessoryList = accessoryService.fetchAll();
+        model.addAttribute("accessoryList", accessoryList);
+        return "home/showAllAccessories";
     }
 
     @GetMapping("/showAllServiceReports")
