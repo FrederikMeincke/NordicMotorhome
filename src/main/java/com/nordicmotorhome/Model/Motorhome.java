@@ -1,7 +1,5 @@
 package com.nordicmotorhome.Model;
 
-import java.time.LocalDate;
-
 public class Motorhome {
 
     private enum fuel_type {
@@ -27,7 +25,7 @@ public class Motorhome {
     private double weight;
     private double width;
     private double height;
-    private LocalDate register_date;
+    private String register_date;
     private String license_plate;
     private int bed_amount;
     private String odometer;
@@ -77,11 +75,11 @@ public class Motorhome {
         this.height = height;
     }
 
-    public LocalDate getRegister_date() {
+    public String getRegister_date() {
         return register_date;
     }
 
-    public void setRegister_date(LocalDate register_date) {
+    public void setRegister_date(String register_date) {
         this.register_date = register_date;
     }
 
