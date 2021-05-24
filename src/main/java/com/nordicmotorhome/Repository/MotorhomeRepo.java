@@ -50,23 +50,17 @@ public class MotorhomeRepo {
 
             boolean[] tmpUtilArray = motor.getUtilityArray();
 
-            for (boolean bool: tmpUtilArray) {  //sets all the bool in the array as false by default
-                bool = false;
+            while (rowSet.next()) {
+                tmpUtilArray[rowSet.getInt(1) - 1] = true;
+                //sets the utility to true if the sql statement has the respective id for the utility
             }
-
-            try {
-                while (rowSet.next()) {
-                    tmpUtilArray[rowSet.getInt(1) - 1] = true;
-                    //sets the utility to true if the sql statement has the respective id for the utility
-                }
-                motor.setUtilityArray(tmpUtilArray);    //sets the array of the motorhome to the updated one.
-                                                        // Dont know if this is necessary if the array is reference type
-
-            } catch (ArrayIndexOutOfBoundsException e) {
-                e.printStackTrace();
-            }
+            motor.setUtilityArray(tmpUtilArray);    //sets the array of the motorhome to the updated one.
+            // Dont know if this is necessary if the array is reference type
         }
-
         return motorhomeList;
+    }
+
+    public void addMotorhome() {
+        
     }
 }
