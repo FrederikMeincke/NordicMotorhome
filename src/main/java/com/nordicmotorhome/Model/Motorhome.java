@@ -32,10 +32,17 @@ public class Motorhome {
     private boolean[] utilityArray = new boolean[8];
     private boolean ready_status;
     private String service_raport;
-
     private String fuel_type;
-
     private String type;
+
+    private int utility_0;
+    private int utility_1;
+    private int utility_2;
+    private int utility_3;
+    private int utility_4;
+    private int utility_5;
+    private int utility_6;
+    private int utility_7;
 
     public Motorhome() {
         for(boolean bool : utilityArray) {
@@ -182,5 +189,69 @@ public class Motorhome {
 
     public void setModels_fk(int models_fk) {
         this.models_fk = models_fk;
+    }
+
+    public int getUtility_0() {
+        return utility_0;
+    }
+
+    public void setUtility_0(int utility_0) {
+        this.utility_0 = utility_0;
+    }
+
+    public int getUtility_1() {
+        return utility_1;
+    }
+
+    public void setUtility_1(int utility_1) {
+        this.utility_1 = utility_1;
+    }
+
+    public int getUtility_2() {
+        return utility_2;
+    }
+
+    public void setUtility_2(int utility_2) {
+        this.utility_2 = utility_2;
+    }
+
+    public int getUtility_3() {
+        return utility_3;
+    }
+
+    public void setUtility_3(int utility_3) {
+        this.utility_3 = utility_3;
+    }
+
+    public int getUtility_4() {
+        return utility_4;
+    }
+
+    public void setUtility_4(int utility_4) {
+        this.utility_4 = utility_4;
+    }
+
+    public int getUtility_5() {
+        return utility_5;
+    }
+
+    public void setUtility_5(int utility_5) {
+        this.utility_5 = utility_5;
+    }
+
+    public int getUtility_6() {
+        return utility_6;
+    }
+
+    public void setUtility_6(int utility_6) {
+        this.utility_6 = utility_6;
+    }
+
+    public int getUtility_7() {
+        return utility_7;
+    }
+
+    public void setUtility_7(int utility_7) {
+        this.utility_7 = utility_7;
     }
 }

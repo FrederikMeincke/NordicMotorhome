@@ -134,6 +134,11 @@ CSS for the creation table for new customers, motorhomes, rentals and service re
     background-color: rgba(51, 51, 51, 0.44);
 }
 
+.utility-box{
+    background-color: rgba(255, 255, 255, 0.97);
+    background-size: 40px;
+}
+
 .labelcss{}
 
 .label-text{}
