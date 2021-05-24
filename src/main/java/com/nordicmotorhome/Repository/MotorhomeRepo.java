@@ -74,7 +74,6 @@ public class MotorhomeRepo {
 
     public void addMotorhome(Motorhome motorhome) {
 
-        System.out.println(motorhome.getWeight());
         String brandsql = "INSERT INTO NMR.brands (id, name) " +
                 "VALUES (DEFAULT, ?);";
         jdbcTemplate.update(brandsql, motorhome.getBrand());
