@@ -23,7 +23,7 @@ public class MotorhomeRepo {
      * @author Mads
      * @return
      */
-    public List<Motorhome> fetchAllMotorhomes(){
+    public List<Motorhome> fetchAllMotorhomes() {
         String sqluse = "USE NMR;";
         String sqlMotorhome =
                 "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type," +
@@ -100,4 +100,5 @@ public class MotorhomeRepo {
         motorhomeList = addUtilitiesToMotorhome(motorhomeList);
         return motorhomeList.get(0);
     }
+
 }
