@@ -21,9 +21,15 @@ public class MotorhomeService {
         motorhomeRepo.addMotorhome(motorhome);
     }
 
-    public void deleteMotorhome(int id) {
-        motorhomeRepo.deleteMotorhome(id);
+    public String deleteMotorhome(int id) {
+        if(motorhomeRepo.hasConstraint(id)) {
+            return "/home/error/errorMotorhome";
+        } else  {
+            motorhomeRepo.deleteMotorhome(id);
+            return "redirect:/showAllMotorhomes";
+        }
     }
+
 
 }
 

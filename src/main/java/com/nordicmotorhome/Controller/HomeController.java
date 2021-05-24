@@ -98,8 +98,7 @@ public class HomeController {
      */
     @GetMapping("/deleteCustomer/{id}")
     public String deleteCustomer(@PathVariable("id") int id) {
-        customerService.deleteCustomer(id);
-        return "redirect:/showAllCustomers";
+        return customerService.deleteCustomer(id);
     }
 
     @GetMapping("/showAllMotorhomes")
@@ -122,6 +121,11 @@ public class HomeController {
     public String addNewMotorhome(@ModelAttribute Motorhome motorhome){
         motorhomeService.addMotorhome(motorhome);
         return "redirect:/showAllMotorhomes";
+    }
+
+    @GetMapping("/deleteMotorhome/{id}")
+    public String deleteMotorhome(@PathVariable("id") int id) {
+        return motorhomeService.deleteMotorhome(id);
     }
 
     @GetMapping("/showAllRentals")
@@ -157,14 +161,7 @@ public class HomeController {
 
     @GetMapping("/deleteAccessory/{id}")
     public String deleteAccessory(@PathVariable("id") int id) {
-        if(!accessoryService.hasConstraint(id)) {
-            accessoryService.delete(id);
-            return "redirect:/showAllAccessories";
-        } else {
-            return "home/error/error420";
-        }
-
-        //return "redirect:/showAllAccessories";
+        return accessoryService.delete(id);
     }
     @GetMapping("/showAllAccessories")
     public String showAllAccessories(Model model) {

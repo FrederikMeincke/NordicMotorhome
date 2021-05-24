@@ -28,11 +28,12 @@ public class AccessoryService {
         return accessoryRepo.findById(id);
     }
 
-    public void delete(int id) {
-        accessoryRepo.delete(id);
-    }
-
-    public boolean hasConstraint(int id) {
-        return accessoryRepo.hasConstraint(id);
+    public String delete(int id) {
+        if(accessoryRepo.hasConstraint(id)) {
+            return "/home/error/error420";
+        } else {
+            accessoryRepo.delete(id);
+            return "redirect:/showAllAccessories";
+        }
     }
 }

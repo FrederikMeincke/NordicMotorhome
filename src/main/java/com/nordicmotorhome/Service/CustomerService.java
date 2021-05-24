@@ -29,8 +29,17 @@ public class CustomerService {
         return customerRepo.findCustomerByID(id);
     }
 
-    public void deleteCustomer(int id) {
-        customerRepo.deleteCustomer(id);
+    public String deleteCustomer(int id) {
+        if(customerRepo.hasConstraint(id)) {
+            return "/home/error/errorCustomer";
+        } else {
+            customerRepo.deleteCustomer(id);
+            return "redirect:/showAllCustomers";
+        }
+    }
+
+    public boolean hasConstraint(int id) {
+        return customerRepo.hasConstraint(id);
     }
 
 }

@@ -227,4 +227,18 @@ public class CustomerRepo {
         }
         return zipInt;
     }
+
+    public boolean hasConstraint(int id) {
+        String sql = "SELECT\n" +
+                "\tCASE WHEN EXISTS \n" +
+                "    (\n" +
+                "    SELECT * FROM NMR.rentals WHERE customers_fk = ?\n" +
+                "    )\n" +
+                "    THEN 'TRUE'\n" +
+                "    ELSE 'FALSE'\n" +
+                "END";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, id);
+        rowSet.next();
+        return Boolean.parseBoolean(rowSet.getString(1));
+    }
 }
