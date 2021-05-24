@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome to Nordic Motorhome Rental</title>
+  <link href="../MyCSS.css" rel="stylesheet" type="text/css">
+</head>
+<body class="index-background"> <!-- This adds the background cover -->
+
+<!--@Author Kasper N. Jensen-->
+<!-- Menu Bar -->
+<div class="menubar">
+  <a class="unactive" href="/">Home</a>
+  <a class="active" href="/showAllCustomers">Customers</a>
+  <a class="unactive" href="/showAllMotorhomes">Motorhomes</a>
+  <a class="unactive" href="/showAllRentals">Rentals</a>
+  <a class="unactive" href="/showAllServiceReports">Service Reports</a>
+  <a class="login" href="/loginPage">Login</a>
+</div>
+
+<h1 class="h1">Create Accessory</h1>
+
+<!--@Author Kasper N. Jensen-->
+<form class="add-form" action="/addNewAccessory" method="post">
+  <label class="label-text">Accessory Name</label>
+  <br>
+  <input class="labelcss" type="text" name="name" placeholder="Name"> <span style="color: red">*</span>
+  <br><br>
+
+  <label class="label-text">Price</label>
+  <br>
+  <input class="labelcss" type="text" name="price" placeholder="Price"> <span style="color: red">*</span>
+  <br><br>
+
+
+  <p style="font-size: 14px">ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</p>
+  <input class="button1 button-anc" type="submit" value="Add Accessory">
+</form>
+</body>
+</html>

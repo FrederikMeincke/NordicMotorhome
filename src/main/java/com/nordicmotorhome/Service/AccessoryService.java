@@ -15,4 +15,20 @@ public class AccessoryService {
     public List<Accessory> fetchAll() {
         return accessoryRepo.fetchAll();
     }
+
+    public void addNew(Accessory accessory) {
+        accessoryRepo.addNew(accessory);
+    }
+
+    public void update(Accessory accessory, int id) {
+        accessoryRepo.update(accessory, id);
+    }
+
+    public Accessory findById(int id) {
+        return accessoryRepo.findById(id);
+    }
+
+    public void delete(int id) {
+        accessoryRepo.delete(id);
+    }
 }
