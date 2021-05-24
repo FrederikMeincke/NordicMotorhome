@@ -75,7 +75,7 @@ public class MotorhomeRepo {
 
 
     /**
-     * Author Kasper N. Jensen
+     * @Author Kasper N. Jensen
      * @param motorhome Motorhome
      * This method adds a new motorhome to the db
      */
@@ -106,7 +106,20 @@ public class MotorhomeRepo {
         jdbcTemplate.update(motorhomesql, motorhome.getType(), motorhome.getBed_amount(), motorhome.getLicense_plate(),
                 motorhome.getRegister_date(), motorhome.getPrice(), motorhome.getOdometer(), 1, lastModelId);
 
+        String lastAddedMotorhome = "SELECT * FROM NMR.motorhomes " +
+                "ORDER BY id DESC LIMIT 1;";
+        rowSet = jdbcTemplate.queryForRowSet(lastAddedMotorhome);
+        rowSet.next();
 
+        //TODO: Function of adding utils doesn't work yet
+        int util_id = 0;
+        while(util_id < 8) {
+
+            int lastMotorhomeId = rowSet.getInt("id");
+            String utilitiessql = "INSERT INTO NMR.motorhome_utilities (id, motorhome_fk, utilities_fk) " +
+                    "VALUES (DEFAULT, ?, ?);";
+            jdbcTemplate.update(utilitiessql, lastMotorhomeId, util_id);
+        }
     }
 
     /**
