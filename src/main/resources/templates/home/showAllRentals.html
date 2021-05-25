@@ -19,5 +19,81 @@
     <a class="login" href="/loginPage">Login</a>
 </div>
 
+<h1 class="h1">Rental List</h1>
+
+<a href="/addNewRental">
+    <button class="button1 button-anc">Add new Rental</button>
+</a>
+
+<table id="tablecss">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Pick-up</th>
+        <th>Drop-off</th>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Fuel<br>Type</th>
+        <th>Class<br>Type</th>
+        <th>Bed<br>Amount</th>
+        <th>Weight</th>
+        <th>Width</th>
+        <th>Height</th>
+        <th>License<br>Plate</th>
+        <th>Odometer</th>
+        <th>Utilities</th>
+        <th>Rental Price</th>
+        <th>Total Price</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Display all car information-->
+    <tr th:each="motorhome:${motorhomeList}">
+        <td th:text="${motorhome.id}"/>
+        <td th:text="${motorhome.brand}"/>
+        <td th:text="${motorhome.model}"/>
+        <td th:text="${motorhome.price}"/>
+        <td th:text="${motorhome.fuel_type}"/>
+        <td th:text="${motorhome.type}"/>
+        <td th:text="${motorhome.bed_amount}"/>
+        <td th:text="${motorhome.weight}"/>
+        <td th:text="${motorhome.width}"/>
+        <td th:text="${motorhome.height}"/>
+        <td th:text="${motorhome.license_plate}"/>
+        <td th:text="${motorhome.register_date}"/>
+        <td th:text="${motorhome.odometer}"/>
+        <td><input type="checkbox" name="ready_status_check" th:checked="${motorhome.ready_status} ? 'checked'" disabled="disabled">
+
+        <td>
+            <img src="tv.png" width="15px" height="15px" title="TV"><input type="checkbox" name="utility_0" th:checked="${motorhome.utilityArray[0]} ? 'checked'" disabled="disabled">
+            <img src="fridge.png" width="15px" height="15px" title="Fridge"><input type="checkbox" name="utility_1" th:checked="${motorhome.utilityArray[1]} ? 'checked'" disabled="disabled">
+            <img src="shower.png" width="15px" height="15px" title="Shower"><input type="checkbox" name="utility_2" th:checked="${motorhome.utilityArray[2]} ? 'checked'" disabled="disabled">
+            <img src="toilet.png" width="15px" height="15px" title="Toilet"><input type="checkbox" name="utility_3" th:checked="${motorhome.utilityArray[3]} ? 'checked'" disabled="disabled">
+            <br>
+            <img src="sofa.png" width="15px" height="15px" title="Couch"><input type="checkbox" name="utility_4" th:checked="${motorhome.utilityArray[4]} ? 'checked'" disabled="disabled">
+            <img src="table.png" width="15px" height="15px" title="Table"><input type="checkbox" name="utility_5" th:checked="${motorhome.utilityArray[5]} ? 'checked'" disabled="disabled">
+            <img src="kitchen.png" width="15px" height="15px" title="Kitchen"><input type="checkbox" name="utility_6" th:checked="${motorhome.utilityArray[6]} ? 'checked'" disabled="disabled">
+            <img src="markise.png" width="15px" height="15px" title="Awning"><input type="checkbox" name="utility_7" th:checked="${motorhome.utilityArray[7]} ? 'checked'" disabled="disabled">
+
+        <td>
+
+            <a th:href="@{'/updateRental/'+${rentals.id}}">
+                <button class="btn-update" id="btn-update" title="Edit Motorhome"><img src="edit.png" alt="Edit Motorhome" width="25px" height="25px"></button>
+            </a>
+
+            <a th:href="@{'/deleteRental/'+${rentals.id}}">
+                <button class="btn-delete" id="btn-delete" title="Delete Motorhome"><img src="delete.png" alt="Delete Motorhome" width="25px" height="25px"></button>
+            </a>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>
