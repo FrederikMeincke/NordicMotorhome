@@ -26,6 +26,8 @@ public class HomeController {
     ZipService zipService;
     @Autowired
     AccessoryService accessoryService;
+    @Autowired
+    RentalService rentalService;
 
     @GetMapping("/")
     public String index() {
@@ -145,7 +147,9 @@ public class HomeController {
 
     // RENTALS
     @GetMapping("/showAllRentals")
-    public String showAllRentals(){
+    public String showAllRentals(Model model){
+        List<Rental> rentalList = rentalService.fetchAll();
+        model.addAttribute(rentalList);
         return "home/showAllRentals";
     }
 
