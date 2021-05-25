@@ -239,6 +239,7 @@ public class MotorhomeRepo {
             int modelId = rowSetModelId.getInt(1);
 
             jdbcTemplate.update(sqlUpdateModel, modelId, motorhome.getId());
+
         } else {   //creates a new entry in the brands table if the entered model doesnt already exists
             String sqlCreateModel = "INSERT INTO models " +
                     "VALUES(DEFAULT, ?, ?, ?, ?, ?, ?)";
@@ -251,30 +252,33 @@ public class MotorhomeRepo {
                     inputMotorhome.getWidth(), inputMotorhome.getHeight(), inputMotorhome.getWeight(),
                     brandId);
 
-            String sqlLastAddedModel = "SELECT * FROM NMR.brands " +
+            String sqlLastAddedModel = "SELECT id FROM models " +
                     "ORDER BY id DESC LIMIT 1;";
             SqlRowSet rowSetLastAdded = jdbcTemplate.queryForRowSet(sqlLastAddedModel);
             rowSetLastAdded.next();
 
             int lastAddedModelId = rowSetLastAdded.getInt(1);   //id of the last added brand so we can update current motorhome
-            jdbcTemplate.update(sqlUpdateModel, lastAddedModelId, motorhome.getModels_fk());
+            jdbcTemplate.update(sqlUpdateModel, lastAddedModelId, motorhome.getId());
 
         }
 
-        String sqlModel = "";
-        jdbcTemplate.update(sqlModel);
-
-
         String sqlMotorhome = "UPDATE motorhomes \n" +
                 "SET type = ?, bed_amount = ?, license_plate = ?, register_date = ?, " +
-                "price = ?, odometer = ?, ready_status = ?, models_fk = ?\n" +
+                "price = ?, odometer = ?, ready_status = ? " +
                 "WHERE id = ?;";
         jdbcTemplate.update(sqlMotorhome, inputMotorhome.getType(), inputMotorhome.getBed_amount(), inputMotorhome.getLicense_plate(),
                 inputMotorhome.getRegister_date(), inputMotorhome.getPrice(), inputMotorhome.getOdometer(),
-                inputMotorhome.getReady_status(), motorhome.getModels_fk(), id);
+                inputMotorhome.getReady_status(), id);
 
-        String sqlMotorhomeUtilities = "";
-        jdbcTemplate.update(sqlMotorhomeUtilities);
+        String sqlUpdateModelDimensions = "UPDATE models " +
+                "SET width = ?, height = ?,  weight = ? " +
+                "WHERE models.id = ?";
+
+        jdbcTemplate.update(sqlUpdateModelDimensions, inputMotorhome.getWidth(), inputMotorhome.getHeight(),
+                inputMotorhome.getWeight(), motorhome.getModels_fk());
+
+        //String sqlMotorhomeUtilities = "";
+        //jdbcTemplate.update(sqlMotorhomeUtilities);
     }
 
     /**
