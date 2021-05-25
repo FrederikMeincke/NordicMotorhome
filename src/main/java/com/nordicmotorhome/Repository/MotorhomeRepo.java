@@ -111,7 +111,7 @@ public class MotorhomeRepo {
 
         /**
          * @Author Kasper N. Jensen
-         * This part adds utilities to a motorhome Trust me this method could be smaller and more efficient
+         * This part adds utilities to a motorhome
          */
         String lastAddedMotorhome = "SELECT id FROM NMR.motorhomes " +
                 "ORDER BY id DESC LIMIT 1;";
@@ -129,6 +129,13 @@ public class MotorhomeRepo {
         utilCheck(motorhome.getUtility_7(),lastMotorhomeId,8); //Awning
     }
 
+    /**
+     * Method takes util id from addNewMotorhome.html and gets the last added id from a motorhome
+     * and finally it takes a utillity id
+     * @param utilTrue
+     * @param lastMotorhomeId
+     * @param utilNr
+     */
     public void utilCheck(int utilTrue, int lastMotorhomeId, int utilNr){
         if(utilTrue == 1) {
             String util_1_sql = "INSERT INTO NMR.motorhome_utilities (id, motorhomes_fk, utilities_fk) " +
