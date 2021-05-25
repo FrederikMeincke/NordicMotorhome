@@ -299,7 +299,7 @@ public class MotorhomeRepo {
         //jdbcTemplate.update(sqlMotorhomeUtilities);
 
         String sqlDropUtils = "DELETE FROM NMR.motorhome_utilities WHERE motorhomes_fk = ?";
-        /*
+
         jdbcTemplate.update(SQL_USE);
         jdbcTemplate.update(sqlDropUtils,id);
 
@@ -312,8 +312,8 @@ public class MotorhomeRepo {
         utilInsert(inputMotorhome.getUtility_6(),id,7); //Kitchen
         utilInsert(inputMotorhome.getUtility_7(),id,8); //Awning
 
-         */
-        test(motorhome, inputMotorhome);
+
+        //test(motorhome, inputMotorhome);
     }
 
     /**
