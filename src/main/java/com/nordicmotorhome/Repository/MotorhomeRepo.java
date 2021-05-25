@@ -121,14 +121,14 @@ public class MotorhomeRepo {
         rowSet.next();
         int lastMotorhomeId = rowSet.getInt("id");
 
-        utilCheck(motorhome.getUtility_0(),lastMotorhomeId,1); //TV
-        utilCheck(motorhome.getUtility_1(),lastMotorhomeId,2); //Fridge
-        utilCheck(motorhome.getUtility_2(),lastMotorhomeId,3); //Shower
-        utilCheck(motorhome.getUtility_3(),lastMotorhomeId,4); //Toilet
-        utilCheck(motorhome.getUtility_4(),lastMotorhomeId,5); //Sofa
-        utilCheck(motorhome.getUtility_5(),lastMotorhomeId,6); //Table
-        utilCheck(motorhome.getUtility_6(),lastMotorhomeId,7); //Kitchen
-        utilCheck(motorhome.getUtility_7(),lastMotorhomeId,8); //Awning
+        utilInsert(motorhome.getUtility_0(),lastMotorhomeId,1); //TV
+        utilInsert(motorhome.getUtility_1(),lastMotorhomeId,2); //Fridge
+        utilInsert(motorhome.getUtility_2(),lastMotorhomeId,3); //Shower
+        utilInsert(motorhome.getUtility_3(),lastMotorhomeId,4); //Toilet
+        utilInsert(motorhome.getUtility_4(),lastMotorhomeId,5); //Sofa
+        utilInsert(motorhome.getUtility_5(),lastMotorhomeId,6); //Table
+        utilInsert(motorhome.getUtility_6(),lastMotorhomeId,7); //Kitchen
+        utilInsert(motorhome.getUtility_7(),lastMotorhomeId,8); //Awning
     }
 
     /**
@@ -138,7 +138,7 @@ public class MotorhomeRepo {
      * @param lastMotorhomeId
      * @param utilNr
      */
-    public void utilCheck(int utilTrue, int lastMotorhomeId, int utilNr){
+    public void utilInsert(int utilTrue, int lastMotorhomeId, int utilNr){
         if(utilTrue == 1) {
             String util_1_sql = "INSERT INTO NMR.motorhome_utilities (id, motorhomes_fk, utilities_fk) " +
                     "VALUES (DEFAULT, ?, ?);";
@@ -146,6 +146,7 @@ public class MotorhomeRepo {
             jdbcTemplate.update(util_1_sql, lastMotorhomeId, utilNr);
         }
     }
+
 
     /**
      * Deleting a Motorhome from the database, and removes external settings(Brand, Model,Daily Price, etc)
@@ -279,6 +280,19 @@ public class MotorhomeRepo {
 
         //String sqlMotorhomeUtilities = "";
         //jdbcTemplate.update(sqlMotorhomeUtilities);
+
+        String sqlDropUtils = "DELETE FROM NMR.motorhome_utilities WHERE motorhomes_fk = ?";
+        jdbcTemplate.update(SQL_USE);
+        jdbcTemplate.update(sqlDropUtils,id);
+
+        utilInsert(inputMotorhome.getUtility_0(),id,1); //TV
+        utilInsert(inputMotorhome.getUtility_1(),id,2); //Fridge
+        utilInsert(inputMotorhome.getUtility_3(),id,4); //Toilet
+        utilInsert(inputMotorhome.getUtility_4(),id,5); //Sofa
+        utilInsert(inputMotorhome.getUtility_5(),id,6); //Table
+        utilInsert(inputMotorhome.getUtility_2(),id,3); //Shower
+        utilInsert(inputMotorhome.getUtility_6(),id,7); //Kitchen
+        utilInsert(inputMotorhome.getUtility_7(),id,8); //Awning
     }
 
     /**
