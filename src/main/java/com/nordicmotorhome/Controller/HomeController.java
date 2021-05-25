@@ -137,6 +137,12 @@ public class HomeController {
         return "home/updateMotorhome";
     }
 
+    @PostMapping("/updateMotorhome/{id}")
+    public String updateMotorhome(@PathVariable("id") int id, @ModelAttribute Motorhome motorhome) {
+        motorhomeService.updateMotorhome(motorhome, id);
+        return "redirect:/showAllMotorhomes";
+    }
+
     // RENTALS
     @GetMapping("/showAllRentals")
     public String showAllRentals(){

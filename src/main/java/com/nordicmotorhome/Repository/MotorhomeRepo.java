@@ -169,15 +169,112 @@ public class MotorhomeRepo {
     public void update(Motorhome inputMotorhome, int id) {
         Motorhome motorhome = findById(id);
 
-        String sql = "UPDATE nmr.motorhomes \n" +
+        jdbcTemplate.update(SQL_USE);
+
+        String sqlBrandExists = " SELECT " +
+                " CASE WHEN EXISTS "+
+                " (" +
+                "SELECT * FROM brands WHERE brands.name = ? " +
+                ")" +
+                " THEN 'TRUE' " +
+                " ELSE 'FALSE'" +
+                " END;";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlBrandExists, inputMotorhome.getBrand());
+        rowSet.next();
+        boolean brandExists = Boolean.parseBoolean(rowSet.getString(1));
+
+        String sqlUpdateBrand = "UPDATE models " +
+                "SET brands_fk = ? " +
+                "WHERE id = ?;";
+
+        String sqlFindBrandID = "SELECT brands.id " +
+                "FROM brands " +
+                "WHERE brands.name = ?";
+
+
+        if (brandExists) {
+            SqlRowSet rowSetBrandId = jdbcTemplate.queryForRowSet(sqlFindBrandID, inputMotorhome.getBrand());
+            rowSetBrandId.next();
+            int brandId = rowSetBrandId.getInt(1);
+
+
+            jdbcTemplate.update(sqlUpdateBrand, brandId, motorhome.getModels_fk());
+        } else {   //creates a new entry in the brands table if the entered brand doesnt already exists
+            String sqlCreateBrand = "INSERT INTO brands " +
+                    "VALUES(DEFAULT, ?)";
+            jdbcTemplate.update(sqlCreateBrand, inputMotorhome.getBrand());
+
+            String sqlLastAddedBrand = "SELECT * FROM NMR.brands " +
+                    "ORDER BY id DESC LIMIT 1;";
+            SqlRowSet rowSetLastAdded = jdbcTemplate.queryForRowSet(sqlLastAddedBrand);
+            rowSetLastAdded.next();
+
+            int lastAddedBrandId = rowSetLastAdded.getInt(1);   //id of the last added brand so we can update current motorhome
+            jdbcTemplate.update(sqlUpdateBrand, lastAddedBrandId, motorhome.getModels_fk());
+
+        }
+
+        String sqlModelExists = " SELECT " +
+                " CASE WHEN EXISTS "+
+                " (" +
+                "SELECT * FROM models WHERE models.name = ? " +
+                ")" +
+                " THEN 'TRUE' " +
+                " ELSE 'FALSE'" +
+                " END;";
+        SqlRowSet rowSetModel = jdbcTemplate.queryForRowSet(sqlModelExists, inputMotorhome.getModel());
+        rowSetModel.next();
+        boolean modelExists = Boolean.parseBoolean(rowSetModel.getString(1));
+
+        String sqlUpdateModel = "UPDATE motorhomes " +
+                "SET models_fk = ? " +
+                "WHERE id = ?;";
+
+        if (modelExists) {
+            String sqlFindModelID = "SELECT models.id " +
+                    "FROM models " +
+                    "WHERE models.name = ?";
+            SqlRowSet rowSetModelId = jdbcTemplate.queryForRowSet(sqlFindModelID, inputMotorhome.getModel());
+            rowSetModelId.next();
+            int modelId = rowSetModelId.getInt(1);
+
+            jdbcTemplate.update(sqlUpdateModel, modelId, motorhome.getId());
+        } else {   //creates a new entry in the brands table if the entered model doesnt already exists
+            String sqlCreateModel = "INSERT INTO models " +
+                    "VALUES(DEFAULT, ?, ?, ?, ?, ?, ?)";
+
+            SqlRowSet rowSetBrandId = jdbcTemplate.queryForRowSet(sqlFindBrandID, inputMotorhome.getBrand());
+            rowSetBrandId.next();
+            int brandId = rowSetBrandId.getInt(1);
+
+            jdbcTemplate.update(sqlCreateModel, inputMotorhome.getModel(), inputMotorhome.getFuel_type(),
+                    inputMotorhome.getWidth(), inputMotorhome.getHeight(), inputMotorhome.getWeight(),
+                    brandId);
+
+            String sqlLastAddedModel = "SELECT * FROM NMR.brands " +
+                    "ORDER BY id DESC LIMIT 1;";
+            SqlRowSet rowSetLastAdded = jdbcTemplate.queryForRowSet(sqlLastAddedModel);
+            rowSetLastAdded.next();
+
+            int lastAddedModelId = rowSetLastAdded.getInt(1);   //id of the last added brand so we can update current motorhome
+            jdbcTemplate.update(sqlUpdateModel, lastAddedModelId, motorhome.getModels_fk());
+
+        }
+
+        String sqlModel = "";
+        jdbcTemplate.update(sqlModel);
+
+
+        String sqlMotorhome = "UPDATE motorhomes \n" +
                 "SET type = ?, bed_amount = ?, license_plate = ?, register_date = ?, " +
                 "price = ?, odometer = ?, ready_status = ?, models_fk = ?\n" +
                 "WHERE id = ?;";
-
-        jdbcTemplate.update(SQL_USE);
-        jdbcTemplate.update(sql, inputMotorhome.getType(), inputMotorhome.getBed_amount(), inputMotorhome.getLicense_plate(),
+        jdbcTemplate.update(sqlMotorhome, inputMotorhome.getType(), inputMotorhome.getBed_amount(), inputMotorhome.getLicense_plate(),
                 inputMotorhome.getRegister_date(), inputMotorhome.getPrice(), inputMotorhome.getOdometer(),
-                inputMotorhome.getReady_status(), inputMotorhome.getModels_fk(), id);
+                inputMotorhome.getReady_status(), motorhome.getModels_fk(), id);
+
+        String sqlMotorhomeUtilities = "";
+        jdbcTemplate.update(sqlMotorhomeUtilities);
     }
 
     /**

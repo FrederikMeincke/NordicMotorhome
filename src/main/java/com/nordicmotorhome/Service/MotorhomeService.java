@@ -30,8 +30,8 @@ public class MotorhomeService {
         }
     }
 
-    public void updateMotorhome(int id) {
-        //motorhomeRepo.update(id);
+    public void updateMotorhome(Motorhome inputMotorhome ,int id) {
+        motorhomeRepo.update(inputMotorhome ,id);
     }
 
     public Motorhome findMotorhomeById(int id) {
