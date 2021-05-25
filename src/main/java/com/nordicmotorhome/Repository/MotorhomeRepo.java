@@ -1,6 +1,7 @@
 package com.nordicmotorhome.Repository;
 
 import com.nordicmotorhome.Model.Motorhome;
+import com.nordicmotorhome.Model.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -147,6 +148,22 @@ public class MotorhomeRepo {
         }
     }
 
+    // TODO: Refactor later
+    public void test(Motorhome motorhome, Motorhome input) {
+        boolean[] utility = input.getUtilityArray();
+        String delete = "DELETE FROM NMR.motorhome_utilities " +
+                "WHERE motorhomes_fk = ?;";
+        jdbcTemplate.update(delete, motorhome.getId());
+        for(int i = 0; i < utility.length; i++) {
+            int utilId = i+1;
+            if(utility[i]) {
+                System.out.println("bool: + " + utility[i]);
+                String sql = "INSERT INTO NMR.motorhome_utilities " +
+                        "VALUES (DEFAULT, ?, ?);";
+                jdbcTemplate.update(sql, motorhome.getId(), utilId);
+            }
+        }
+    }
 
     /**
      * Deleting a Motorhome from the database, and removes external settings(Brand, Model,Daily Price, etc)
@@ -282,6 +299,7 @@ public class MotorhomeRepo {
         //jdbcTemplate.update(sqlMotorhomeUtilities);
 
         String sqlDropUtils = "DELETE FROM NMR.motorhome_utilities WHERE motorhomes_fk = ?";
+        /*
         jdbcTemplate.update(SQL_USE);
         jdbcTemplate.update(sqlDropUtils,id);
 
@@ -293,6 +311,9 @@ public class MotorhomeRepo {
         utilInsert(inputMotorhome.getUtility_2(),id,3); //Shower
         utilInsert(inputMotorhome.getUtility_6(),id,7); //Kitchen
         utilInsert(inputMotorhome.getUtility_7(),id,8); //Awning
+
+         */
+        test(motorhome, inputMotorhome);
     }
 
     /**
@@ -333,4 +354,31 @@ public class MotorhomeRepo {
         return Boolean.parseBoolean(rowSet.getString(1));
     }
 
+    public boolean brandExists(Motorhome inputMotorhome) {
+        String sqlBrandExists = " SELECT " +
+                " CASE WHEN EXISTS "+
+                " (" +
+                "SELECT * FROM brands WHERE brands.name = ? " +
+                ")" +
+                " THEN 'TRUE' " +
+                " ELSE 'FALSE'" +
+                " END;";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlBrandExists, inputMotorhome.getBrand());
+        rowSet.next();
+        return Boolean.parseBoolean(rowSet.getString(1));
+    }
+
+    public boolean modelExists(Motorhome inputMotorhome) {
+        String sqlModelExists = " SELECT " +
+                " CASE WHEN EXISTS "+
+                " (" +
+                "SELECT * FROM models WHERE models.name = ? " +
+                ")" +
+                " THEN 'TRUE' " +
+                " ELSE 'FALSE'" +
+                " END;";
+        SqlRowSet rowSetModel = jdbcTemplate.queryForRowSet(sqlModelExists, inputMotorhome.getModel());
+        rowSetModel.next();
+        return Boolean.parseBoolean(rowSetModel.getString(1));
+    }
 }
