@@ -15,6 +15,9 @@ public class Rental {
     private Location pick_up_location;
     private Location drop_off_location;
     private double total_price;
+    private int customers_fk;
+    private int motorhomes_fk;
+    private int seasons_fk;
 
     public Rental() {
     }
@@ -112,5 +115,29 @@ public class Rental {
 
     public void setTotal_price(double total_price) {
         this.total_price = total_price;
+    }
+
+    public int getCustomers_fk() {
+        return customers_fk;
+    }
+
+    public void setCustomers_fk(int customers_fk) {
+        this.customers_fk = customers_fk;
+    }
+
+    public int getMotorhomes_fk() {
+        return motorhomes_fk;
+    }
+
+    public void setMotorhomes_fk(int motorhomes_fk) {
+        this.motorhomes_fk = motorhomes_fk;
+    }
+
+    public int getSeasons_fk() {
+        return seasons_fk;
+    }
+
+    public void setSeasons_fk(int seasons_fk) {
+        this.seasons_fk = seasons_fk;
     }
 }
