@@ -38,6 +38,7 @@ public class HomeController {
         return "home/loginPage";
     }
 
+    // CUSTOMER
     @GetMapping("/showAllCustomers")
     public String showAllCustomers(Model model){
         List<Customer> customerList = customerService.fetchAllCustomers();
@@ -101,6 +102,7 @@ public class HomeController {
         return customerService.deleteCustomer(id);
     }
 
+    // MOTORHOMES
     @GetMapping("/showAllMotorhomes")
     public String showAllMotorhomes(Model model){
         List<Motorhome> motorhomeList = motorhomeService.fetchAllMotorhomes();
@@ -128,6 +130,14 @@ public class HomeController {
         return motorhomeService.deleteMotorhome(id);
     }
 
+    @GetMapping("/updateMotorhome/{id}")
+    public String updateMotorhome(@PathVariable("id") int id, Model model) {
+        Motorhome motorhome = motorhomeService.findMotorhomeById(id);
+        model.addAttribute("motorhome", motorhome);
+        return "home/updateMotorhome";
+    }
+
+    // RENTALS
     @GetMapping("/showAllRentals")
     public String showAllRentals(){
         return "home/showAllRentals";

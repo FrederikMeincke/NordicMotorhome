@@ -21,20 +21,20 @@
 <h1 class="h1">Update Motorhome</h1>
 
 <!--@Author Kasper N. Jensen-->
-<form class="add-form" action="/addNewMotorhome" method="post">
+<form class="add-form" th:href="@{'/updateMotorhome/'+${motorhome.id}}" method="post">
   <label class="label-text">Brand</label>
   <br>
-  <input class="labelcss" type="text" name="brand" placeholder="I.e. Edward Snowden"> <span style="color: red">*</span>
+  <input class="labelcss" type="text" name="brand" th:value="${motorhome.brand}"> <span style="color: red">*</span>
   <br><br>
 
   <label class="label-text">Model</label>
   <br>
-  <input class="labelcss" type="text" name="model" placeholder="I.e. Edward Snowden"> <span style="color: red">*</span>
+  <input class="labelcss" type="text" name="model" th:value="${motorhome.model}"> <span style="color: red">*</span>
   <br><br>
 
   <label class="select" for="fuel_type" accesskey="fuel_type">Fuel Type:<br></label>
   <select class="select" name="fuel_type" id="fuel_type">
-    <option value="none" selected="selected"> -- choose one --
+    <option th:value="${motorhome.fuel_type}" th:text="${motorhome.fuel_type}" selected="selected">
     <option value="EV">EV (Electric Vehicle)
     <option value="Petrol">Petrol
     <option value="Diesel">Diesel
@@ -44,7 +44,7 @@
 
   <label class="select" for="type" accesskey="type">Motorhome Type:<br></label>
   <select class="select" name="type" id="type">
-    <option value="none" selected="selected"> -- choose one --
+    <option th:value="${motorhome.type}" th:text="${motorhome.type}" selected="selected">
     <option value="Class A">Class A
     <option value="Class B">Class B
     <option value="Class C">Class C
@@ -59,62 +59,62 @@
 
   <label class="label-text">Beds</label>
   <br>
-  <input class="labelcss" type="double" name="bed_amount" placeholder="I.e. Nordics Corner"> <span style="color: red">*</span>
+  <input class="labelcss" type="double" name="bed_amount" th:value="${motorhome.bed_amount}"> <span style="color: red">*</span>
   <br><br>
 
   <div class="utility-box">
     <label class="label-text">Utilities</label>
     <br>
 
-    <img src="tv.png" width="15px" height="15px" title="TV"><input type="checkbox" name="utility_0" value="1">
-    <img src="fridge.png" width="15px" height="15px" title="Fridge"><input type="checkbox" name="utility_1" value="1">
-    <img src="shower.png" width="15px" height="15px" title="Shower"><input type="checkbox" name="utility_2" value="1">
-    <img src="toilet.png" width="15px" height="15px" title="Toilet"><input type="checkbox" name="utility_3" value="1">
+    <img src="../tv.png" width="15px" height="15px" title="TV"><input type="checkbox" th:checked="${motorhome.utilityArray[0]} ? 'checked'" name="utility_0" value="1">
+    <img src="../fridge.png" width="15px" height="15px" title="Fridge"><input type="checkbox" th:checked="${motorhome.utilityArray[1]} ? 'checked'" name="utility_1" value="1">
+    <img src="../shower.png" width="15px" height="15px" title="Shower"><input type="checkbox" th:checked="${motorhome.utilityArray[2]} ? 'checked'" name="utility_2" value="1">
+    <img src="../toilet.png" width="15px" height="15px" title="Toilet"><input type="checkbox" th:checked="${motorhome.utilityArray[3]} ? 'checked'" name="utility_3" value="1">
     <br>
-    <img src="sofa.png" width="15px" height="15px" title="Couch"><input type="checkbox" name="utility_4" value="1">
-    <img src="table.png" width="15px" height="15px" title="Table"><input type="checkbox" name="utility_5" value="1">
-    <img src="kitchen.png" width="15px" height="15px" title="Kitchen"><input type="checkbox" name="utility_6" value="1">
-    <img src="markise.png" width="15px" height="15px" title="Awning"><input type="checkbox" name="utility_7" value="1">
+    <img src="../sofa.png" width="15px" height="15px" title="Couch"><input type="checkbox" th:checked="${motorhome.utilityArray[4]} ? 'checked'" name="utility_4" value="1">
+    <img src="../table.png" width="15px" height="15px" title="Table"><input type="checkbox" th:checked="${motorhome.utilityArray[5]} ? 'checked'" name="utility_5" value="1">
+    <img src="../kitchen.png" width="15px" height="15px" title="Kitchen"><input type="checkbox" th:checked="${motorhome.utilityArray[6]} ? 'checked'" name="utility_6" value="1">
+    <img src="../markise.png" width="15px" height="15px" title="Awning"><input type="checkbox" th:checked="${motorhome.utilityArray[7]} ? 'checked'" name="utility_7" value="1">
   </div>
   <br>
 
   <label class="label-text">Width</label>
   <br>
-  <input class="labelcss" type="text" name="width" placeholder="I.e. Nordics Corner"> <span style="color: red">*</span>
+  <input class="labelcss" type="text" name="width" th:value="${motorhome.width}"> <span style="color: red">*</span>
   <br><br>
 
   <label class="label-text">Height</label>
   <br>
-  <input class="labelcss" type="text" name="height" placeholder="I.e. Nordics Corner"> <span style="color: red">*</span>
+  <input class="labelcss" type="text" name="height" th:value="${motorhome.height}"> <span style="color: red">*</span>
   <br><br>
 
   <label class="label-text">Weight</label>
   <br>
-  <input class="labelcss" type="text" name="weight" placeholder="I.e. Nordics Corner"> <span style="color: red">*</span>
+  <input class="labelcss" type="text" name="weight" th:value="${motorhome.weight}"> <span style="color: red">*</span>
   <br><br>
 
   <label class="label-text">License Plate</label>
   <br>
-  <input class="labelcss" type="text" name="license_plate" placeholder="I.e. 42042069"> <span style="color: red">*</span>
+  <input class="labelcss" type="text" name="license_plate" th:value="${motorhome.license_plate}"> <span style="color: red">*</span>
   <br><br>
 
   <label class="label-text">Register Date</label>
   <br>
-  <input class="labelcss" type="date" name="register_date" placeholder="I.e. 69420420">
+  <input class="labelcss" type="date" name="register_date" th:value="${motorhome.register_date}">
   <br><br>
 
   <label class="label-text">Price</label>
   <br>
-  <input class="labelcss" type="text" name="price" placeholder="I.e. your@email.com"> <span style="color: red">*</span>
+  <input class="labelcss" type="text" name="price" th:value="${motorhome.price}"> <span style="color: red">*</span>
   <br><br>
 
   <label class="label-text">Odometer</label>
   <br>
-  <input class="labelcss" type="text" name="odometer" placeholder="I.e. XY11111Z"> <span style="color: red">*</span>
+  <input class="labelcss" type="text" name="odometer" th:value="${motorhome.odometer}"> <span style="color: red">*</span>
   <br><br>
 
   <p style="font-size: 14px">ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</p>
-  <input class="button1 button-anc" type="submit" value="Add Customer">
+  <input class="button1 button-anc" type="submit" value="Update Customer">
 </form>
 
 </head>

@@ -30,6 +30,13 @@ public class MotorhomeService {
         }
     }
 
+    public void updateMotorhome(int id) {
+        //motorhomeRepo.update(id);
+    }
+
+    public Motorhome findMotorhomeById(int id) {
+        return motorhomeRepo.findById(id);
+    }
 
 }
 

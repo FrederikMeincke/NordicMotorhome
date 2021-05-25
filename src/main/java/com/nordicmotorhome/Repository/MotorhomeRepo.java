@@ -2,13 +2,11 @@ package com.nordicmotorhome.Repository;
 
 import com.nordicmotorhome.Model.Motorhome;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,13 +18,14 @@ public class MotorhomeRepo {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    final String SQL_USE = "USE NMR;";
+
     /**
      * Gets all the motorhomes from the database and adds all the utilities that a motorhome has to the motorhome object
      * @author Mads
      * @return
      */
     public List<Motorhome> fetchAllMotorhomes() {
-        String sqluse = "USE NMR;";
         String sqlMotorhome =
                 "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type," +
                         " bed_amount, m.weight, m.width, m.height," +
@@ -36,7 +35,7 @@ public class MotorhomeRepo {
                         " ORDER BY motorhomes.id;";
         RowMapper<Motorhome> rowMapper = new BeanPropertyRowMapper<>(Motorhome.class);
 
-        jdbcTemplate.update(sqluse);    //selects the database
+        jdbcTemplate.update(SQL_USE);    //selects the database
         List<Motorhome> motorhomeList = jdbcTemplate.query(sqlMotorhome,rowMapper);
 
         // adds the utilities to the motorhome object
@@ -59,6 +58,7 @@ public class MotorhomeRepo {
                     "WHERE mu.motorhomes_fk = ?;";
 
             //gets all the ids of the utilities belonging to the motorhome
+            jdbcTemplate.update(SQL_USE);
             SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlUtil, id);
 
             boolean[] tmpUtilArray = motor.getUtilityArray();
@@ -84,6 +84,7 @@ public class MotorhomeRepo {
 
         String brandsql = "INSERT INTO NMR.brands (id, name) " +
                 "VALUES (DEFAULT, ?);";
+        jdbcTemplate.update(SQL_USE);
         jdbcTemplate.update(brandsql, motorhome.getBrand());
         String lastAddedBrand = "SELECT * FROM NMR.brands " +
                 "ORDER BY id DESC LIMIT 1;";
@@ -115,6 +116,7 @@ public class MotorhomeRepo {
          */
         String lastAddedMotorhome = "SELECT id FROM NMR.motorhomes " +
                 "ORDER BY id DESC LIMIT 1;";
+
         rowSet = jdbcTemplate.queryForRowSet(lastAddedMotorhome);
         rowSet.next();
         int lastMotorhomeId = rowSet.getInt("id");
@@ -140,6 +142,7 @@ public class MotorhomeRepo {
         if(utilTrue == 1) {
             String util_1_sql = "INSERT INTO NMR.motorhome_utilities (id, motorhomes_fk, utilities_fk) " +
                     "VALUES (DEFAULT, ?, ?);";
+            jdbcTemplate.update(SQL_USE);
             jdbcTemplate.update(util_1_sql, lastMotorhomeId, utilNr);
         }
     }
@@ -150,8 +153,11 @@ public class MotorhomeRepo {
      * @Author Frederik M.
      */
         public void deleteMotorhome(int id) {
+            String sqlDeleteUtil = "DELETE FROM motorhome_utilities WHERE motorhomes_fk = ?";
             String sql = "DELETE FROM motorhomes WHERE id = ?";
             try {
+                jdbcTemplate.update(SQL_USE);
+                jdbcTemplate.update(sqlDeleteUtil, id);
                 jdbcTemplate.update(sql, id);
             } catch (DataIntegrityViolationException e) {
                 System.out.println("An SQL Error occurred");
@@ -168,6 +174,7 @@ public class MotorhomeRepo {
                 "price = ?, odometer = ?, ready_status = ?, models_fk = ?\n" +
                 "WHERE id = ?;";
 
+        jdbcTemplate.update(SQL_USE);
         jdbcTemplate.update(sql, inputMotorhome.getType(), inputMotorhome.getBed_amount(), inputMotorhome.getLicense_plate(),
                 inputMotorhome.getRegister_date(), inputMotorhome.getPrice(), inputMotorhome.getOdometer(),
                 inputMotorhome.getReady_status(), inputMotorhome.getModels_fk(), id);
@@ -187,7 +194,8 @@ public class MotorhomeRepo {
                 "WHERE motorhomes.id = ?;";
 
         RowMapper rowMapper = new BeanPropertyRowMapper(Motorhome.class);
-        List<Motorhome> motorhomeList = jdbcTemplate.query(sqlFind, rowMapper);
+        jdbcTemplate.update(SQL_USE);
+        List<Motorhome> motorhomeList = jdbcTemplate.query(sqlFind, rowMapper, id);
         //Dont know how to use queryForObject because it uses lambda expressions so this is done with a query instead
         //even if its only returning one object
 
@@ -204,6 +212,7 @@ public class MotorhomeRepo {
                 "    THEN 'TRUE'\n" +
                 "    ELSE 'FALSE'\n" +
                 "END";
+        jdbcTemplate.update(SQL_USE);
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, id);
         rowSet.next();
         return Boolean.parseBoolean(rowSet.getString(1));
