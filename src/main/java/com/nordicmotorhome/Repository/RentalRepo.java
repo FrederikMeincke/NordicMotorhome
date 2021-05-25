@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class RentalRepo {
+public class RentalRepo implements CRUDRepo<Rental>{
 
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -73,5 +73,21 @@ public class RentalRepo {
         }
 
         return rentalList;
+    }
+
+    public void addNew(Rental rental) {
+
+    }
+
+    public void update(int id) {
+
+    }
+
+    public void delete(int id) {
+
+    }
+
+    public boolean hasConstraint() {
+        return false;
     }
 }
