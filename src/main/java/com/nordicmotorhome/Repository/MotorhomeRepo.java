@@ -122,6 +122,7 @@ public class MotorhomeRepo {
         rowSet.next();
         int lastMotorhomeId = rowSet.getInt("id");
 
+
         utilInsert(motorhome.getUtility_0(),lastMotorhomeId,1); //TV
         utilInsert(motorhome.getUtility_1(),lastMotorhomeId,2); //Fridge
         utilInsert(motorhome.getUtility_2(),lastMotorhomeId,3); //Shower
