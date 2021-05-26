@@ -7,6 +7,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import java.time.temporal.ChronoUnit;
@@ -111,7 +112,15 @@ public class RentalRepo implements CRUDRepo<Rental>{
                 input.getDrop_off_location(), input.getPick_up_distance(), input.getDrop_off_distance(),
                 Calculator.rentalPrice(rental), rental.getCustomers_fk(), rental.getMotorhomes_fk(),
                 rental.getSeasons_fk(), id);
-        rental.setAccessoryList(input.getAccessoryList());
+        //TODO: Check if exist?
+        for(Accessory accessory : input.getAccessoryList()) {
+            int accessoryId = accessory.getId();
+            if(!rental_accessoryExists(accessoryId, rental)) {
+                String sqlAccessory = "INSERT INTO NMR.rental_accessories " +
+                        "VALUES (DEFAULT, ?, ?);";
+                jdbcTemplate.update(sqlAccessory, accessoryId, rental.getId());
+            }
+        }
     }
 
     /**
@@ -132,5 +141,20 @@ public class RentalRepo implements CRUDRepo<Rental>{
 
     public boolean hasConstraint() {
         return false;
+    }
+
+    public boolean rental_accessoryExists(int accessoryId, Rental input) {
+        String sqlExists = " SELECT " +
+                " CASE WHEN EXISTS "+
+                " (" +
+                "SELECT * FROM NMR.rental_accessories " +
+                "WHERE accessories_fk = ? AND rentals_fk = ?" +
+                ")" +
+                " THEN 'TRUE' " +
+                " ELSE 'FALSE'" +
+                " END;";
+        SqlRowSet rowSetModel = jdbcTemplate.queryForRowSet(sqlExists, accessoryId, input.getId());
+        rowSetModel.next();
+        return Boolean.parseBoolean(rowSetModel.getString(1));
     }
 }
