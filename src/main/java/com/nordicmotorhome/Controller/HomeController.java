@@ -170,6 +170,11 @@ public class HomeController {
         return "home/addNewRental";
     }
 
+    @GetMapping("/deleteRental/{id}")
+    public String deleteRental(@PathVariable("id") int id) {
+        return rentalService.delete(id);
+    }
+
     // ACCESSORIES
 
     @GetMapping("/addNewAccessory")
