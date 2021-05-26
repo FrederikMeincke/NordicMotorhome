@@ -79,7 +79,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
             rental.setMotorhome(motorhomeList.get(0));
 
             //season
-            String sqlSeason = "SELECT * FROM SEASON " +
+            String sqlSeason = "SELECT * FROM rentals " +
                     "WHERE seasons_fk = ? ";
             RowMapper<Season> seasonRowMapper = new BeanPropertyRowMapper<>(Season.class);
             List<Season> seasonList = jdbcTemplate.query(sqlSeason, seasonRowMapper, rental.getSeasons_fk());
@@ -90,6 +90,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
     }
 
     public void addNew(Rental rental) {
+        rental.getCustomer().getFirst_name();
 
     }
 

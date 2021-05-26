@@ -12,8 +12,8 @@ public class Rental {
     private List<Accessory> accessoryList;
     private Date start_date;
     private Date end_date;
-    private Location pick_up_location;
-    private Location drop_off_location;
+    private String pick_up_location;
+    private String drop_off_location;
     private double total_price;
     private int customers_fk;
     private int motorhomes_fk;
@@ -23,7 +23,7 @@ public class Rental {
     }
 
     public Rental(int id, Customer customer, Motorhome motorhome, Season season, List<Accessory> accessoryList,
-                  Date start_date, Date end_date, Location pick_up_location, Location drop_off_location,
+                  Date start_date, Date end_date, String pick_up_location, String drop_off_location,
                   double total_price) {
         this.id = id;
         this.customer = customer;
@@ -93,19 +93,19 @@ public class Rental {
         this.end_date = end_date;
     }
 
-    public Location getPick_up_location() {
+    public String getPick_up_location() {
         return pick_up_location;
     }
 
-    public void setPick_up_location(Location pick_up_location) {
+    public void setPick_up_location(String pick_up_location) {
         this.pick_up_location = pick_up_location;
     }
 
-    public Location getDrop_off_location() {
+    public String getDrop_off_location() {
         return drop_off_location;
     }
 
-    public void setDrop_off_location(Location drop_off_location) {
+    public void setDrop_off_location(String drop_off_location) {
         this.drop_off_location = drop_off_location;
     }
 
