@@ -5,17 +5,17 @@ import java.util.Date;
 public class Season {
     private int id;
     private String name;
-    private double modifier;
+    private double rate;
     private Date start_date;
     private Date end_date;
 
     public Season() {
     }
 
-    public Season(int id, String name, double modifier, Date start_date, Date end_date) {
+    public Season(int id, String name, double rate, Date start_date, Date end_date) {
         this.id = id;
         this.name = name;
-        this.modifier = modifier;
+        this.rate = rate;
         this.start_date = start_date;
         this.end_date = end_date;
     }
@@ -36,12 +36,12 @@ public class Season {
         this.name = name;
     }
 
-    public double getModifier() {
-        return modifier;
+    public double getRate() {
+        return rate;
     }
 
-    public void setModifier(double modifier) {
-        this.modifier = modifier;
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 
     public Date getStart_date() {
