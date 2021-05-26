@@ -16,4 +16,8 @@ public class RentalService {
     public List<Rental> fetchAll() {
         return rentalRepo.fetchAll();
     }
+
+    public void delete(int id) {
+       rentalRepo.delete(id);
+    }
 }

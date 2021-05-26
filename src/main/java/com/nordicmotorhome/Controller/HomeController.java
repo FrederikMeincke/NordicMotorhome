@@ -163,6 +163,13 @@ public class HomeController {
         return "home/showAllRentals";
     }
 
+    /*
+    @GetMapping("/deleteRental/{id}")
+    public String deleteRental(@PathVariable("id") int id) {
+        return rentalService.delete(id);
+    }
+     */
+
     // ACCESSORIES
 
     @GetMapping("/addNewAccessory")
@@ -193,6 +200,7 @@ public class HomeController {
     public String deleteAccessory(@PathVariable("id") int id) {
         return accessoryService.delete(id);
     }
+
     @GetMapping("/showAllAccessories")
     public String showAllAccessories(Model model) {
         List<Accessory> accessoryList = accessoryService.fetchAll();

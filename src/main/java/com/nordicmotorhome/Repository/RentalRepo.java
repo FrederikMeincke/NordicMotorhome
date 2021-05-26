@@ -5,6 +5,8 @@ import com.nordicmotorhome.Model.Motorhome;
 import com.nordicmotorhome.Model.Rental;
 import com.nordicmotorhome.Model.Season;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -106,14 +108,23 @@ public class RentalRepo implements CRUDRepo<Rental>{
         jdbcTemplate.update(sql, input.getStart_date(), input.getEnd_date(), input.getPick_up_location(),
                 input.getDrop_off_location(), 1000, rental.getCustomers_fk(), rental.getMotorhomes_fk(),
                 rental.getSeasons_fk(), id);
-
-        String 
-
     }
 
+    /**
+     * Delete a rental
+     * @param id
+     * @Author Frederik M.
+     */
     public void delete(int id) {
-
+        String delete = "DELETE FROM NMR.rentals WHERE id = ?";
+        try {
+            jdbcTemplate.update(delete, id);
+        } catch (DataIntegrityViolationException e) {
+            System.out.println("An Error happened");
+            e.printStackTrace();
+        }
     }
+
 
     public boolean hasConstraint() {
         return false;
