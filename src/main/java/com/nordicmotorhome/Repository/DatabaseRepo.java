@@ -27,11 +27,17 @@ public class DatabaseRepo {
         selectCase();
     }
 
+    /**
+     * @Author Jimmy
+     */
     public void createDatabase() {
         String sql = "CREATE DATABASE IF NOT EXISTS NMR;";
         jdbcTemplate.update(sql);
     }
 
+    /**
+     * @Author Jimmy
+     */
     public void createTables() {
         String sqlCountries = "CREATE TABLE IF NOT EXISTS NMR.countries (" +
                 "id INT NOT NULL UNIQUE PRIMARY KEY, " +
@@ -163,7 +169,6 @@ public class DatabaseRepo {
         jdbcTemplate.update(sqlRA);
     }
 
-    // @author jimmy mads
 
     /**
      * @Author Jimmy Losang, Mads Westh

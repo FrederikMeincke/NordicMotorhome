@@ -8,7 +8,7 @@ public interface CRUDRepo<T> {
     public T findById(int id);
     public void addNew(T obj);
     public void delete(int id);
-    public void update(int id);
+    public void update(int id, T obj);
     public boolean hasConstraint();
 
 }
