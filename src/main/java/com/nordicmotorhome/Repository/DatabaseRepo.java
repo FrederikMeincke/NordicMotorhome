@@ -92,7 +92,6 @@ public class DatabaseRepo {
                 "register_date DATE NOT NULL, " +
                 "price DOUBLE NOT NULL, " +
                 "odometer DOUBLE NOT NULL, " +
-                "ready_status TINYINT NOT NULL, " +
                 "models_fk INT NOT NULL, " +
                 "CONSTRAINT motorhomes_models_fk " +
                 "\tFOREIGN KEY (models_fk) REFERENCES NMR.models(id));";
