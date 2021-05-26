@@ -62,9 +62,10 @@ public class RentalRepo implements CRUDRepo<Rental>{
                             " FROM NMR.customers " +
                             "INNER JOIN addresses on addresses.id = addresses_fk " +
                             "INNER JOIN zip_codes on zip_codes.id = zip_codes_fk " +
-                            "INNER JOIN countries on countries.id = countries_fk;";
+                            "INNER JOIN countries on countries.id = countries_fk " +
+                            "WHERE customers.id = ?;";
             RowMapper<Customer> customerRowMapper = new BeanPropertyRowMapper<>(Customer.class);
-            List<Customer> customerList =  jdbcTemplate.query(sqlCustomer, customerRowMapper);
+            List<Customer> customerList =  jdbcTemplate.query(sqlCustomer, customerRowMapper, rental.getCustomers_fk());
             rental.setCustomer(customerList.get(0));
 
             //motorhome
@@ -72,10 +73,11 @@ public class RentalRepo implements CRUDRepo<Rental>{
                     " bed_amount, m.weight, m.width, m.height," +
                     " license_plate, register_date, odometer, ready_status, models_fk FROM motorhomes" +
                     " INNER JOIN models m on motorhomes.models_fk = m.id" +
-                    " INNER JOIN brands b on m.brands_fk = b.id" +
+                    " INNER JOIN brands b on m.brands_fk = b.id " +
+                    " WHERE motorhomes.id = ?" +
                     " ORDER BY motorhomes.id;";
             RowMapper<Motorhome> motorhomeRowMapper = new BeanPropertyRowMapper<>(Motorhome.class);
-            List<Motorhome> motorhomeList = jdbcTemplate.query(sqlMotorhome, motorhomeRowMapper);
+            List<Motorhome> motorhomeList = jdbcTemplate.query(sqlMotorhome, motorhomeRowMapper, rental.getMotorhomes_fk());
             rental.setMotorhome(motorhomeList.get(0));
 
             //season

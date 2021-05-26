@@ -30,6 +30,7 @@
     <tr>
         <th>ID</th>
         <th>Full Name</th>
+        <th>Customer<br>ID</th>
         <th>Start Date</th>
         <th>End Date</th>
         <th>Pick-up</th>
@@ -37,16 +38,18 @@
         <th>Brand</th>
         <th>Model</th>
         <th>Fuel<br>Type</th>
+        <th>Accessories</th>
         <th>Total Price</th>
-        <th>Status</th>
+        <th>Cancelled<br>Date</th>
         <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <!-- Display all car information-->
     <tr th:each="rental:${rentalList}">
+        <td th:text="${rental.id}"/>
+        <td th:text="@{${rental.customer.first_name} + ' ' + ${rental.customer.last_name}}"/>
         <td th:text="${rental.customer.id}"/>
-        <td th:text="${rental.customer.first_name}"/>
         <td th:text="${rental.start_date}"/>
         <td th:text="${rental.end_date}"/>
         <td th:text="${rental.pick_up_location}"/>
@@ -54,15 +57,19 @@
         <td th:text="${rental.motorhome.brand}"/>
         <td th:text="${rental.motorhome.model}"/>
         <td th:text="${rental.motorhome.fuel_type}"/>
+        <td th:text="'Accessories here'"/>
         <td th:text="${rental.total_price}"/>
-        <td th:text="${rental.total_price}"/>
+        <td th:text="'Cancelled date here'"/>
         <td>
+            <a th:href="@{'/showMotorhome/'+${rental.motorhome.id}}">
+                <button class="btn-show" id="btn-show" title="Show Motorhome"><img src="view.png" alt="Show Motorhome" width="25px" height="25px"> </button>
+            </a>
             <a th:href="@{'/updateRental/'+${rental.id}}">
-                <button class="btn-update" id="btn-update" title="Edit Motorhome"><img src="edit.png" alt="Edit Motorhome" width="25px" height="25px"></button>
+                <button class="btn-update" id="btn-update" title="Edit Rental"><img src="edit.png" alt="Edit Rental" width="25px" height="25px"></button>
             </a>
 
             <a th:href="@{'/deleteRental/'+${rental.id}}">
-                <button class="btn-delete" id="btn-delete" title="Delete Motorhome"><img src="delete.png" alt="Delete Motorhome" width="25px" height="25px"></button>
+                <button class="btn-delete" id="btn-delete" title="Delete Rental"><img src="delete.png" alt="Delete Rental" width="25px" height="25px"></button>
             </a>
 
         </td>
