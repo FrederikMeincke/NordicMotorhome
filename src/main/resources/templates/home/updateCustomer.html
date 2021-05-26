@@ -19,10 +19,10 @@
   <a class="login" href="/loginPage">Login</a>
 </div>
 
-<h1 class="h1">Create Customer</h1>
+<h1 class="h1">Update Customer</h1>
 
 <!--@Author Kasper N. Jensen-->
-<form th:href="@{'/updateCustomer/'+${customer.id}}" method="post">
+<form class="add-form" th:href="@{'/updateCustomer/'+${customer.id}}" method="post">
   <label class="label-text">First Name</label>
   <br>
   <input class="labelcss" type="text" name="first_name" th:value="${customer.first_name}"> <span style="color: red">*</span>
@@ -43,7 +43,7 @@
   <input class="labelcss" type="text" name="phone" th:value="${customer.phone}">
   <br><br>
 
-  <label>E-mail</label>
+  <label class="label-text">E-mail</label>
   <br>
   <input class="labelcss" type="text" name="email" th:value="${customer.email}"> <span style="color: red">*</span>
   <br><br>
@@ -55,12 +55,12 @@
 
   <label class="label-text">Drivers License issue date</label>
   <br>
-  <input class="select-date-2" type="date" name="dl_issue_date" th:value="${customer.dl_issue_date}"> <span style="color: red">*</span>
+  <input class="labelcss" type="date" name="dl_issue_date" th:value="${customer.dl_issue_date}"> <span style="color: red">*</span>
   <br><br>
 
   <label class="label-text">Drivers License expire date</label>
   <br>
-  <input class="select-date-2" type="date" name="dl_expire_date" th:value="${customer.dl_expire_date}"> <span style="color: red">*</span>
+  <input class="labelcss" type="date" name="dl_expire_date" th:value="${customer.dl_expire_date}"> <span style="color: red">*</span>
   <br><br>
 
   <label class="label-text">Street Name</label>
@@ -78,14 +78,14 @@
   <input class="labelcss" type="text" name="city" th:value="${customer.city}"> <span style="color: red">*</span>
   <br><br>
 
-  <label>Zip</label>
+  <label class="label-text">Zip</label>
   <br>
   <input class="labelcss" type="text" name="zip" th:value="${customer.zip}"> <span style="color: red">*</span>
   <br><br>
 
   <label class="label-text">Country</label>
   <br>
-  <div class="select" for="countries" accesskey="countries" th:object="${country}">
+  <div class="label-text" for="countries" accesskey="countries" th:object="${country}">
     <select class="form-control" id="countryOrder" name="Country">
       <option th:text="${customer.country}"></option>
       <option th:each="country : ${countries}"
@@ -95,7 +95,7 @@
   </div> <span style="color: red">*</span>
   <br><br>
 
-  <p style="font-size: 14px">ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</p>
+  <pre style="font-size: 14px; font-family: Arial, sans-serif">               ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</pre>
   <input class="button1 button-anc" type="submit" value="Update Customer">
 </form>
 </body>

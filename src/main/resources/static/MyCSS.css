@@ -130,17 +130,53 @@ These are CSS for the tables
 CSS for the creation table for new customers, motorhomes, rentals and service reports
  */
 
+
 .add-form{
     background-color: rgba(51, 51, 51, 0.44);
+    margin-left: 15%;
+    margin-right: 15%;
+    padding: 12px;
 }
 
 .utility-box{
     background-color: rgba(255, 255, 255, 0.97);
+    margin-left: 75px;
 }
 
-.labelcss{}
+.img.add-form{
+    object-fit:contain;
+    width:200px;
+    height:300px;
+    border: solid 1px;
+}
 
-.label-text{}
+.motorhome-pictures-row-1 {
+    width: 240px;
+    height: 180px;
+    float: right;
+    margin-right: 4px;
+    margin-bottom: -4px;
+    padding: 12px;
+}
+
+.motorhome-pictures-row-2 {
+    width: 240px;
+    height: 180px;
+    float: right;
+    margin-right: 20px;
+    margin-bottom: -4px;
+    padding: 12px;
+}
+
+.labelcss{
+    margin-left: 75px;
+    width: 16%;
+    height: 22px;
+}
+
+.label-text{
+    margin-left: 75px;
+}
 
 
 /*
@@ -218,7 +254,6 @@ CSS for the Create new buttons
     background-color: white;
     color: black;
     border: 1px solid #008cba;
-    margin-left: 0%;
 }
 
 .button-anc:hover {

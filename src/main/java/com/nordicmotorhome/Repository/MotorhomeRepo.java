@@ -173,7 +173,7 @@ public class MotorhomeRepo {
      */
         public void deleteMotorhome(int id) {
             String sqlDeleteUtil = "DELETE FROM motorhome_utilities WHERE motorhomes_fk = ?";
-            String sql = "DELETE FROM motorhomes WHERE id = ?";
+            String sql = "DELETE FROM NMR.motorhomes WHERE id = ?";
             try {
                 jdbcTemplate.update(SQL_USE);
                 jdbcTemplate.update(sqlDeleteUtil, id);

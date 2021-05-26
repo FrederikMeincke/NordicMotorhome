@@ -43,7 +43,7 @@
     <input class="labelcss" type="text" name="phone" placeholder="I.e. 69420420">
     <br><br>
 
-    <label>E-mail</label>
+    <label class="label-text">E-mail</label>
     <br>
     <input class="labelcss" type="text" name="email" placeholder="I.e. your@email.com"> <span style="color: red">*</span>
     <br><br>
@@ -55,12 +55,12 @@
 
     <label class="label-text">Drivers License issue date</label>
     <br>
-    <input class="select-date-2" type="date" name="dl_issue_date"> <span style="color: red">*</span>
+    <input class="labelcss" type="date" name="dl_issue_date"> <span style="color: red">*</span>
     <br><br>
 
     <label class="label-text">Drivers License expire date</label>
     <br>
-    <input class="select-date-2" type="date" name="dl_expire_date"> <span style="color: red">*</span>
+    <input class="labelcss" type="date" name="dl_expire_date"> <span style="color: red">*</span>
     <br><br>
 
     <label class="label-text">Street Name</label>
@@ -78,14 +78,14 @@
     <input class="labelcss" type="text" name="city" placeholder="I.e. Motor Ville"> <span style="color: red">*</span>
     <br><br>
 
-    <label>Zip</label>
+    <label class="label-text">Zip</label>
     <br>
     <input class="labelcss" type="text" name="zip" placeholder="I.e. 42069"> <span style="color: red">*</span>
     <br><br>
 
     <label class="label-text">Country</label>
     <br>
-    <div class="select" for="countries" accesskey="countries" th:object="${country}">
+    <div class="label-text" for="countries" accesskey="countries" th:object="${country}">
         <select class="form-control" id="countryOrder" name="Country">
             <option value="">Select Country</option>
             <option th:each="country : ${countries}"
@@ -95,7 +95,7 @@
     </div> <span style="color: red">*</span>
     <br><br>
 
-    <p style="font-size: 14px">ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</p>
+    <pre style="font-size: 14px; font-family: Arial, sans-serif">               ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</pre>
     <input class="button1 button-anc" type="submit" value="Add Customer">
 </form>
 </body>

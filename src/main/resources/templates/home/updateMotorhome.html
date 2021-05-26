@@ -32,8 +32,8 @@
   <input class="labelcss" type="text" name="model" th:value="${motorhome.model}"> <span style="color: red">*</span>
   <br><br>
 
-  <label class="select" for="fuel_type" accesskey="fuel_type">Fuel Type:<br></label>
-  <select class="select" name="fuel_type" id="fuel_type">
+  <label class="label-text" for="fuel_type" accesskey="fuel_type">Fuel Type:<br></label>
+  <select class="labelcss" name="fuel_type" id="fuel_type">
     <option th:value="${motorhome.fuel_type}" th:text="${motorhome.fuel_type}" selected="selected">
     <option value="EV">EV (Electric Vehicle)
     <option value="Petrol">Petrol
@@ -42,8 +42,8 @@
   <span style="color: red">*</span>
   <br><br>
 
-  <label class="select" for="type" accesskey="type">Motorhome Type:<br></label>
-  <select class="select" name="type" id="type">
+  <label class="label-text" for="type" accesskey="type">Motorhome Type:<br></label>
+  <select class="labelcss" name="type" id="type">
     <option th:value="${motorhome.type}" th:text="${motorhome.type}" selected="selected">
     <option value="Class A">Class A
     <option value="Class B">Class B
@@ -62,7 +62,7 @@
   <input class="labelcss" type="double" name="bed_amount" th:value="${motorhome.bed_amount}"> <span style="color: red">*</span>
   <br><br>
 
-  <div class="utility-box">
+  <div class="utility-box" style="width: 16%">
     <label class="label-text">Utilities</label>
     <br>
 
@@ -113,7 +113,7 @@
   <input class="labelcss" type="text" name="odometer" th:value="${motorhome.odometer}"> <span style="color: red">*</span>
   <br><br>
 
-  <p style="font-size: 14px">ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</p>
+  <pre style="font-size: 14px; font-family: Arial, sans-serif">               ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</pre>
   <input class="button1 button-anc" type="submit" value="Update Motorhome">
 </form>
 

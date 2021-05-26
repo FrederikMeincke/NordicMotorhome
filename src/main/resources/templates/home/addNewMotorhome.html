@@ -22,6 +22,23 @@
 
 <!--@Author Kasper N. Jensen-->
 <form class="add-form" action="/addNewMotorhome" method="post">
+
+  <div class="motorhome-pictures-row-1">
+    <img src="Motorhome-Carthago.ChicS.PNG" alt="car"          width="235" height="150"> <br>
+    <img src="Motorhome-Chausson.7068XLB.PNG"        width="235" height="150">
+    <br>
+    <img src="Motorhome-Dethleffs.Just 90.PNG"       width="235" height="150">
+    <img src="Motorhome-Ford.Hymer.PNG"              width="235" height="150">
+    <img src="Motorhome-Frankia.7900 PLATIN.PNG"     width="235" height="150">
+  </div>
+  <div class="motorhome-pictures-row-2">
+    <img src="Motorhome-Laika.Kreos.PNG"             width="235" height="150">
+    <img src="Motorhome-Pilote.G740C.PNG"            width="235" height="150">
+    <img src="Motorhome-Rapido.Bellagio.PNG"         width="235" height="150">
+    <img src="Motorhome-Roller-team.Auto-roller.PNG" width="235" height="150">
+    <img src="Motorhome-Swift.Edge.PNG"              width="235" height="150">
+  </div>
+
   <label class="label-text">Brand</label>
   <br>
   <input class="labelcss" type="text" name="brand" placeholder="I.e. Ford"> <span style="color: red">*</span>
@@ -32,8 +49,8 @@
   <input class="labelcss" type="text" name="model" placeholder="I.e. GT"> <span style="color: red">*</span>
   <br><br>
 
-  <label class="select" for="fuel_type" accesskey="fuel_type">Fuel Type:<br></label>
-  <select class="select" name="fuel_type" id="fuel_type">
+  <label class="label-text" for="fuel_type" accesskey="fuel_type">Fuel Type:<br></label>
+  <select class="labelcss" name="fuel_type" id="fuel_type">
     <option value="none" selected="selected"> -- choose one --
     <option value="EV">EV (Electric Vehicle)
     <option value="Petrol">Petrol
@@ -42,8 +59,8 @@
   <span style="color: red">*</span>
   <br><br>
 
-  <label class="select" for="type" accesskey="type">Motorhome Type:<br></label>
-  <select class="select" name="type" id="type">
+  <label class="label-text" for="type" accesskey="type">Motorhome Type:<br></label>
+  <select class="labelcss" name="type" id="type">
     <option value="none" selected="selected"> -- choose one --
     <option value="Class A">Class A
     <option value="Class B">Class B
@@ -62,8 +79,8 @@
   <input class="labelcss" type="double" name="bed_amount" placeholder="I.e. 4"> <span style="color: red">*</span>
   <br><br>
 
-  <div class="utility-box">
-  <label class="label-text">Utilities</label>
+  <div class="utility-box" style="width: 16%">
+  <label>Utilities</label>
   <br>
 
     <img src="tv.png" width="15px" height="15px" title="TV"><input type="checkbox" name="utility_0" value="1">
@@ -113,8 +130,8 @@
   <input class="labelcss" type="text" name="odometer" placeholder="I.e. 21003"> <span style="color: red">*</span>
   <br><br>
 
-  <p style="font-size: 14px">ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</p>
-  <input class="button1 button-anc" type="submit" value="Add Customer">
+  <pre style="font-size: 14px; font-family: Arial, sans-serif">               ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</pre>
+  <input class="button1 button-anc" type="submit" value="Add Motorhome">
 </form>
 
 </head>
