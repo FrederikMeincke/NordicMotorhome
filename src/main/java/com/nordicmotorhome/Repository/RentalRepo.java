@@ -96,7 +96,18 @@ public class RentalRepo implements CRUDRepo<Rental>{
 
     }
 
-    public void update(int id) {
+    public void update(int id, Rental input) {
+        Rental rental = findById(id);
+        // Customer, dates, motorhome, accessories
+        String sql = "UPDATE NMR.rentals " +
+                "SET start_date = ?, end_date = ?, pick_up_location = ?, drop_off_location = ?, total_price = ?, " +
+                "customers_fk = ?, motorhomes_fk = ?, seasons_fk = ? " +
+                "WHERE id = ?;";
+        jdbcTemplate.update(sql, input.getStart_date(), input.getEnd_date(), input.getPick_up_location(),
+                input.getDrop_off_location(), 1000, rental.getCustomers_fk(), rental.getMotorhomes_fk(),
+                rental.getSeasons_fk(), id);
+
+        String 
 
     }
 
