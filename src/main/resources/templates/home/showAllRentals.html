@@ -82,12 +82,15 @@
 
         <td>
 
+        <a th:href="@{'/showAllMotorhomes/'+${rental.motorhome.id}}">
+            <button class="btn-show-motorhome" id="btn-show" title="Show Motorhome"><img src="view.png" alt="Show Motorhome" width="25px" height="25px"></button>
+        </a>
             <a th:href="@{'/updateRental/'+${rentals.id}}">
-                <button class="btn-update" id="btn-update" title="Edit Motorhome"><img src="edit.png" alt="Edit Motorhome" width="25px" height="25px"></button>
+                <button class="btn-update" id="btn-update" title="Edit Rental"><img src="edit.png" alt="Edit Rental" width="25px" height="25px"></button>
             </a>
 
             <a th:href="@{'/deleteRental/'+${rentals.id}}">
-                <button class="btn-delete" id="btn-delete" title="Delete Motorhome"><img src="delete.png" alt="Delete Motorhome" width="25px" height="25px"></button>
+                <button class="btn-delete" id="btn-delete" title="Delete Rental"><img src="delete.png" alt="Delete Rental" width="25px" height="25px"></button>
             </a>
 
         </td>

@@ -20,6 +20,10 @@ public class RentalRepo implements CRUDRepo<Rental>{
 
     final String SQL_USE = "USE NMR;";
 
+    /**
+     * @auuthor Mads
+     * @return
+     */
     public List<Rental> fetchAll() {
         String sqlFetch = "SELECT * FROM rentals;";
         RowMapper rowMapper = new BeanPropertyRowMapper(Rental.class);
@@ -30,6 +34,11 @@ public class RentalRepo implements CRUDRepo<Rental>{
         return getRentals(rentalList);
     }
 
+    /**
+     * @author Mads
+     * @param id
+     * @return
+     */
     public Rental findById(int id) {
         String sqlFetch = "SELECT * FROM rentals WHERE rentals.id = ?";
 
@@ -39,6 +48,11 @@ public class RentalRepo implements CRUDRepo<Rental>{
         return getRentals(rentalList).get(0);   //returns the only entry in the list
     }
 
+    /**
+     * @author Mads
+     * @param rentalList
+     * @return
+     */
     private List<Rental> getRentals(List<Rental> rentalList) {
         for (Rental rental : rentalList) {
             //customer
