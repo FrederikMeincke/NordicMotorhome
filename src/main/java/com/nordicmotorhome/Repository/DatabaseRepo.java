@@ -82,7 +82,7 @@ public class DatabaseRepo {
         String sqlModels = "CREATE TABLE IF NOT EXISTS NMR.models ( " +
                 "id INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT, " +
                 "name VARCHAR(45) NOT NULL, " +
-                "fuel_type ENUM('PETROL', 'DIESEL', 'ELECTRIC') NOT NULL, " +
+                "fuel_type ENUM('PETROL', 'DIESEL', 'EV') NOT NULL, " +
                 "width DOUBLE NOT NULL, " +
                 "height DOUBLE NOT NULL, " +
                 "weight DOUBLE NOT NULL, " +
