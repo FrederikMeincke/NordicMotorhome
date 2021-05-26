@@ -167,6 +167,8 @@ public class HomeController {
     public String addNewRental(Model model) {
         List<Accessory> accessoryList = accessoryService.fetchAll();
         model.addAttribute("accessoryList", accessoryList);
+        List<Motorhome> motorhomeList = motorhomeService.fetchAllMotorhomes();
+        model.addAttribute("motorhomes", motorhomeList);
         return "home/addNewRental";
     }
 
