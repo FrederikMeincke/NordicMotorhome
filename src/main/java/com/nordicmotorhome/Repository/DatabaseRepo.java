@@ -133,6 +133,8 @@ public class DatabaseRepo {
                 "end_date DATE NOT NULL, " +
                 "pick_up_location VARCHAR(45) NOT NULL, " +
                 "drop_off_location VARCHAR(45) NOT NULL, " +
+                "pick_up_distance INT NOT NULL, " +
+                "drop_off_distance INT NOT NULL, " +
                 "cancel_date DATE, " +
                 "total_price DOUBLE NOT NULL, " +
                 "customers_fk INT NOT NULL, " +
