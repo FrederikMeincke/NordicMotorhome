@@ -12,17 +12,18 @@
 <!-- Menu Bar -->
 <div class="menubar">
   <a class="unactive" href="/">Home</a>
-  <a class="active" href="/showAllCustomers">Customers</a>
+  <a class="unactive" href="/showAllCustomers">Customers</a>
   <a class="unactive" href="/showAllMotorhomes">Motorhomes</a>
   <a class="unactive" href="/showAllRentals">Rentals</a>
   <a class="unactive" href="/showAllServiceReports">Service Reports</a>
+  <a class="active" href="/showAllAccessories">Accessories</a>
   <a class="login" href="/loginPage">Login</a>
 </div>
 
-<h1 class="h1">Create Accessory</h1>
+<h1 class="h1">Update Accessory</h1>
 
 <!--@Author Kasper N. Jensen-->
-<form th:href="@{'/updateAccessory/'+${accessory.id}}" method="post">
+<form class="add-form" th:href="@{'/updateAccessory/'+${accessory.id}}" method="post">
   <label class="label-text">First Name</label>
   <br>
   <input class="labelcss" type="text" name="name" th:value="${accessory.name}"> <span style="color: red">*</span>
