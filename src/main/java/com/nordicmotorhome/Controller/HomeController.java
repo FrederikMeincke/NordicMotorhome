@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -109,6 +110,15 @@ public class HomeController {
     public String showAllMotorhomes(Model model){
         List<Motorhome> motorhomeList = motorhomeService.fetchAllMotorhomes();
         model.addAttribute("motorhomeList", motorhomeList);
+        return "home/showAllMotorhomes";
+    }
+
+    @GetMapping("/showMotorhome/{id}")
+    public String showMotorhome(@PathVariable("id") int id, Model model) {
+        Motorhome motorhome = motorhomeService.findMotorhomeById(id);
+        List<Motorhome> motorhomeList= new ArrayList<>();
+        motorhomeList.add(motorhome);
+        model.addAttribute(motorhomeList);
         return "home/showAllMotorhomes";
     }
 
