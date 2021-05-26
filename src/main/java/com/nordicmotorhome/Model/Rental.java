@@ -14,27 +14,15 @@ public class Rental {
     private LocalDate end_date;
     private String pick_up_location;
     private String drop_off_location;
+    private int pick_up_distance;
+    private int drop_off_distance;
+    private LocalDate cancelDate;
     private double total_price;
     private int customers_fk;
     private int motorhomes_fk;
     private int seasons_fk;
 
     public Rental() {
-    }
-
-    public Rental(int id, Customer customer, Motorhome motorhome, Season season, List<Accessory> accessoryList,
-                  LocalDate start_date, LocalDate end_date, String pick_up_location, String drop_off_location,
-                  double total_price) {
-        this.id = id;
-        this.customer = customer;
-        this.motorhome = motorhome;
-        this.season = season;
-        this.accessoryList = accessoryList;
-        this.start_date = start_date;
-        this.end_date = end_date;
-        this.pick_up_location = pick_up_location;
-        this.drop_off_location = drop_off_location;
-        this.total_price = total_price;
     }
 
     public int getId() {
@@ -139,5 +127,29 @@ public class Rental {
 
     public void setSeasons_fk(int seasons_fk) {
         this.seasons_fk = seasons_fk;
+    }
+
+    public int getPick_up_distance() {
+        return pick_up_distance;
+    }
+
+    public void setPick_up_distance(int pick_up_distance) {
+        this.pick_up_distance = pick_up_distance;
+    }
+
+    public int getDrop_off_distance() {
+        return drop_off_distance;
+    }
+
+    public void setDrop_off_distance(int drop_off_distance) {
+        this.drop_off_distance = drop_off_distance;
+    }
+
+    public LocalDate getCancelDate() {
+        return cancelDate;
+    }
+
+    public void setCancelDate(LocalDate cancelDate) {
+        this.cancelDate = cancelDate;
     }
 }

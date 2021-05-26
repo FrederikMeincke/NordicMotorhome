@@ -6,7 +6,7 @@
   <title>Add new Customer</title>
   <link href="../MyCSS.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body class="index-background">
 
 <!--@Author Kasper N. Jensen-->
 <!-- Menu Bar -->
@@ -20,48 +20,85 @@
 
 
 <h1 class="h1">Create Rental</h1>
-
 <!--@Author Kasper N. Jensen-->
 <form class="add-form" action="/addNewRental" method="post">
+  <div style="background-color: rgba(255,255,255,0.50)">
   <label class="label-text">Customer ID</label>
   <br>
-  <input class="labelcss" type="text" name="customer_id" placeholder="I.e. Edward Snowden"> <span style="color: red">*</span>
+  <input class="labelcss" type="text" name="customer_id" placeholder="12"> <span style="color: red">*</span>
   <br><br>
 
   <label class="label-text">Start Date</label>
   <br>
-  <input class="labelcss" type="date" name="start_date" placeholder="I.e. Edward Snowden"> <span style="color: red">*</span>
+  <input class="labelcss" type="date" name="start_date" placeholder="2021-04-25"> <span style="color: red">*</span>
   <br><br>
 
   <label class="label-text">End Date</label>
   <br>
-  <input class="labelcss" type="date" name="end_date" placeholder="I.e. 42042069"> <span style="color: red">*</span>
+  <input class="labelcss" type="date" name="end_date" placeholder="2021-05-25"> <span style="color: red">*</span>
   <br><br>
 
   <label class="label-text">Pick-Up</label>
   <br>
-  <input class="labelcss" type="text" name="pick-up" placeholder="I.e. 69420420">
+  <input class="labelcss" type="text" name="pick_up_distance" placeholder="på havnen"> <span style="color: red">*</span>
+  <br><br>
+
+  <label class="label-text">Pick-Up Distance</label>
+  <br>
+  <input class="labelcss" type="text" name="pick_up_distance" placeholder="123"> <span style="color: red">*</span>
   <br><br>
 
   <label class="label-text">Drop-Off</label>
   <br>
-  <input class="labelcss" type="text" name="drop-off" placeholder="I.e. your@email.com"> <span style="color: red">*</span>
+  <input class="labelcss" type="text" name="drop_off_location" placeholder="Malmø"> <span style="color: red">*</span>
   <br><br>
 
-  <label class="label-text">Motorhome ID</label>
+   <label class="label-text">Drop-Off Distance</label>
+   <br>
+   <input class="labelcss" type="text" name="drop_off_distance" placeholder="123"> <span style="color: red">*</span>
+   <br><br>
+
+
+    <label class="label-text">Motorhome</label>
   <br>
-  <input class="labelcss" type="text" name="motorhome_id" placeholder="I.e. XY11111Z"> <span style="color: red">*</span>
+  <div class="labelcss" for="motorhomes" accesskey="motorhomes" th:object="${motorhome}">
+    <select name="Motorhome">
+      <option value="">Select motorhome</option>
+      <option th:each="motorhome: ${motorhomes}"
+              th:value="${motorhome.id}"
+              th:text="@{'ID: ' + ${motorhome.id} + ' - ' + ${motorhome.brand} + ' - ' + ${motorhome.model}}">
+      </option>
+    </select>  <span style="color: red">*</span>
+  </div>
   <br><br>
 
   <label class="label-text">Accessories</label>
   <br>
-  <span th:each="$"
-    <input type="checkbox" value="1"
+  <div class="label-text" style="width: 16%">
+  <table id="tablecss">
+    <thead>
+    <tr>
+      <th>Accessory name</th>
+      <th></th>
+    </tr>
+    <thead/>
+     <tbody>
+     <tr th:each="accessory:${accessoryList}">
+     <td th:text="${accessory.name}" />
+     <td>
+       <input type="checkbox" value="1">
+     </td>
+     </tr>
+     </tbody>
+
+  </table>
+  </div>
   <br><br>
 
 
   <pre style="font-size: 14px; font-family: Arial, sans-serif">               ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</pre>
-  <input class="button1 button-anc" type="submit" value="Add Customer">
+  <input class="button1 button-anc" type="submit" value="Create Rental">
+  </div>
 </form>
 
 
