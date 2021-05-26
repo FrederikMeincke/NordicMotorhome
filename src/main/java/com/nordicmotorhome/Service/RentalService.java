@@ -17,7 +17,8 @@ public class RentalService {
         return rentalRepo.fetchAll();
     }
 
-    public void delete(int id) {
+    public String delete(int id) {
        rentalRepo.delete(id);
+        return "/home/showAllRentals";
     }
 }
