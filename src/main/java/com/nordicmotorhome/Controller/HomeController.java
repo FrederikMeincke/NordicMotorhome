@@ -172,13 +172,18 @@ public class HomeController {
         return "home/addNewRental";
     }
 
+    @PostMapping("/addNewRental")
+    public String addNewRental(@ModelAttribute Rental rental) {
+        rentalService.addNew(rental);
+        return "redirect:/showAllRental";
+    }
+
     @GetMapping("/deleteRental/{id}")
     public String deleteRental(@PathVariable("id") int id) {
         return rentalService.delete(id);
     }
 
     // ACCESSORIES
-
     @GetMapping("/addNewAccessory")
     public String addNewAccessory() {
         return "home/addNewAccessory";

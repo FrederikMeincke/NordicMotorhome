@@ -325,7 +325,7 @@ public class MotorhomeRepo {
     public Motorhome findById(int id) {
         String sqlFind = "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type,\n" +
                 "bed_amount, m.weight, m.width, m.height,\n" +
-                "license_plate, register_date, odometer, ready_status, models_fk FROM motorhomes\n" +
+                "license_plate, register_date, odometer, models_fk FROM motorhomes\n" +
                 "INNER JOIN models m on motorhomes.models_fk = m.id\n" +
                 "INNER JOIN brands b on m.brands_fk = b.id\n" +
                 "WHERE motorhomes.id = ?;";

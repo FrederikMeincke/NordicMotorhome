@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -74,7 +75,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
             //motorhome
             String sqlMotorhome = "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type," +
                     " bed_amount, m.weight, m.width, m.height," +
-                    " license_plate, register_date, odometer, ready_status, models_fk FROM motorhomes" +
+                    " license_plate, register_date, odometer, models_fk FROM motorhomes" +
                     " INNER JOIN models m on motorhomes.models_fk = m.id" +
                     " INNER JOIN brands b on m.brands_fk = b.id " +
                     " WHERE motorhomes.id = ?" +
@@ -94,9 +95,39 @@ public class RentalRepo implements CRUDRepo<Rental>{
         return rentalList;
     }
 
-    public void addNew(Rental rental) {
-        rental.getCustomer().getFirst_name();
+    public int lastAddedRentalId() {
+        String sql = "SELECT id " +
+                "FROM rentals " +
+                "ORDER BY ID DESC " +
+                "LIMIT 1;";
+        jdbcTemplate.update(SQL_USE);
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql);
+        rowSet.next();
+        return rowSet.getInt("id");
+    }
 
+    public void addNew(Rental inputRental) {
+        String sqlRental = "INSERT INTO rentals " +
+                "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        LocalDate start_date = inputRental.getStart_date();
+        LocalDate end_date = inputRental.getEnd_date();
+        String pick_up_location = inputRental.getPick_up_location();
+        String drop_off_location = inputRental.getDrop_off_location();
+        double total_price = Calculator.rentalPrice(inputRental);
+        int customers_fk = inputRental.getCustomers_fk();
+        int motorhomes_fk = inputRental.getMotorhomes_fk();
+        int seasons_fk = inputRental.getSeasons_fk();
+
+        jdbcTemplate.update(sqlRental, start_date, end_date, pick_up_location, drop_off_location, total_price,
+                customers_fk, motorhomes_fk, seasons_fk);
+
+        for(Accessory accessory : inputRental.getAccessoryList()) {
+            int accessoryId = accessory.getId();
+                String sqlAccessory = "INSERT INTO NMR.rental_accessories " +
+                        "VALUES (DEFAULT, ?, ?);";
+                jdbcTemplate.update(sqlAccessory, accessoryId, lastAddedRentalId());
+        }
     }
 
     // TODO: fix price
@@ -112,7 +143,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
                 input.getDrop_off_location(), input.getPick_up_distance(), input.getDrop_off_distance(),
                 Calculator.rentalPrice(rental), rental.getCustomers_fk(), rental.getMotorhomes_fk(),
                 rental.getSeasons_fk(), id);
-        //TODO: Check if exist?
+
         for(Accessory accessory : input.getAccessoryList()) {
             int accessoryId = accessory.getId();
             if(!rental_accessoryExists(accessoryId, rental)) {
