@@ -118,7 +118,7 @@ public class HomeController {
         Motorhome motorhome = motorhomeService.findMotorhomeById(id);
         List<Motorhome> motorhomeList= new ArrayList<>();
         motorhomeList.add(motorhome);
-        model.addAttribute(motorhomeList);
+        model.addAttribute("motorhomeList", motorhomeList);
         return "home/showAllMotorhomes";
     }
 
@@ -163,12 +163,12 @@ public class HomeController {
         return "home/showAllRentals";
     }
 
-    /*
-    @GetMapping("/deleteRental/{id}")
-    public String deleteRental(@PathVariable("id") int id) {
-        return rentalService.delete(id);
+    @GetMapping("/addNewRental")
+    public String addNewRental(Model model) {
+        List<Accessory> accessoryList = accessoryService.fetchAll();
+        model.addAttribute("accessoryList", accessoryList);
+        return "home/addNewRental";
     }
-     */
 
     // ACCESSORIES
 
@@ -200,7 +200,6 @@ public class HomeController {
     public String deleteAccessory(@PathVariable("id") int id) {
         return accessoryService.delete(id);
     }
-
     @GetMapping("/showAllAccessories")
     public String showAllAccessories(Model model) {
         List<Accessory> accessoryList = accessoryService.fetchAll();

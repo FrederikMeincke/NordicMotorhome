@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add new Customer</title>
+  <link href="../MyCSS.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<!--@Author Kasper N. Jensen-->
+<!-- Menu Bar -->
+<div class="menubar">
+  <a class="unactive" href="/">Home</a>
+  <a class="unactive" href="/showAllCustomers">Customers</a>
+  <a class="unactive" href="/showAllMotorhomes">Motorhomes</a>
+  <a class="active" href="/showAllRentals">Rentals</a>
+  <a class="unactive" href="/showAllServiceReports">Service Reports</a>
+  <a class="login" href="/loginPage">Login</a>
+</div>
+
+
+<h1 class="h1">Create Rental</h1>
+
+<!--@Author Kasper N. Jensen-->
+<form class="add-form" action="/addNewRental" method="post">
+  <label class="label-text">Customer ID</label>
+  <br>
+  <input class="labelcss" type="text" name="customer_id" placeholder="I.e. Edward Snowden"> <span style="color: red">*</span>
+  <br><br>
+
+  <label class="label-text">Start Date</label>
+  <br>
+  <input class="labelcss" type="date" name="start_date" placeholder="I.e. Edward Snowden"> <span style="color: red">*</span>
+  <br><br>
+
+  <label class="label-text">End Date</label>
+  <br>
+  <input class="labelcss" type="date" name="end_date" placeholder="I.e. 42042069"> <span style="color: red">*</span>
+  <br><br>
+
+  <label class="label-text">Pick-Up</label>
+  <br>
+  <input class="labelcss" type="text" name="pick-up" placeholder="I.e. 69420420">
+  <br><br>
+
+  <label class="label-text">Drop-Off</label>
+  <br>
+  <input class="labelcss" type="text" name="drop-off" placeholder="I.e. your@email.com"> <span style="color: red">*</span>
+  <br><br>
+
+  <label class="label-text">Motorhome ID</label>
+  <br>
+  <input class="labelcss" type="text" name="motorhome_id" placeholder="I.e. XY11111Z"> <span style="color: red">*</span>
+  <br><br>
+
+  <label class="label-text">Accessories</label>
+  <br>
+  <span th:each="$"
+    <input type="checkbox" value="1"
+  <br><br>
+
+
+  <pre style="font-size: 14px; font-family: Arial, sans-serif">               ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</pre>
+  <input class="button1 button-anc" type="submit" value="Add Customer">
+</form>
+
+
+</body>
+</html>
