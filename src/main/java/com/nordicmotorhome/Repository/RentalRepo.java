@@ -74,6 +74,15 @@ public class RentalRepo implements CRUDRepo<Rental>{
             RowMapper<Season> seasonRowMapper = new BeanPropertyRowMapper<>(Season.class);
             List<Season> seasonList = jdbcTemplate.query(sqlSeason, seasonRowMapper, rental.getSeasons_fk());
             rental.setSeason(seasonList.get(0));
+
+            String sqlAccessories = "" +
+                    "SELECT * FROM accessories " +
+                    "INNER JOIN rental_accessories ra on accessories.id = ra.accessories_fk " +
+                    "WHERE rentals_fk = ?";
+            RowMapper<Accessory> rowMapper = new BeanPropertyRowMapper<>(Accessory.class);
+            List<Accessory> list = jdbcTemplate.query(sqlAccessories, rowMapper, rental.getId());
+            rental.setAccessoryList(list);
+            //SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlAccessories);
         }
 
         return rentalList;
@@ -135,7 +144,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
             if(inputRental.getAcList()[i]) {
                 String sql = "SELECT * FROM NMR.accessories " +
                         "WHERE id = ?;";
-                SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, i+1);
+                SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, i+1); // i+1 = actual id
                 rowSet.next();
                 Accessory accessory = new Accessory();
                 accessory.setId(rowSet.getInt(1));

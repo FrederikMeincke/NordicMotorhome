@@ -178,4 +178,17 @@ public class Rental {
     public void setAcList(boolean[] acList) {
         this.acList = acList;
     }
+
+    public String getAccessories() {
+        String accessories = "";
+        try {
+            accessories += accessoryList.get(0).getName();
+            for(int i = 1; i < accessoryList.size(); i++) {
+                accessories += ", " + accessoryList.get(i).getName();
+            }
+        } catch (IndexOutOfBoundsException exception) {
+
+        }
+        return accessories;
+    }
 }
