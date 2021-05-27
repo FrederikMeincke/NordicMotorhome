@@ -85,9 +85,9 @@
      <tbody>
      <tr th:each="accessory:${accessoryList}">
      <td th:text="${accessory.name}" />
-       <select name="accessoryList[${accessory.id}]">
+       <select name="accessoryList[${accessory.id}]"/>
      <td>
-       <input type="checkbox" th:value="${accessory.id}>
+       <input type="checkbox" th:value="${accessory.id}">
      </td>
      </tr>
      </tbody>
