@@ -187,7 +187,9 @@ public class HomeController {
     @GetMapping("/updateRental/{id}")
     public String updateRental(@PathVariable("id") int id, Model model) {
         Rental rental = rentalService.findById(id);
-        model.addAttribute(rental);
+        model.addAttribute("rental", rental);
+        List<Accessory> accessoryList = accessoryService.fetchAll();
+        model.addAttribute("accessories", accessoryList);
         return "home/updateRental";
     }
 
