@@ -1,10 +1,6 @@
 package com.nordicmotorhome.Model;
 
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.time.temporal.ChronoUnit;
 
 public class Rental {
 
@@ -12,7 +8,7 @@ public class Rental {
     private Customer customer;
     private Motorhome motorhome;
     private Season season;
-    private List<Accessory> accessoryList;
+    private Accessory[] accessoryList = new Accessory[17];
     private String start_date;
     private String end_date;
     private String pick_up_location;
@@ -60,11 +56,11 @@ public class Rental {
         this.season = season;
     }
 
-    public List<Accessory> getAccessoryList() {
+    public Accessory[] getAccessoryList() {
         return accessoryList;
     }
 
-    public void setAccessoryList(List<Accessory> accessoryList) {
+    public void setAccessoryList(Accessory[] accessoryList) {
         this.accessoryList = accessoryList;
     }
 

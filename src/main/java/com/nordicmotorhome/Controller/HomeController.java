@@ -174,8 +174,9 @@ public class HomeController {
 
     @PostMapping("/addNewRental")
     public String addNewRental(@ModelAttribute Rental rental) {
+        System.out.println("Accessory_list: " + rental.getAccessoryList()[0].getName());
         rentalService.addNew(rental);
-        return "redirect:/showAllRental";
+        return "redirect:/showAllRentals";
     }
 
     @GetMapping("/deleteRental/{id}")
@@ -184,6 +185,7 @@ public class HomeController {
     }
 
     // ACCESSORIES
+    /*
     @GetMapping("/addNewAccessory")
     public String addNewAccessory() {
         return "home/addNewAccessory";
@@ -192,19 +194,6 @@ public class HomeController {
     @PostMapping("/addNewAccessory")
     public String addNewAccessory(@ModelAttribute Accessory accessory) {
         accessoryService.addNew(accessory);
-        return "redirect:/showAllAccessories";
-    }
-
-    @GetMapping("/updateAccessory/{id}")
-    public String updateAccessory(@PathVariable("id") int id, Model model) {
-        Accessory accessory = accessoryService.findById(id);
-        model.addAttribute("accessory", accessory);
-        return "home/updateAccessory";
-    }
-
-    @PostMapping("/updateAccessory/{id}")
-    public String updateAccessory(@PathVariable("id") int id, @ModelAttribute Accessory accessory) {
-        accessoryService.update(accessory, id);
         return "redirect:/showAllAccessories";
     }
 
@@ -219,7 +208,19 @@ public class HomeController {
         model.addAttribute("accessoryList", accessoryList);
         return "home/showAllAccessories";
     }
+*/
+    @GetMapping("/updateAccessory/{id}")
+    public String updateAccessory(@PathVariable("id") int id, Model model) {
+        Accessory accessory = accessoryService.findById(id);
+        model.addAttribute("accessory", accessory);
+        return "home/updateAccessory";
+    }
 
+    @PostMapping("/updateAccessory/{id}")
+    public String updateAccessory(@PathVariable("id") int id, @ModelAttribute Accessory accessory) {
+        accessoryService.update(accessory, id);
+        return "redirect:/showAllAccessories";
+    }
 
     // SERVICE REPORTS
     @GetMapping("/showAllServiceReports")
