@@ -181,13 +181,31 @@ public class RentalRepo implements CRUDRepo<Rental>{
                 Calculator.rentalPrice(rental), rental.getCustomers_fk(), rental.getMotorhomes_fk(),
                 rental.getSeasons_fk(), id);
 
+        for(int i = 0; i < input.getAcList().length; i++) {
+            if(input.getAcList()[i]) {
+                String sqlAc = "SELECT * FROM NMR.accessories " +
+                        "WHERE id = ?;";
+                SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlAc, i+1); // i+1 = actual id
+                rowSet.next();
+                Accessory accessory = new Accessory();
+                accessory.setId(rowSet.getInt(1));
+                accessory.setName(rowSet.getString(2));
+                accessory.setPrice(rowSet.getDouble(3));
+                input.getAccessoryList().add(accessory);
+            }
+        }
         for(Accessory accessory : input.getAccessoryList()) {
             int accessoryId = accessory.getId();
-            if(!rental_accessoryExists(accessoryId, rental)) {
-                String sqlAccessory = "INSERT INTO NMR.rental_accessories " +
-                        "VALUES (DEFAULT, ?, ?);";
-                jdbcTemplate.update(sqlAccessory, accessoryId, rental.getId());
-            }
+            // Clean db for old entries
+            String sqlDeleteAccessories = "DELETE FROM NMR.rental_accessories " +
+                    "WHERE id = ?;";
+            jdbcTemplate.update(sqlDeleteAccessories, rental.getId());
+
+            // add new associations
+            String sqlAccessory = "INSERT INTO NMR.rental_accessories " +
+                    "VALUES (DEFAULT, ?, ?);";
+            jdbcTemplate.update(sqlAccessory, accessoryId, rental.getId());
+
         }
     }
 
