@@ -92,14 +92,14 @@
      </tr>
 
      <tr>
-       <td>Wifi Hotspot</td>
+       <td th:text="${accessories.get(1).getName()}"></td>
        <td>
          <input type="checkbox" name="acList[1]" value="1">
        </td>
      </tr>
 
      <tr>
-       <td>Powerbank</td>
+       <td th:text="${accessories.get(2).getName()}"></td>
        <td>
          <input type="checkbox" name="acList[2]" value="1">
        </td>
@@ -107,14 +107,22 @@
 
 
      <tr>
-       <td>Parasol</td>
+       <td th:text="${accessories.get(3).getName()}"></td>
        <td>
          <input type="checkbox" name="acList[3]" value="1">
        </td>
      </tr>
 
      <tr>
-       <td>Portable Grill</td>
+       <td th:text="${accessories.get(4).getName()}"></td>
+       <td>
+         <input type="checkbox" name="acList[4]" value="1">
+       </td>
+     </tr>
+
+
+     <tr>
+       <td th:text="${accessories.get(5).getName()}"></td>
        <td>
          <input type="checkbox" name="acList[5]" value="1">
        </td>
@@ -122,7 +130,7 @@
 
 
      <tr>
-       <td>Portable Lamp</td>
+       <td th:text="${accessories.get(6).getName()}"></td>
        <td>
          <input type="checkbox" name="acList[6]" value="1">
        </td>
@@ -130,7 +138,7 @@
 
 
      <tr>
-       <td>Tents</td>
+       <td th:text="${accessories.get(7).getName()}"></td>
        <td>
          <input type="checkbox" name="acList[7]" value="1">
        </td>
@@ -138,7 +146,7 @@
 
 
      <tr>
-       <td>Minigolf Set</td>
+       <td th:text="${accessories.get(8).getName()}"></td>
        <td>
          <input type="checkbox" name="acList[8]" value="1">
        </td>
@@ -146,7 +154,7 @@
 
 
      <tr>
-       <td>Electric Generator</td>
+       <td th:text="${accessories.get(9).getName()}"></td>
        <td>
          <input type="checkbox" name="acList[9]" value="1">
        </td>
@@ -154,22 +162,22 @@
 
 
      <tr>
-       <td>Blowdryer</td>
+       <td th:text="${accessories.get(10).getName()}"></td>
        <td>
          <input type="checkbox" name="acList[10]" value="1">
        </td>
      </tr>
 
-
      <tr>
-       <td>Dryingrack</td>
+       <td th:text="${accessories.get(11).getName()}"></td>
        <td>
          <input type="checkbox" name="acList[11]" value="1">
        </td>
      </tr>
 
+
      <tr>
-       <td>Bug Zapper</td>
+       <td th:text="${accessories.get(12).getName()}"></td>
        <td>
          <input type="checkbox" name="acList[12]" value="1">
        </td>
@@ -177,7 +185,7 @@
 
 
      <tr>
-       <td>Sun Chairs</td>
+       <td th:text="${accessories.get(13).getName()}"></td>
        <td>
          <input type="checkbox" name="acList[13]" value="1">
        </td>
@@ -185,7 +193,7 @@
 
 
      <tr>
-       <td>Mounted Bikerack</td>
+       <td th:text="${accessories.get(14).getName()}"></td>
        <td>
          <input type="checkbox" name="acList[14]" value="1">
        </td>
@@ -193,17 +201,9 @@
 
 
      <tr>
-       <td>Fold Out Chairs</td>
+       <td th:text="${accessories.get(15).getName()}"></td>
        <td>
          <input type="checkbox" name="acList[15]" value="1">
-       </td>
-     </tr>
-
-
-     <tr>
-       <td>Sunblanket</td>
-       <td>
-         <input type="checkbox" name="acList[16]" th:value="1">
        </td>
      </tr>
 
