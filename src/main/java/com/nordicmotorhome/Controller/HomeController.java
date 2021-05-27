@@ -184,6 +184,13 @@ public class HomeController {
         return rentalService.delete(id);
     }
 
+    @GetMapping("/updateRental/{id}")
+    public String updateRental(@PathVariable("id") int id, Model model) {
+        Rental rental = rentalService.findById(id);
+        model.addAttribute(rental);
+        return "home/updateRental";
+    }
+
     // ACCESSORIES
     /*
     @GetMapping("/addNewAccessory")

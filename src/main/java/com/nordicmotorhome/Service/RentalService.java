@@ -17,6 +17,10 @@ public class RentalService {
         return rentalRepo.fetchAll();
     }
 
+    public Rental findById(int id) {
+        return rentalRepo.findById(id);
+    }
+
     public void addNew(Rental rental) {
         rentalRepo.addNew(rental);
     }
