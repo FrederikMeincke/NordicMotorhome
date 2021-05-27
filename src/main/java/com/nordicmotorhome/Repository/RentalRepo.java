@@ -2,7 +2,6 @@ package com.nordicmotorhome.Repository;
 
 import com.nordicmotorhome.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,11 +9,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
-
-import static java.time.temporal.ChronoUnit.DAYS;
 
 @Repository
 public class RentalRepo implements CRUDRepo<Rental>{
@@ -72,27 +67,36 @@ public class RentalRepo implements CRUDRepo<Rental>{
             List<Customer> customerList =  jdbcTemplate.query(sqlCustomer, customerRowMapper, rental.getCustomers_fk());
             rental.setCustomer(customerList.get(0));
 
-            //motorhome
-            String sqlMotorhome = "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type," +
-                    " bed_amount, m.weight, m.width, m.height," +
-                    " license_plate, register_date, odometer, models_fk FROM motorhomes" +
-                    " INNER JOIN models m on motorhomes.models_fk = m.id" +
-                    " INNER JOIN brands b on m.brands_fk = b.id " +
-                    " WHERE motorhomes.id = ?" +
-                    " ORDER BY motorhomes.id;";
-            RowMapper<Motorhome> motorhomeRowMapper = new BeanPropertyRowMapper<>(Motorhome.class);
-            List<Motorhome> motorhomeList = jdbcTemplate.query(sqlMotorhome, motorhomeRowMapper, rental.getMotorhomes_fk());
-            rental.setMotorhome(motorhomeList.get(0));
+            setMotorhomeById(rental);
 
-            //season
-            String sqlSeason = "SELECT * FROM rentals " +
-                    "WHERE seasons_fk = ? ";
-            RowMapper<Season> seasonRowMapper = new BeanPropertyRowMapper<>(Season.class);
-            List<Season> seasonList = jdbcTemplate.query(sqlSeason, seasonRowMapper, rental.getSeasons_fk());
-            rental.setSeason(seasonList.get(0));
+            setSeasonById(rental);
         }
 
         return rentalList;
+    }
+
+    private void setSeasonById(Rental rental) {
+        //season
+        String sqlSeason = "SELECT * FROM rentals " +
+                "WHERE seasons_fk = ? ";
+        RowMapper<Season> seasonRowMapper = new BeanPropertyRowMapper<>(Season.class);
+        List<Season> seasonList = jdbcTemplate.query(sqlSeason, seasonRowMapper, rental.getSeasons_fk());
+        System.out.println("SeasonFK: " + rental.getSeasons_fk());
+        rental.setSeason(seasonList.get(0));
+    }
+
+    private void setMotorhomeById(Rental rental) {
+        //motorhome
+        String sqlMotorhome = "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type," +
+                " bed_amount, m.weight, m.width, m.height," +
+                " license_plate, register_date, odometer, models_fk FROM motorhomes" +
+                " INNER JOIN models m on motorhomes.models_fk = m.id" +
+                " INNER JOIN brands b on m.brands_fk = b.id " +
+                " WHERE motorhomes.id = ?" +
+                " ORDER BY motorhomes.id;";
+        RowMapper<Motorhome> motorhomeRowMapper = new BeanPropertyRowMapper<>(Motorhome.class);
+        List<Motorhome> motorhomeList = jdbcTemplate.query(sqlMotorhome, motorhomeRowMapper, rental.getMotorhomes_fk());
+        rental.setMotorhome(motorhomeList.get(0));
     }
 
     public int lastAddedRentalId() {
@@ -107,6 +111,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
     }
 
     public void addNew(Rental inputRental) {
+        jdbcTemplate.update(SQL_USE);
         String sqlRental = "INSERT INTO rentals " +
                 "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -114,10 +119,12 @@ public class RentalRepo implements CRUDRepo<Rental>{
         String end_date = inputRental.getEnd_date();
         String pick_up_location = inputRental.getPick_up_location();
         String drop_off_location = inputRental.getDrop_off_location();
-        double total_price = Calculator.rentalPrice(inputRental);
         int customers_fk = inputRental.getCustomers_fk();
         int motorhomes_fk = inputRental.getMotorhomes_fk();
         int seasons_fk = inputRental.getSeasons_fk();
+        setMotorhomeById(inputRental);
+        setSeasonById(inputRental);
+        double total_price = Calculator.rentalPrice(inputRental);
 
         jdbcTemplate.update(sqlRental, start_date, end_date, pick_up_location, drop_off_location, total_price,
                 customers_fk, motorhomes_fk, seasons_fk);

@@ -1,6 +1,10 @@
 package com.nordicmotorhome.Model;
 
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.time.temporal.ChronoUnit;
 
 public class Rental {
 
@@ -121,6 +125,8 @@ public class Rental {
     }
 
     public int getSeasons_fk() {
+        LocalDate startSeasonDate = LocalDate.parse(start_date);
+        if(startSeasonDate.isAfter())
         return seasons_fk;
     }
 
