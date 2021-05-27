@@ -76,13 +76,14 @@ public class MotorhomeRepo {
 
 
     /**
-     * @Author Kasper N. Jensen
+     * @author Kasper N. Jensen
      * @param motorhome Motorhome
      * This method adds a new motorhome to the db
      */
     public void addMotorhome(Motorhome motorhome) {
 
 
+        //
         String brandsql = "INSERT INTO NMR.brands (id, name) " +
                 "VALUES (DEFAULT, ?);";
         jdbcTemplate.update(SQL_USE);
@@ -93,6 +94,7 @@ public class MotorhomeRepo {
         rowSet.next();
 
 
+        //
         int lastBrandId = rowSet.getInt("id");
         String modelsql = "INSERT INTO NMR.models (id, name, fuel_type, width, height, weight, brands_fk) " +
                 "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?);";
@@ -104,6 +106,7 @@ public class MotorhomeRepo {
         rowSet.next();
 
 
+        //
         int lastModelId = rowSet.getInt("id");
         String motorhomesql = "INSERT INTO NMR.motorhomes (id, type, bed_amount, license_plate, register_date, price, " +
                 "odometer, ready_status, models_fk) " +
@@ -111,10 +114,8 @@ public class MotorhomeRepo {
         jdbcTemplate.update(motorhomesql, motorhome.getType(), motorhome.getBed_amount(), motorhome.getLicense_plate(),
                 motorhome.getRegister_date(), motorhome.getPrice(), motorhome.getOdometer(), 1, lastModelId);
 
-        /**
-         * @Author Kasper N. Jensen
-         * This part adds utilities to a motorhome
-         */
+
+        //
         String lastAddedMotorhome = "SELECT id FROM NMR.motorhomes " +
                 "ORDER BY id DESC LIMIT 1;";
 
@@ -136,6 +137,7 @@ public class MotorhomeRepo {
     /**
      * Method takes util id from addNewMotorhome.html and gets the last added id from a motorhome
      * and finally it takes a utillity id
+     * @author Kasper N. Jensen
      * @param utilTrue
      * @param lastMotorhomeId
      * @param utilNr

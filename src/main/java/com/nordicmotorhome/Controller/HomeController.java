@@ -58,7 +58,7 @@ public class HomeController {
     }
 
     /**
-     * @Author Kasper N. Jensen
+     * @author Kasper N. Jensen
      * @param customer Customer
      * @return String/URL
      */
@@ -123,7 +123,7 @@ public class HomeController {
     }
 
     /**
-     * Author Kasper N. Jensen
+     * @author Kasper N. Jensen
      * @return String url to the displayed page
      */
     @GetMapping("/addNewMotorhome")
