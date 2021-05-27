@@ -42,7 +42,7 @@ public class Calculator {
             return 1;
         }
 
-        if(days == 0) {
+        if(days <= 0) {
             return 0.95;
         } else if(days < 15) {
             return 0.8;
