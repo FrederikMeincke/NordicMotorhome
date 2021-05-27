@@ -166,7 +166,7 @@ public class HomeController {
     @GetMapping("/addNewRental")
     public String addNewRental(Model model) {
         List<Accessory> accessoryList = accessoryService.fetchAll();
-        model.addAttribute("accessoryList", accessoryList);
+        model.addAttribute("accessories", accessoryList);
         List<Motorhome> motorhomeList = motorhomeService.fetchAllMotorhomes();
         model.addAttribute("motorhomes", motorhomeList);
         return "home/addNewRental";
@@ -174,7 +174,7 @@ public class HomeController {
 
     @PostMapping("/addNewRental")
     public String addNewRental(@ModelAttribute Rental rental) {
-        System.out.println("Accessory_list: " + rental.getAccessoryList()[0].getName());
+        //System.out.println("Accessory_list: " + rental.getAccessoryList()[0].getName());
         rentalService.addNew(rental);
         return "redirect:/showAllRentals";
     }

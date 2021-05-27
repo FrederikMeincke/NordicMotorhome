@@ -74,7 +74,7 @@
 
   <label class="label-text">Accessories</label>
   <br>
-  <div class="label-text" th:object="${accessoryList}" style="width: 16%">
+  <div class="label-text" th:object="${accessories}" style="width: 16%">
   <table id="tablecss">
     <thead>
     <tr>
@@ -85,16 +85,16 @@
     <!-- accessory stuff -->
      <tbody>
      <tr>
-     <td th:text="${accessoryList.get(0).getName()}"></td>
+     <td th:text="${accessories.get(0).getName()}"></td>
      <td>
-       <input type="checkbox" name="${accessoryList[0]}" th:value="${accessoryList.get(0)}">
+       <input type="checkbox" name="acList[0]" th:value="$">
      </td>
      </tr>
 
      <tr>
        <td>Wifi Hotspot</td>
        <td>
-         <input type="checkbox" name="accessoryList[0]" value="1">
+         <input type="checkbox" name="accessory_1" value="1">
        </td>
      </tr>
 

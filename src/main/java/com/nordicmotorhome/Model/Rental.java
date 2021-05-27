@@ -21,6 +21,8 @@ public class Rental {
     private int motorhomes_fk;
     private int seasons_fk;
 
+    private boolean[] acList = new boolean[17];
+
     public Rental() {
     }
 
@@ -162,5 +164,13 @@ public class Rental {
 
     public void setCancelDate(String cancelDate) {
         this.cancelDate = cancelDate;
+    }
+
+    public boolean[] getAcList() {
+        return acList;
+    }
+
+    public void setAcList(boolean[] acList) {
+        this.acList = acList;
     }
 }
