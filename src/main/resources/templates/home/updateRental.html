@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add new Customer</title>
+  <link href="../MyCSS.css" rel="stylesheet" type="text/css">
+</head>
+<body class="index-background">
+
+<!--@Author Kasper N. Jensen-->
+<!-- Menu Bar -->
+<div class="menubar">
+  <a class="unactive" href="/">Home</a>
+  <a class="unactive" href="/showAllCustomers">Customers</a>
+  <a class="unactive" href="/showAllMotorhomes">Motorhomes</a>
+  <a class="active" href="/showAllRentals">Rentals</a>
+  <a class="unactive" href="/showAllAccessories">Accessories</a>
+</div>
+
+
+<h1 class="h1">Create Rental</h1>
+<!--@Author Kasper N. Jensen-->
+<form class="add-form" th:href="@{'/updateRental/'+${rental.id}}" method="post">
+  <div style="background-color: rgba(255,255,255,0.50)">
+    <label class="label-text">Customer ID</label>
+    <br>
+    <input class="labelcss" type="number" name="customers_fk" th:value="${rental.customers_fk}"> <span style="color: red">*</span>
+    <br><br>
+
+    <label class="label-text">Start Date</label>
+    <br>
+    <input class="labelcss" type="date" name="start_date" th:value="${rental.start_date}"> <span style="color: red">*</span>
+    <br><br>
+
+    <label class="label-text">End Date</label>
+    <br>
+    <input class="labelcss" type="date" name="end_date" th:value="${rental.end_date}"> <span style="color: red">*</span>
+    <br><br>
+
+    <label class="label-text">Pick-Up</label>
+    <br>
+    <input class="labelcss" type="text" name="pick_up_location" th:value="${rental.pick_up_location}"> <span style="color: red">*</span>
+    <br><br>
+
+    <label class="label-text">Pick-Up Distance</label>
+    <br>
+    <input class="labelcss" type="text" name="pick_up_distance" th:value="${rental.pick_up_distance}"> <span style="color: red">*</span>
+    <br><br>
+
+    <label class="label-text">Drop-Off</label>
+    <br>
+    <input class="labelcss" type="text" name="drop_off_location" th:value="${rental.drop_off_location}"> <span style="color: red">*</span>
+    <br><br>
+
+    <label class="label-text">Drop-Off Distance</label>
+    <br>
+    <input class="labelcss" type="text" name="drop_off_distance" th:value="${rental.drop_off_distance}"> <span style="color: red">*</span>
+    <br><br>
+
+    <label class="label-text">Motorhome</label>
+    <br>
+    <div class="labelcss" for="motorhomes" accesskey="motorhomes" th:object="${motorhome}">
+      <select name="motorhomes_fk">
+        <option th:value="${rental.motorhomes_fk}" th:text="@{'ID: ' + ${rental.motorhomes_fk} + ' - ' + ${rental.motorhome.brand} + ' - ' + ${rental.motorhome.model}}">
+        </option>
+        <option th:each="motorhome: ${motorhomes}"
+                th:value="${motorhome.id}"
+                th:text="@{'ID: ' + ${motorhome.id} + ' - ' + ${motorhome.brand} + ' - ' + ${motorhome.model}}">
+        </option>
+      </select>  <span style="color: red">*</span>
+    </div>
+    <br><br>
+
+    <label class="label-text">Accessories</label>
+    <br>
+    <div class="label-text" th:object="${accessories}" style="width: 16%">
+      <table id="tablecss">
+        <thead>
+        <tr>
+          <th>Accessory name</th>
+          <th></th>
+        </tr>
+        <thead/>
+        <!-- accessory stuff -->
+        <tbody>
+        <tr>
+          <td th:text="${accessories.get(0).getName()}"></td>
+          <td>
+            <input type="checkbox" th:checked="${rental.acList[0]} ? 'checked'" name="acList[0]" value="1">
+          </td>
+        </tr>
+
+        <tr>
+          <td th:text="${accessories.get(1).getName()}"></td>
+          <td>
+            <input type="checkbox" th:checked="${rental.acList[1]} ? 'checked'" name="acList[1]" value="1">
+          </td>
+        </tr>
+
+        <tr>
+          <td th:text="${accessories.get(2).getName()}"></td>
+          <td>
+            <input type="checkbox" th:checked="${rental.acList[2]} ? 'checked'" name="acList[2]" value="1">
+          </td>
+        </tr>
+
+
+        <tr>
+          <td th:text="${accessories.get(3).getName()}"></td>
+          <td>
+            <input type="checkbox" th:checked="${rental.acList[3]} ? 'checked'" name="acList[3]" value="1">
+          </td>
+        </tr>
+
+        <tr>
+          <td th:text="${accessories.get(4).getName()}"></td>
+          <td>
+            <input type="checkbox" th:checked="${rental.acList[4]} ? 'checked'" name="acList[4]" value="1">
+          </td>
+        </tr>
+
+
+        <tr>
+          <td th:text="${accessories.get(5).getName()}"></td>
+          <td>
+            <input type="checkbox" th:checked="${rental.acList[5]} ? 'checked'" name="acList[5]" value="1">
+          </td>
+        </tr>
+
+
+        <tr>
+          <td th:text="${accessories.get(6).getName()}"></td>
+          <td>
+            <input type="checkbox" th:checked="${rental.acList[6]} ? 'checked'" name="acList[6]" value="1">
+          </td>
+        </tr>
+
+
+        <tr>
+          <td th:text="${accessories.get(7).getName()}"></td>
+          <td>
+            <input type="checkbox" th:checked="${rental.acList[7]} ? 'checked'" name="acList[7]" value="1">
+          </td>
+        </tr>
+
+
+        <tr>
+          <td th:text="${accessories.get(8).getName()}"></td>
+          <td>
+            <input type="checkbox" th:checked="${rental.acList[8]} ? 'checked'" name="acList[8]" value="1">
+          </td>
+        </tr>
+
+
+        <tr>
+          <td th:text="${accessories.get(9).getName()}"></td>
+          <td>
+            <input type="checkbox" th:checked="${rental.acList[9]} ? 'checked'" name="acList[9]" value="1">
+          </td>
+        </tr>
+
+
+        <tr>
+          <td th:text="${accessories.get(10).getName()}"></td>
+          <td>
+            <input type="checkbox" th:checked="${rental.acList[10]} ? 'checked'" name="acList[10]" value="1">
+          </td>
+        </tr>
+
+        <tr>
+          <td th:text="${accessories.get(11).getName()}"></td>
+          <td>
+            <input type="checkbox" th:checked="${rental.acList[11]} ? 'checked'" name="acList[11]" value="1">
+          </td>
+        </tr>
+
+
+        <tr>
+          <td th:text="${accessories.get(12).getName()}"></td>
+          <td>
+            <input type="checkbox" th:checked="${rental.acList[12]} ? 'checked'" name="acList[12]" value="1">
+          </td>
+        </tr>
+
+
+        <tr>
+          <td th:text="${accessories.get(13).getName()}"></td>
+          <td>
+            <input type="checkbox" th:checked="${rental.acList[13]} ? 'checked'" name="acList[13]" value="1">
+          </td>
+        </tr>
+
+
+        <tr>
+          <td th:text="${accessories.get(14).getName()}"></td>
+          <td>
+            <input type="checkbox" th:checked="${rental.acList[14]} ? 'checked'" name="acList[14]" value="1">
+          </td>
+        </tr>
+
+
+        <tr>
+          <td th:text="${accessories.get(15).getName()}"></td>
+          <td>
+            <input type="checkbox" th:checked="${rental.acList[15]} ? 'checked'" name="acList[15]" value="1">
+          </td>
+        </tr>
+
+        </tbody>
+
+      </table>
+    </div>
+    <br><br>
+
+
+    <pre style="font-size: 14px; font-family: Arial, sans-serif">               ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</pre>
+    <input class="button1 button-anc" type="submit" value="Update Rental">
+  </div>
+</form>
+
+
+</body>
+</html>

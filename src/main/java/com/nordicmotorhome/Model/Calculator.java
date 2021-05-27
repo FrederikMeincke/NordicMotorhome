@@ -17,7 +17,7 @@ public class Calculator {
                 accessoriesPrice += accessory.getPrice();
             }
         }
-        double distancePrice = (rental.getPick_up_distance()+rental.getDrop_off_distance()) * 0.7;
+        double distancePrice = (rental.getPick_up_distance()+rental.getDrop_off_distance()) * 0.7; // 0.7€ per kilometer
         double averageDistance; //TODO: add total distance / days, 1€
         double motorhomePrice = rental.getMotorhome().getPrice();
         double seasonRate = rental.getSeason().getRate();

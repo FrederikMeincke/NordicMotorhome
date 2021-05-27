@@ -64,6 +64,7 @@ public class Rental {
     }
 
     public List<Accessory> getAccessoryList() {
+
         return accessoryList;
     }
 
@@ -190,5 +191,12 @@ public class Rental {
 
         }
         return accessories;
+    }
+
+    public void jjjj() {
+        for(Accessory accessory : accessoryList) {
+            int id = accessory.getId();
+            
+        }
     }
 }

@@ -205,8 +205,9 @@ public class RentalRepo implements CRUDRepo<Rental>{
             String sqlAccessory = "INSERT INTO NMR.rental_accessories " +
                     "VALUES (DEFAULT, ?, ?);";
             jdbcTemplate.update(sqlAccessory, accessoryId, rental.getId());
-
         }
+
+        Calculator.rentalPrice(rental);
     }
 
     /**
