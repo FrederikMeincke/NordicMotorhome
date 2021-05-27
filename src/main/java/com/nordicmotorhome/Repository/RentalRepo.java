@@ -141,7 +141,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
                 accessory.setId(rowSet.getInt(1));
                 accessory.setName(rowSet.getString(2));
                 accessory.setPrice(rowSet.getDouble(3));
-                inputRental.getAccessoryList()[i] = accessory;
+                inputRental.getAccessoryList().add(accessory);
             }
         }
 

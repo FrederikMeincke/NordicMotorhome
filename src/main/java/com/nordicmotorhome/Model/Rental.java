@@ -1,6 +1,8 @@
 package com.nordicmotorhome.Model;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Rental {
 
@@ -8,7 +10,7 @@ public class Rental {
     private Customer customer;
     private Motorhome motorhome;
     private Season season;
-    private Accessory[] accessoryList = new Accessory[17];
+    private List<Accessory> accessoryList = new LinkedList<>();
     private String start_date;
     private String end_date;
     private String pick_up_location;
@@ -24,6 +26,9 @@ public class Rental {
     private boolean[] acList = new boolean[17];
 
     public Rental() {
+        for(int i = 0; i < acList.length; i++) {
+            acList[i] = false;
+        }
     }
 
     public int getId() {
@@ -58,11 +63,11 @@ public class Rental {
         this.season = season;
     }
 
-    public Accessory[] getAccessoryList() {
+    public List<Accessory> getAccessoryList() {
         return accessoryList;
     }
 
-    public void setAccessoryList(Accessory[] accessoryList) {
+    public void setAccessoryList(List<Accessory> accessoryList) {
         this.accessoryList = accessoryList;
     }
 

@@ -2,18 +2,18 @@ package com.nordicmotorhome.Model;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 public class Calculator {
 
     public static double rentalPrice(Rental rental) {
         LocalDate start_date = LocalDate.parse(rental.getStart_date());
         LocalDate end_date = LocalDate.parse(rental.getEnd_date());
-        Accessory[] accessoryList = rental.getAccessoryList();
+        List<Accessory> accessoryList = rental.getAccessoryList();
         int days = (int) ChronoUnit.DAYS.between(start_date, end_date);
         double accessoriesPrice = 0;
         if(accessoryList != null) {
             for(Accessory accessory : accessoryList) {
-                System.out.println("Accessory: " + accessory.getName());
                 accessoriesPrice += accessory.getPrice();
             }
         }
