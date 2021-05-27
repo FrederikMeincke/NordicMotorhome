@@ -130,6 +130,21 @@ public class RentalRepo implements CRUDRepo<Rental>{
         int seasons_fk = inputRental.getSeasons_fk();
         setMotorhomeById(inputRental);
         setSeasonById(inputRental);
+
+        for(int i = 0; i < inputRental.getAcList().length; i++) {
+            if(inputRental.getAcList()[i]) {
+                String sql = "SELECT * FROM NMR.accessories " +
+                        "WHERE id = ?;";
+                SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, i+1);
+                rowSet.next();
+                Accessory accessory = new Accessory();
+                accessory.setId(rowSet.getInt(1));
+                accessory.setName(rowSet.getString(2));
+                accessory.setPrice(rowSet.getDouble(3));
+                inputRental.getAccessoryList()[i] = accessory;
+            }
+        }
+
         double total_price = Calculator.rentalPrice(inputRental);
 
         jdbcTemplate.update(sqlRental, start_date, end_date, pick_up_location, drop_off_location, pick_up_distance,

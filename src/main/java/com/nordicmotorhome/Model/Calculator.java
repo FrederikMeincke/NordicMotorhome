@@ -13,6 +13,7 @@ public class Calculator {
         double accessoriesPrice = 0;
         if(accessoryList != null) {
             for(Accessory accessory : accessoryList) {
+                System.out.println("Accessory: " + accessory.getName());
                 accessoriesPrice += accessory.getPrice();
             }
         }
