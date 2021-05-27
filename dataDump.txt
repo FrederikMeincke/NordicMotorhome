@@ -1025,7 +1025,6 @@ INSERT INTO accessories VALUES
 (DEFAULT ,'Wifi hotspot'       ,'140'),
 (DEFAULT ,'Powerbank'          ,'100'),
 (DEFAULT ,'Parasol'            ,'125'),
-(DEFAULT ,'Sun chairs'         ,'125'),
 (DEFAULT ,'Portable Grill'     ,'200'),
 (DEFAULT ,'Portable Lamp'      ,'150'),
 (DEFAULT ,'Tents'              ,'275'),
