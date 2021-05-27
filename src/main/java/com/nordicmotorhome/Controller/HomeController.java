@@ -190,7 +190,15 @@ public class HomeController {
         model.addAttribute("rental", rental);
         List<Accessory> accessoryList = accessoryService.fetchAll();
         model.addAttribute("accessories", accessoryList);
+        List<Motorhome> motorhomeList = motorhomeService.fetchAllMotorhomes();
+        model.addAttribute("motorhomes", motorhomeList);
         return "home/updateRental";
+    }
+
+    @PostMapping("/updateRental/{id}")
+    public String updateRental(@PathVariable("id") int id, @ModelAttribute Rental rental) {
+        rentalService.update(id, rental);
+        return "redirect:/showAllRentals";
     }
 
     // ACCESSORIES

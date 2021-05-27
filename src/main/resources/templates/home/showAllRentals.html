@@ -58,7 +58,7 @@
         <td th:text="${rental.motorhome.fuel_type}"/>
         <td th:text="${rental.accessories}" style="width: 25%"/>
         <td th:text="${rental.total_price}"/>
-        <td th:text="'Cancelled date here'"/>
+        <td th:text="${rental.cancel_date}"/>
         <td>
             <a th:href="@{'/showMotorhome/'+${rental.motorhome.id}}">
                 <button class="btn-show" id="btn-show" title="Show Motorhome"><img src="view.png" alt="Show Motorhome" width="25px" height="25px"> </button>

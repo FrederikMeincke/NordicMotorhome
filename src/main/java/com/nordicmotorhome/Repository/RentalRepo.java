@@ -41,10 +41,28 @@ public class RentalRepo implements CRUDRepo<Rental>{
     public Rental findById(int id) {
         String sqlFetch = "SELECT * FROM rentals WHERE rentals.id = ?";
 
+        jdbcTemplate.update(SQL_USE);
         RowMapper rowMapper = new BeanPropertyRowMapper(Rental.class);
         List<Rental> rentalList = jdbcTemplate.query(sqlFetch, rowMapper, id);
 
-        return getRentals(rentalList).get(0);   //returns the only entry in the list
+        Rental rental = getRentals(rentalList).get(0);
+
+        String sqlAcc = "SELECT a.id, a.name, a.price FROM accessories a " +
+                "INNER JOIN rental_accessories ra on a.id = ra.accessories_fk " +
+                "WHERE rentals_fk = ?";
+
+        RowMapper rowMapperAcc = new BeanPropertyRowMapper(Accessory.class);
+        List<Accessory> accessoryList = jdbcTemplate.query(sqlAcc, rowMapperAcc, rental.getId());
+
+        for (int i = 0; i < rental.getAcList().length; i++) {
+            rental.getAcList()[i] = false;
+        }
+
+        for (Accessory acc : accessoryList) {
+            rental.getAcList()[acc.getId() - 1] = true;
+        }
+
+        return rental;
     }
 
     /**
@@ -174,12 +192,12 @@ public class RentalRepo implements CRUDRepo<Rental>{
         String sql = "UPDATE NMR.rentals " +
                 "SET start_date = ?, end_date = ?, pick_up_location = ?, drop_off_location = ?, pick_up_distance = ?, " +
                 "drop_off_distance = ?, total_price = ?, " +
-                "customers_fk = ?, motorhomes_fk = ?, seasons_fk = ? " +
+                "customers_fk = ?, motorhomes_fk = ?, seasons_fk = ?, cancel_date = ? " +
                 "WHERE id = ?;";
         jdbcTemplate.update(sql, input.getStart_date(), input.getEnd_date(), input.getPick_up_location(),
                 input.getDrop_off_location(), input.getPick_up_distance(), input.getDrop_off_distance(),
-                Calculator.rentalPrice(rental), rental.getCustomers_fk(), rental.getMotorhomes_fk(),
-                rental.getSeasons_fk(), id);
+                Calculator.rentalPrice(rental), input.getCustomers_fk(), input.getMotorhomes_fk(),
+                input.getSeasons_fk(), input.getCancel_date(), id);
 
         for(int i = 0; i < input.getAcList().length; i++) {
             if(input.getAcList()[i]) {
@@ -194,12 +212,13 @@ public class RentalRepo implements CRUDRepo<Rental>{
                 input.getAccessoryList().add(accessory);
             }
         }
+        // Clean db for old entries
+        String sqlDeleteAccessories = "DELETE FROM NMR.rental_accessories " +
+                "WHERE rentals_fk = ?;";
+        jdbcTemplate.update(sqlDeleteAccessories, rental.getId());
+
         for(Accessory accessory : input.getAccessoryList()) {
             int accessoryId = accessory.getId();
-            // Clean db for old entries
-            String sqlDeleteAccessories = "DELETE FROM NMR.rental_accessories " +
-                    "WHERE id = ?;";
-            jdbcTemplate.update(sqlDeleteAccessories, rental.getId());
 
             // add new associations
             String sqlAccessory = "INSERT INTO NMR.rental_accessories " +

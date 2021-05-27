@@ -32,9 +32,12 @@ public class Calculator {
     private static double cancelFee(Rental rental) {
         int days = -1;
         try {
-            LocalDate cancel_date = LocalDate.parse(rental.getCancelDate());
+            LocalDate cancel_date = LocalDate.parse(rental.getCancel_date());
             LocalDate start_date = LocalDate.parse(rental.getStart_date());
             days = (int) ChronoUnit.DAYS.between(cancel_date, start_date);
+            System.out.println(cancel_date);
+            System.out.println(start_date);
+            System.out.println(days);
         } catch (NullPointerException exception) {
             return 1;
         }

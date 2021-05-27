@@ -17,7 +17,7 @@ public class Rental {
     private String drop_off_location;
     private int pick_up_distance;
     private int drop_off_distance;
-    private String cancelDate;
+    private String cancel_date;
     private double total_price;
     private int customers_fk;
     private int motorhomes_fk;
@@ -164,12 +164,12 @@ public class Rental {
         this.drop_off_distance = drop_off_distance;
     }
 
-    public String getCancelDate() {
-        return cancelDate;
+    public String getCancel_date() {
+        return cancel_date;
     }
 
-    public void setCancelDate(String cancelDate) {
-        this.cancelDate = cancelDate;
+    public void setCancel_date(String cancel_date) {
+        this.cancel_date = cancel_date;
     }
 
     public boolean[] getAcList() {
@@ -193,12 +193,4 @@ public class Rental {
         return accessories;
     }
 
-    public int getBooleanCheck(int id) {
-        for(Accessory accessory : accessoryList) {
-            if(accessory.getId() == id+1) {
-                return 1;
-            }
-        }
-        return 0;
-    }
 }
