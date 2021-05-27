@@ -23,7 +23,7 @@ public class Rental {
     private int motorhomes_fk;
     private int seasons_fk;
 
-    private boolean[] acList = new boolean[17];
+    private boolean[] acList = new boolean[16];
 
     public Rental() {
         for(int i = 0; i < acList.length; i++) {
