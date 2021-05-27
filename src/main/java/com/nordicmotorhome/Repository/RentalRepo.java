@@ -20,7 +20,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
     final String SQL_USE = "USE NMR;";
 
     /**
-     * @auuthor Mads
+     * @author Mads
      * @return
      */
     public List<Rental> fetchAll() {

@@ -74,7 +74,7 @@
 
   <label class="label-text">Accessories</label>
   <br>
-  <div class="label-text" style="width: 16%">
+  <div class="label-text" th:object="${accessoryList}" style="width: 16%">
   <table id="tablecss">
     <thead>
     <tr>
@@ -82,14 +82,142 @@
       <th></th>
     </tr>
     <thead/>
+    <!-- accessory stuff -->
      <tbody>
-     <tr th:each="accessory:${accessoryList}">
-     <td th:text="${accessory.name}" />
-       <select name="accessoryList[${accessory.id}]"/>
+     <tr>
+     <td th:text="${accessoryList.get(0).getName()}"></td>
      <td>
-       <input type="checkbox" th:value="${accessory.id}">
+       <input type="checkbox" name="${accessoryList[0]}" th:value="${accessoryList.get(0)}">
      </td>
      </tr>
+
+     <tr>
+       <td>Wifi Hotspot</td>
+       <td>
+         <input type="checkbox" name="accessoryList[0]" value="1">
+       </td>
+     </tr>
+
+     <tr>
+       <td>Powerbank</td>
+       <td>
+         <input type="checkbox" name="accessory_2" value="1">
+       </td>
+     </tr>
+
+
+     <tr>
+       <td>Parasol</td>
+       <td>
+         <input type="checkbox" name="accessory_3" value="1">
+       </td>
+     </tr>
+
+
+     <tr>
+       <td text="Sun Chairs"/>
+       <td>
+         <input type="checkbox" name="accessory_4" value="1">
+       </td>
+     </tr>
+
+
+     <tr>
+       <td text="Portable Grill"/>
+       <td>
+         <input type="checkbox" name="accessory_5" value="1">
+       </td>
+     </tr>
+
+
+     <tr>
+       <td text="Portable Lamp"/>
+       <td>
+         <input type="checkbox" name="accessory_6" value="1">
+       </td>
+     </tr>
+
+
+     <tr>
+       <td text="Tents"/>
+       <td>
+         <input type="checkbox" name="accessory_7" value="1">
+       </td>
+     </tr>
+
+
+     <tr>
+       <td text="Minigolf Set"/>
+       <td>
+         <input type="checkbox" name="accessory_8" value="1">
+       </td>
+     </tr>
+
+
+     <tr>
+       <td text="Electric Generator"/>
+       <td>
+         <input type="checkbox" name="accessory_9" value="1">
+       </td>
+     </tr>
+
+
+     <tr>
+       <td text="Blowdryer"/>
+       <td>
+         <input type="checkbox" name="accessory_10" value="1">
+       </td>
+     </tr>
+
+
+     <tr>
+       <td text="Dryingrack"/>
+       <td>
+         <input type="checkbox" name="accessory_11" value="1">
+       </td>
+     </tr>
+
+     <tr>
+       <td text="Bug Zapper"/>
+       <td>
+         <input type="checkbox" name="accessory_12" value="1">
+       </td>
+     </tr>
+
+
+     <tr>
+       <td text="Sun Chairs"/>
+       <td>
+         <input type="checkbox" name="accessory_13" value="1">
+       </td>
+     </tr>
+
+
+     <tr>
+       <td text="Mounted Bikerack"/>
+       <td>
+         <input type="checkbox" name="accessory_14" value="1">
+       </td>
+     </tr>
+
+
+     <tr>
+       <td text="Fold Out Chairs"/>
+       <td>
+         <input type="checkbox" name="accessory_15" value="1">
+       </td>
+     </tr>
+
+
+     <tr>
+       <td text="Sunblanket"/>
+       <td>
+         <input type="checkbox" name="accessory_16" th:value="1">
+       </td>
+     </tr>
+
+
+
      </tbody>
 
   </table>
