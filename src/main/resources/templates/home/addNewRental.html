@@ -25,7 +25,7 @@
   <div style="background-color: rgba(255,255,255,0.50)">
   <label class="label-text">Customer ID</label>
   <br>
-  <input class="labelcss" type="text" name="customer_id" placeholder="12"> <span style="color: red">*</span>
+  <input class="labelcss" type="number" name="customers_fk" placeholder="12"> <span style="color: red">*</span>
   <br><br>
 
   <label class="label-text">Start Date</label>
@@ -85,8 +85,9 @@
      <tbody>
      <tr th:each="accessory:${accessoryList}">
      <td th:text="${accessory.name}" />
+       <select name="accessoryList[${accessory.id}]">
      <td>
-       <input type="checkbox" value="1">
+       <input type="checkbox" th:value="${accessory.id}>
      </td>
      </tr>
      </tbody>

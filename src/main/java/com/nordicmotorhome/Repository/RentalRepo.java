@@ -69,7 +69,11 @@ public class RentalRepo implements CRUDRepo<Rental>{
 
             setMotorhomeById(rental);
 
-            setSeasonById(rental);
+            String sqlSeason = "SELECT * FROM rentals " +
+                    "WHERE seasons_fk = ? ";
+            RowMapper<Season> seasonRowMapper = new BeanPropertyRowMapper<>(Season.class);
+            List<Season> seasonList = jdbcTemplate.query(sqlSeason, seasonRowMapper, rental.getSeasons_fk());
+            rental.setSeason(seasonList.get(0));
         }
 
         return rentalList;
@@ -77,11 +81,10 @@ public class RentalRepo implements CRUDRepo<Rental>{
 
     private void setSeasonById(Rental rental) {
         //season
-        String sqlSeason = "SELECT * FROM rentals " +
-                "WHERE seasons_fk = ? ";
+        String sqlSeason = "SELECT * FROM seasons " +
+                "WHERE id = ? ";
         RowMapper<Season> seasonRowMapper = new BeanPropertyRowMapper<>(Season.class);
         List<Season> seasonList = jdbcTemplate.query(sqlSeason, seasonRowMapper, rental.getSeasons_fk());
-        System.out.println("SeasonFK: " + rental.getSeasons_fk());
         rental.setSeason(seasonList.get(0));
     }
 
@@ -113,12 +116,15 @@ public class RentalRepo implements CRUDRepo<Rental>{
     public void addNew(Rental inputRental) {
         jdbcTemplate.update(SQL_USE);
         String sqlRental = "INSERT INTO rentals " +
-                "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         String start_date = inputRental.getStart_date();
         String end_date = inputRental.getEnd_date();
         String pick_up_location = inputRental.getPick_up_location();
         String drop_off_location = inputRental.getDrop_off_location();
+        int pick_up_distance = inputRental.getPick_up_distance();
+        int drop_off_distance = inputRental.getDrop_off_distance();
+        String cancel_date = null;
         int customers_fk = inputRental.getCustomers_fk();
         int motorhomes_fk = inputRental.getMotorhomes_fk();
         int seasons_fk = inputRental.getSeasons_fk();
@@ -126,8 +132,8 @@ public class RentalRepo implements CRUDRepo<Rental>{
         setSeasonById(inputRental);
         double total_price = Calculator.rentalPrice(inputRental);
 
-        jdbcTemplate.update(sqlRental, start_date, end_date, pick_up_location, drop_off_location, total_price,
-                customers_fk, motorhomes_fk, seasons_fk);
+        jdbcTemplate.update(sqlRental, start_date, end_date, pick_up_location, drop_off_location, pick_up_distance,
+                drop_off_distance, cancel_date, total_price, customers_fk, motorhomes_fk, seasons_fk);
 
         for(Accessory accessory : inputRental.getAccessoryList()) {
             int accessoryId = accessory.getId();

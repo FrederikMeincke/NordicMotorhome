@@ -125,8 +125,18 @@ public class Rental {
     }
 
     public int getSeasons_fk() {
+
         LocalDate startSeasonDate = LocalDate.parse(start_date);
-        if(startSeasonDate.isAfter())
+        if(startSeasonDate.getMonthValue() >= 11 || startSeasonDate.getMonthValue() <3 ) // TODO: maybe remove >=1
+        {
+            setSeasons_fk(1);
+        } else if(startSeasonDate.getMonthValue() >= 3 && startSeasonDate.getMonthValue() < 5) {
+            setSeasons_fk(2);
+        } else if(startSeasonDate.getMonthValue() >=5 && startSeasonDate.getMonthValue() < 9) {
+            setSeasons_fk(3);
+        } else {
+            setSeasons_fk(2);
+        }
         return seasons_fk;
     }
 

@@ -109,10 +109,10 @@ public class MotorhomeRepo {
         //
         int lastModelId = rowSet.getInt("id");
         String motorhomesql = "INSERT INTO NMR.motorhomes (id, type, bed_amount, license_plate, register_date, price, " +
-                "odometer, ready_status, models_fk) " +
-                "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "odometer, models_fk) " +
+                "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(motorhomesql, motorhome.getType(), motorhome.getBed_amount(), motorhome.getLicense_plate(),
-                motorhome.getRegister_date(), motorhome.getPrice(), motorhome.getOdometer(), 1, lastModelId);
+                motorhome.getRegister_date(), motorhome.getPrice(), motorhome.getOdometer(), lastModelId);
 
 
         //
