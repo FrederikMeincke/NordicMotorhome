@@ -1,14 +1,23 @@
 package com.nordicmotorhome.Model;
 
+import org.apache.tomcat.jni.Local;
+
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 public class Calculator {
 
     public static double rentalPrice(Rental rental) {
-        int days = (int) ChronoUnit.DAYS.between(rental.getStart_date(), rental.getEnd_date());
+        LocalDate start_date = LocalDate.parse(rental.getStart_date());
+        LocalDate end_date = LocalDate.parse(rental.getEnd_date());
+        List<Accessory> accessoryList = rental.getAccessoryList();
+        int days = (int) ChronoUnit.DAYS.between(start_date, end_date);
         double accessoriesPrice = 0;
-        for(Accessory accessory : rental.getAccessoryList()) {
-            accessoriesPrice += accessory.getPrice();
+        if(accessoryList != null) {
+            for(Accessory accessory : accessoryList) {
+                accessoriesPrice += accessory.getPrice();
+            }
         }
         double distancePrice = (rental.getPick_up_distance()+rental.getDrop_off_distance()) * 0.7;
         double averageDistance; //TODO: add total distance / days, 1€
@@ -23,9 +32,11 @@ public class Calculator {
     }
 
     private static double cancelFee(Rental rental) {
+        LocalDate cancel_date = LocalDate.parse(rental.getCancelDate());
+        LocalDate start_date = LocalDate.parse(rental.getStart_date());
         int days = -1;
         try {
-            days = (int) ChronoUnit.DAYS.between(rental.getCancelDate(), rental.getStart_date());
+            days = (int) ChronoUnit.DAYS.between(cancel_date, start_date);
         } catch (NullPointerException exception) {
             return 1;
         }

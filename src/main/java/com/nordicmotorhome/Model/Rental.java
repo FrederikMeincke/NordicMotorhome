@@ -1,6 +1,5 @@
 package com.nordicmotorhome.Model;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class Rental {
@@ -16,7 +15,7 @@ public class Rental {
     private String drop_off_location;
     private int pick_up_distance;
     private int drop_off_distance;
-    private LocalDate cancelDate;
+    private String cancelDate;
     private double total_price;
     private int customers_fk;
     private int motorhomes_fk;
@@ -145,11 +144,11 @@ public class Rental {
         this.drop_off_distance = drop_off_distance;
     }
 
-    public LocalDate getCancelDate() {
+    public String getCancelDate() {
         return cancelDate;
     }
 
-    public void setCancelDate(LocalDate cancelDate) {
+    public void setCancelDate(String cancelDate) {
         this.cancelDate = cancelDate;
     }
 }
