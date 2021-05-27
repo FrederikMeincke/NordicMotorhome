@@ -110,8 +110,8 @@ public class RentalRepo implements CRUDRepo<Rental>{
         String sqlRental = "INSERT INTO rentals " +
                 "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        LocalDate start_date = inputRental.getStart_date();
-        LocalDate end_date = inputRental.getEnd_date();
+        String start_date = inputRental.getStart_date();
+        String end_date = inputRental.getEnd_date();
         String pick_up_location = inputRental.getPick_up_location();
         String drop_off_location = inputRental.getDrop_off_location();
         double total_price = Calculator.rentalPrice(inputRental);

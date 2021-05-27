@@ -62,7 +62,7 @@
     <label class="label-text">Motorhome</label>
   <br>
   <div class="labelcss" for="motorhomes" accesskey="motorhomes" th:object="${motorhome}">
-    <select name="Motorhome">
+    <select name="motorhomes_fk">
       <option value="">Select motorhome</option>
       <option th:each="motorhome: ${motorhomes}"
               th:value="${motorhome.id}"

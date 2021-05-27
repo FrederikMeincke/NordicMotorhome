@@ -10,8 +10,8 @@ public class Rental {
     private Motorhome motorhome;
     private Season season;
     private List<Accessory> accessoryList;
-    private LocalDate start_date;
-    private LocalDate end_date;
+    private String start_date;
+    private String end_date;
     private String pick_up_location;
     private String drop_off_location;
     private int pick_up_distance;
@@ -65,19 +65,19 @@ public class Rental {
         this.accessoryList = accessoryList;
     }
 
-    public LocalDate getStart_date() {
+    public String getStart_date() {
         return start_date;
     }
 
-    public void setStart_date(LocalDate start_date) {
+    public void setStart_date(String start_date) {
         this.start_date = start_date;
     }
 
-    public LocalDate getEnd_date() {
+    public String getEnd_date() {
         return end_date;
     }
 
-    public void setEnd_date(LocalDate end_date) {
+    public void setEnd_date(String end_date) {
         this.end_date = end_date;
     }
 

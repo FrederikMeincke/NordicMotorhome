@@ -212,6 +212,7 @@ public class HomeController {
     public String deleteAccessory(@PathVariable("id") int id) {
         return accessoryService.delete(id);
     }
+
     @GetMapping("/showAllAccessories")
     public String showAllAccessories(Model model) {
         List<Accessory> accessoryList = accessoryService.fetchAll();
