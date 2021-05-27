@@ -193,10 +193,12 @@ public class Rental {
         return accessories;
     }
 
-    public void jjjj() {
+    public int getBooleanCheck(int id) {
         for(Accessory accessory : accessoryList) {
-            int id = accessory.getId();
-            
+            if(accessory.getId() == id+1) {
+                return 1;
+            }
         }
+        return 0;
     }
 }
