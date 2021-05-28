@@ -73,7 +73,7 @@ public class HomeController {
     public String addNewCustomer(@ModelAttribute Customer customer) {
         boolean emptyField =
                 customer.getFirst_name().isEmpty() || customer.getLast_name().isEmpty() ||
-                        customer.getMobile().isEmpty() || customer.getPhone().isEmpty() || customer.getEmail().isEmpty() ||
+                        customer.getMobile().isEmpty() || customer.getEmail().isEmpty() ||
                         customer.getDrivers_license().isEmpty() || customer.getDl_issue_date().isEmpty() ||
                         customer.getDl_expire_date().isEmpty() || customer.getStreet().isEmpty() ||
                         customer.getFloor().isEmpty() || customer.getZip().isEmpty() || customer.getCity().isEmpty() ||
