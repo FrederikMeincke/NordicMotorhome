@@ -69,29 +69,6 @@ These are CSS for the top navigation menu
     color: #ffffff;
 }
 
-/*
-These are the CSS for the search bar
- */
-.search-id-name {
-    float: right;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    margin-right: 8px;
-    border: none;
-    font-size: 20px;
-}
-
-.column {
-    float: right;
-
-}
-
-.column2 {
-    float: right;
-    margin-left:auto;
-    margin-right:auto;
-}
-
 .row::after {
     content: "";
     clear: both;
@@ -125,17 +102,14 @@ These are CSS for the tables
     color: #ffffff;
 }
 
-
 /*
 CSS for the creation table for new customers, motorhomes, rentals and service reports
  */
-
 
 .add-form{
     background-color: rgba(51, 51, 51, 0.44);
     margin-left: 15%;
     margin-right: 15%;
-    padding: 12px;
 }
 
 .utility-box{
@@ -177,62 +151,6 @@ CSS for the creation table for new customers, motorhomes, rentals and service re
 .label-text{
     margin-left: 75px;
 }
-
-
-/*
-These are CSS for the Login window
- */
-.menubar a.login {
-    float: right;
-    font-size: 17px;
-    font-family: sans-serif;
-    background-color: #333;
-    color: #ffffff;
-}
-
-.menubar a.loginpage {
-    float: right;
-    font-size: 17px;
-    font-family: sans-serif;
-    background-color: #0475aa;
-    color: #ffffff;
-}
-
-div.loginwindow {
-    position: absolute;
-    margin: auto;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 200px;
-    height: 100px;
-    display: block;
-    text-align: center;
-}
-
-input.loginfield{
-    float: right;
-    font-size: 17px;
-    font-family: sans-serif;
-    background-color: #ffffff;
-    color: #ffffff;
-    border: 2px solid #dadada;
-    border-radius: 3px;
-}
-/* Login Button */
-input.login-btn{
-    float: end;
-    font-size: 17px;
-    font-family: sans-serif;
-    height: 40px;
-    width: 100px;
-    background-color: #0475aa;
-    color: #ffffff;
-    border: 10px transparent;
-    border-radius: 1px;
-}
-
 
 /*
 CSS for the Create new buttons
