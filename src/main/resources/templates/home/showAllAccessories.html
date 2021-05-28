@@ -21,27 +21,21 @@
 <!-- Header -->
 <h1 class="h1">Accessory List</h1>
 
-<div class="row">
-    <a href="/showAllAccessories/name">
-        <button class="btn-update" id="btn-name" title="sort by name"><img src="../edit.png" alt="name sort" width="25px" height="25px"></button>
-    </a>
-
-    <a href="/showAllAccessories/price">
-        <button class="btn-update" id="btn-price" title="sort by price"><img src="../edit.png" alt="price sort" width="25px" height="25px"></button>
-    </a>
-
-</div>
-
-<!-- Search Bar -->
-
-
 <!-- Table -->
 <table id="tablecss">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Price</th>
+        <!-- ID sort and display -->
+        <th><a href="/showAllAccessories" style="color: #ffffff; text-decoration: none;
+            font-family: Arial, sans-serif; border-collapse: collapse; width: 100%">ID</a></th>
+
+        <!-- Name sort and display -->
+        <th><a href="/showAllAccessories/name" style="color: #ffffff; text-decoration: none;
+            font-family: Arial, sans-serif; border-collapse: collapse; width: 100%">Name</a></th>
+
+        <!-- Price sort and display -->
+        <th><a href="/showAllAccessories/price" style="color: #ffffff; text-decoration: none;
+            font-family: Arial, sans-serif; border-collapse: collapse; width: 100%">Price</a></th>
         <th>Actions</th>
     </tr>
     </thead>
