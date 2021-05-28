@@ -119,7 +119,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
         //motorhome
         String sqlMotorhome = "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type," +
                 " bed_amount, m.weight, m.width, m.height," +
-                " license_plate, register_date, distance_driven, models_fk FROM motorhomes" +
+                " license_plate, register_date, odometer, models_fk FROM motorhomes" +
                 " INNER JOIN models m on motorhomes.models_fk = m.id" +
                 " INNER JOIN brands b on m.brands_fk = b.id " +
                 " WHERE motorhomes.id = ?" +
@@ -143,7 +143,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
     public void addNew(Rental inputRental) {
         jdbcTemplate.update(SQL_USE);
         String sqlRental = "INSERT INTO rentals " +
-                "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         String start_date = inputRental.getStart_date();
         String end_date = inputRental.getEnd_date();
@@ -152,6 +152,8 @@ public class RentalRepo implements CRUDRepo<Rental>{
         int pick_up_distance = inputRental.getPick_up_distance();
         int drop_off_distance = inputRental.getDrop_off_distance();
         String cancel_date = null;
+        int distance_driven = 0;
+        boolean half_fuel = false;
         int customers_fk = inputRental.getCustomers_fk();
         int motorhomes_fk = inputRental.getMotorhomes_fk();
         int seasons_fk = inputRental.getSeasons_fk();
@@ -175,7 +177,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
         double total_price = Calculator.rentalPrice(inputRental);
 
         jdbcTemplate.update(sqlRental, start_date, end_date, pick_up_location, drop_off_location, pick_up_distance,
-                drop_off_distance, cancel_date, total_price, customers_fk, motorhomes_fk, seasons_fk);
+                drop_off_distance, cancel_date, distance_driven, half_fuel, total_price, customers_fk, motorhomes_fk, seasons_fk);
 
         for(Accessory accessory : inputRental.getAccessoryList()) {
             int accessoryId = accessory.getId();
@@ -192,7 +194,8 @@ public class RentalRepo implements CRUDRepo<Rental>{
         String sql = "UPDATE NMR.rentals " +
                 "SET start_date = ?, end_date = ?, pick_up_location = ?, drop_off_location = ?, pick_up_distance = ?, " +
                 "drop_off_distance = ?, total_price = ?, " +
-                "customers_fk = ?, motorhomes_fk = ?, seasons_fk = ?, cancel_date = ? " +
+                "customers_fk = ?, motorhomes_fk = ?, seasons_fk = ?, cancel_date = ?, distance_driven = ?, " +
+                "half_fuel = ? " +
                 "WHERE id = ?;";
 
         String start_date = input.getStart_date();
@@ -204,6 +207,8 @@ public class RentalRepo implements CRUDRepo<Rental>{
         int customers_fk = input.getCustomers_fk();
         int motorhomes_fk = input.getMotorhomes_fk();
         int seasons_fk = input.getSeasons_fk();
+        int distance_driven = input.getDistance_driven();
+        boolean half_fuel = input.isHalf_fuel();
         setMotorhomeById(input);
         setSeasonById(input);
 
@@ -218,13 +223,8 @@ public class RentalRepo implements CRUDRepo<Rental>{
         jdbcTemplate.update(sql, start_date, end_date, pick_up_location,
                 drop_off_location, pick_up_distance, drop_off_distance,
                 Calculator.rentalPrice(input), customers_fk, motorhomes_fk,
-                seasons_fk, cancel_date, id);
+                seasons_fk, cancel_date, distance_driven, half_fuel, id);
 
-
-        jdbcTemplate.update(sql, input.getStart_date(), input.getEnd_date(), input.getPick_up_location(),
-                input.getDrop_off_location(), input.getPick_up_distance(), input.getDrop_off_distance(),
-                Calculator.rentalPrice(rental), input.getCustomers_fk(), input.getMotorhomes_fk(),
-                input.getSeasons_fk(), cancel_date, id);
 
         for(int i = 0; i < input.getAcList().length; i++) {
             if(input.getAcList()[i]) {

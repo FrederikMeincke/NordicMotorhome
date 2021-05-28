@@ -43,6 +43,8 @@
         <th>Accessories</th>
         <th>Total Price</th>
         <th>Cancelled<br>Date</th>
+        <th>Distance<br>Driven</th>
+        <th>Half<br>Fuel</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -62,8 +64,11 @@
         <td th:text="${rental.accessories}" style="width: 25%"/>
         <td th:text="${rental.total_price}"/>
         <td th:text="${rental.cancel_date}"/>
+        <td th:text="${rental.distance_driven}"/>
+        <td><input type="checkbox" name="half_fuel" th:checked="${rental.half_fuel} ? 'checked'" disabled="disabled"></td>
+
         <td>
-            <a th:href="@{'/showMotorhome/'+${rental.motorhome.id}}">
+        <a th:href="@{'/showMotorhome/'+${rental.motorhome.id}}">
                 <button class="btn-show" id="btn-show" title="Show Motorhome"><img src="view.png" alt="Show Motorhome" width="25px" height="25px"> </button>
             </a>
             <a th:href="@{'/updateRental/'+${rental.id}}">

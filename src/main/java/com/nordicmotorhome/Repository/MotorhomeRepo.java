@@ -29,7 +29,7 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
         String sqlMotorhome =
                 "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type," +
                         " bed_amount, m.weight, m.width, m.height," +
-                        " license_plate, register_date, distance_driven, models_fk, ready_status FROM motorhomes" +
+                        " license_plate, register_date, odometer, models_fk, ready_status FROM motorhomes" +
                         " INNER JOIN models m on motorhomes.models_fk = m.id" +
                         " INNER JOIN brands b on m.brands_fk = b.id" +
                         " ORDER BY motorhomes.id;";
@@ -108,10 +108,10 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
         //
         int lastModelId = rowSet.getInt("id");
         String motorhomesql = "INSERT INTO NMR.motorhomes (id, type, bed_amount, license_plate, register_date, price, " +
-                "distance_driven, ready_status, models_fk) " +
+                "odometer, ready_status, models_fk) " +
                 "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(motorhomesql, motorhome.getType(), motorhome.getBed_amount(), motorhome.getLicense_plate(),
-                motorhome.getRegister_date(), motorhome.getPrice(), motorhome.getDistance_driven(), 1, lastModelId);
+                motorhome.getRegister_date(), motorhome.getPrice(), motorhome.getOdometer(), 1, lastModelId);
 
 
         //
@@ -284,10 +284,10 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
 
         String sqlMotorhome = "UPDATE motorhomes \n" +
                 "SET type = ?, bed_amount = ?, license_plate = ?, register_date = ?, " +
-                "price = ?, distance_driven = ?, ready_status = ? " +
+                "price = ?, odometer = ?, ready_status = ? " +
                 "WHERE id = ?;";
         jdbcTemplate.update(sqlMotorhome, inputMotorhome.getType(), inputMotorhome.getBed_amount(), inputMotorhome.getLicense_plate(),
-                inputMotorhome.getRegister_date(), inputMotorhome.getPrice(), inputMotorhome.getDistance_driven(),
+                inputMotorhome.getRegister_date(), inputMotorhome.getPrice(), inputMotorhome.getOdometer(),
                 inputMotorhome.getReady_status(), id);
 
         String sqlUpdateModelDimensions = "UPDATE models " +
@@ -326,7 +326,7 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
     public Motorhome findById(int id) {
         String sqlFind = "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type,\n" +
                 "bed_amount, m.weight, m.width, m.height,\n" +
-                "license_plate, register_date, distance_driven, models_fk FROM motorhomes\n" +
+                "license_plate, register_date, odometer, models_fk FROM motorhomes\n" +
                 "INNER JOIN models m on motorhomes.models_fk = m.id\n" +
                 "INNER JOIN brands b on m.brands_fk = b.id\n" +
                 "WHERE motorhomes.id = ?;";

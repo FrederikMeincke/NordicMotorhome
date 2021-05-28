@@ -97,7 +97,7 @@ public class DatabaseRepo {
                 "license_plate VARCHAR(45) NOT NULL, " +
                 "register_date DATE NOT NULL, " +
                 "price DOUBLE NOT NULL, " +
-                "distance_driven DOUBLE NOT NULL, " +
+                "odometer DOUBLE NOT NULL, " +
                 "models_fk INT NOT NULL, " +
                 "ready_status BOOL NOT NULL DEFAULT FALSE , " +
                 "CONSTRAINT motorhomes_models_fk " +
@@ -137,6 +137,8 @@ public class DatabaseRepo {
                 "pick_up_distance INT NOT NULL, " +
                 "drop_off_distance INT NOT NULL, " +
                 "cancel_date DATE, " +
+                "distance_driven INT, " +
+                "half_fuel BOOL DEFAULT FALSE, " +
                 "total_price DOUBLE NOT NULL, " +
                 "customers_fk INT NOT NULL, " +
                 "motorhomes_fk INT NOT NULL, " +

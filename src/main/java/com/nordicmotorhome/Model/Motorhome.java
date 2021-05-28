@@ -28,7 +28,7 @@ public class Motorhome {
     private String register_date;
     private String license_plate;
     private int bed_amount;
-    private String distance_driven;
+    private String odometer;
     private boolean[] utilityArray = new boolean[8];
     private boolean ready_status;
     private String service_raport;
@@ -135,12 +135,12 @@ public class Motorhome {
         this.bed_amount = bed_amount;
     }
 
-    public String getDistance_driven() {
-        return distance_driven;
+    public String getOdometer() {
+        return odometer;
     }
 
-    public void setDistance_driven(String distance_driven) {
-        this.distance_driven = distance_driven;
+    public void setOdometer(String odometer) {
+        this.odometer = odometer;
     }
 
     public boolean[] getUtilityArray() {

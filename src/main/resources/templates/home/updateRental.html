@@ -79,6 +79,16 @@
     <input class="labelcss" type="date" name="cancel_date" th:value="${rental.cancel_date}">
     <br><br>
 
+    <label class="label-text">Distance Driven</label>
+    <br>
+    <input class="labelcss" type="number" name="distance_driven" th:value="${rental.distance_driven}"> <span style="color: red">*</span>
+    <br><br>
+
+    <label class="label-text">Half Fuel</label>
+    <br>
+    <input class="labelcss" type="checkbox" th:checked="${rental.half_fuel} ? 'checked'" name="half_fuel" value="1"> <span style="color: red">*</span>
+    <br><br>
+
     <label class="label-text">Accessories</label>
     <br>
     <div class="label-text" th:object="${accessories}" style="width: 16%">
