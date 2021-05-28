@@ -194,10 +194,19 @@ public class RentalRepo implements CRUDRepo<Rental>{
                 "drop_off_distance = ?, total_price = ?, " +
                 "customers_fk = ?, motorhomes_fk = ?, seasons_fk = ?, cancel_date = ? " +
                 "WHERE id = ?;";
+
+        System.out.println(input.getCancel_date());
+        String cancelDate;
+        if (input.getCancel_date().isEmpty()) {
+            cancelDate = null;
+        } else {
+            cancelDate = input.getCancel_date();
+        }
+
         jdbcTemplate.update(sql, input.getStart_date(), input.getEnd_date(), input.getPick_up_location(),
                 input.getDrop_off_location(), input.getPick_up_distance(), input.getDrop_off_distance(),
                 Calculator.rentalPrice(rental), input.getCustomers_fk(), input.getMotorhomes_fk(),
-                input.getSeasons_fk(), input.getCancel_date(), id);
+                input.getSeasons_fk(), cancelDate, id);
 
         for(int i = 0; i < input.getAcList().length; i++) {
             if(input.getAcList()[i]) {
