@@ -14,26 +14,26 @@ public class CustomerService {
     CustomerRepo customerRepo;
 
     public List<Customer> fetchAllCustomers() {
-        return customerRepo.fetchAllCustomers();
+        return customerRepo.fetchAll();
     }
 
     public void addCustomer(Customer customer){
-        customerRepo.addCustomer(customer);
+        customerRepo.addNew(customer);
     }
 
     public void updateCustomer(Customer customer, int id) {
-        customerRepo.updateCustomer(customer, id);
+        customerRepo.update(customer, id);
     }
 
     public Customer findCustomerByID(int id) {
-        return customerRepo.findCustomerByID(id);
+        return customerRepo.findById(id);
     }
 
     public String deleteCustomer(int id) {
         if(customerRepo.hasConstraint(id)) {
             return "/home/error/errorCustomer";
         } else {
-            customerRepo.deleteCustomer(id);
+            customerRepo.delete(id);
             return "redirect:/showAllCustomers";
         }
     }

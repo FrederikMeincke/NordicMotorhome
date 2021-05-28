@@ -12,12 +12,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class CustomerRepo {
+public class CustomerRepo implements CRUDRepo<Customer>{
 
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public List<Customer> fetchAllCustomers() {
+    public List<Customer> fetchAll() {
         String sqluse = "USE NMR;";
         String sqlCustomer =
                 "SELECT customers.id, first_name, last_name, mobile, phone, email, drivers_license, dl_issue_date, " +
@@ -58,7 +58,7 @@ public class CustomerRepo {
      * executed one after another. As all of these steps need to happen you could make these as a transaction
      * in SQL so that if there are any data loss we can rollback in the DB.
      */
-    public void addCustomer(Customer customer) {
+    public void addNew(Customer customer) {
         int zipInt = getProperZipCode(customer);
 
         //The saved zipcode id zipInt is then used as the forign key in the address SQL Query
@@ -85,7 +85,7 @@ public class CustomerRepo {
      * @param id
      * @return
      */
-    public Customer findCustomerByID(int id){
+    public Customer findById(int id){
         String sqlFindCustomerById = "SELECT *" +
                 " FROM NMR.customers" +
                 " inner join addresses on addresses_fk = addresses.id" +
@@ -100,8 +100,8 @@ public class CustomerRepo {
      * We also need to check for a new zip code for the updated customer, since they may move to an existing zip code.
      * @param inputCustomer
      */
-    public void updateCustomer(Customer inputCustomer, int id) { //TODO: Test in html
-        Customer customer = findCustomerByID(id);
+    public void update(Customer inputCustomer, int id) { //TODO: Test in html
+        Customer customer = findById(id);
         int zipInt = getProperZipCode(inputCustomer);
 /*
         //this query may not return the correct addressID since we dont validate for identical addresses.
@@ -170,7 +170,7 @@ public class CustomerRepo {
      * @param id the primary key in customer table in the Database
      * @author Mads
      */
-    public void deleteCustomer(int id) {
+    public void delete(int id) {
         String sql = "DELETE FROM customers WHERE id = ?";
         try {
             jdbcTemplate.update(sql, id);

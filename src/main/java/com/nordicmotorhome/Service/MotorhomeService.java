@@ -14,18 +14,18 @@ public class MotorhomeService {
     MotorhomeRepo motorhomeRepo;
 
     public List<Motorhome> fetchAllMotorhomes() {
-        return motorhomeRepo.fetchAllMotorhomes();
+        return motorhomeRepo.fetchAll();
     }
 
     public void addMotorhome(Motorhome motorhome){
-        motorhomeRepo.addMotorhome(motorhome);
+        motorhomeRepo.addNew(motorhome);
     }
 
     public String deleteMotorhome(int id) {
         if(motorhomeRepo.hasConstraint(id)) {
             return "/home/error/errorMotorhome";
         } else  {
-            motorhomeRepo.deleteMotorhome(id);
+            motorhomeRepo.delete(id);
             return "redirect:/showAllMotorhomes";
         }
     }

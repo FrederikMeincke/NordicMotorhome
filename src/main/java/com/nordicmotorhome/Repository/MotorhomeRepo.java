@@ -14,7 +14,7 @@ import java.util.List;
 
 @Repository
 
-public class MotorhomeRepo {
+public class MotorhomeRepo implements CRUDRepo<Motorhome>{
 
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -26,7 +26,7 @@ public class MotorhomeRepo {
      * @author Mads
      * @return
      */
-    public List<Motorhome> fetchAllMotorhomes() {
+    public List<Motorhome> fetchAll() {
         String sqlMotorhome =
                 "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type," +
                         " bed_amount, m.weight, m.width, m.height," +
@@ -80,7 +80,7 @@ public class MotorhomeRepo {
      * @param motorhome Motorhome
      * This method adds a new motorhome to the db
      */
-    public void addMotorhome(Motorhome motorhome) {
+    public void addNew(Motorhome motorhome) {
 
 
         //
@@ -173,7 +173,7 @@ public class MotorhomeRepo {
      * @param id
      * @Author Frederik M.
      */
-        public void deleteMotorhome(int id) {
+        public void delete(int id) {
             String sqlDeleteUtil = "DELETE FROM motorhome_utilities WHERE motorhomes_fk = ?";
             String sql = "DELETE FROM NMR.motorhomes WHERE id = ?";
             try {
@@ -285,11 +285,11 @@ public class MotorhomeRepo {
 
         String sqlMotorhome = "UPDATE motorhomes \n" +
                 "SET type = ?, bed_amount = ?, license_plate = ?, register_date = ?, " +
-                "price = ?, odometer = ?, ready_status = ? " +
+                "price = ?, odometer = ?" +
                 "WHERE id = ?;";
         jdbcTemplate.update(sqlMotorhome, inputMotorhome.getType(), inputMotorhome.getBed_amount(), inputMotorhome.getLicense_plate(),
                 inputMotorhome.getRegister_date(), inputMotorhome.getPrice(), inputMotorhome.getOdometer(),
-                inputMotorhome.getReady_status(), id);
+                id);
 
         String sqlUpdateModelDimensions = "UPDATE models " +
                 "SET width = ?, height = ?,  weight = ? " +

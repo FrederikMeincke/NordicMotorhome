@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class AccessoryRepo {
+public class AccessoryRepo implements CRUDRepo<Accessory>{
 
     @Autowired
     JdbcTemplate jdbcTemplate;

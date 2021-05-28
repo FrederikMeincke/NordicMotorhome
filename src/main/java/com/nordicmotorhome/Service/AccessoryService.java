@@ -20,7 +20,7 @@ public class AccessoryService {
         accessoryRepo.addNew(accessory);
     }
 
-    public void update(Accessory accessory, int id) {
+    public void update(int id, Accessory accessory) {
         accessoryRepo.update(accessory, id);
     }
 

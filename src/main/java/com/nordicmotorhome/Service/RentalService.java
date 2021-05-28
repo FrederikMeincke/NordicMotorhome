@@ -25,8 +25,8 @@ public class RentalService {
         rentalRepo.addNew(rental);
     }
 
-    public void update(int id, Rental rental) {
-        rentalRepo.update(id, rental);
+    public void update(Rental rental, int id) {
+        rentalRepo.update(rental, id);
     }
 
     public String delete(int id) {

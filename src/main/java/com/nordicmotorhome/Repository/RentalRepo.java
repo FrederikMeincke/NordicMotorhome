@@ -186,7 +186,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
     }
 
     // TODO: fix price
-    public void update(int id, Rental input) {
+    public void update(Rental input, int id) {
         Rental rental = findById(id);
         // Customer, dates, motorhome, accessories
         String sql = "UPDATE NMR.rentals " +
@@ -209,7 +209,6 @@ public class RentalRepo implements CRUDRepo<Rental>{
 
 
         String cancel_date;
-        System.out.println(input.getCancel_date().isEmpty());
         if (input.getCancel_date().isEmpty()) {
             cancel_date = null;
         } else {
@@ -273,7 +272,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
     }
 
 
-    public boolean hasConstraint() {
+    public boolean hasConstraint(int id) {
         return false;
     }
 

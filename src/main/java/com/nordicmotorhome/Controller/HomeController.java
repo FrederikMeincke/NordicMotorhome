@@ -197,7 +197,7 @@ public class HomeController {
 
     @PostMapping("/updateRental/{id}")
     public String updateRental(@PathVariable("id") int id, @ModelAttribute Rental rental) {
-        rentalService.update(id, rental);
+        rentalService.update(rental, id);
         return "redirect:/showAllRentals";
     }
 
@@ -218,14 +218,14 @@ public class HomeController {
     public String deleteAccessory(@PathVariable("id") int id) {
         return accessoryService.delete(id);
     }
-
+*/
     @GetMapping("/showAllAccessories")
     public String showAllAccessories(Model model) {
         List<Accessory> accessoryList = accessoryService.fetchAll();
         model.addAttribute("accessoryList", accessoryList);
         return "home/showAllAccessories";
     }
-*/
+
     @GetMapping("/updateAccessory/{id}")
     public String updateAccessory(@PathVariable("id") int id, Model model) {
         Accessory accessory = accessoryService.findById(id);
@@ -235,7 +235,7 @@ public class HomeController {
 
     @PostMapping("/updateAccessory/{id}")
     public String updateAccessory(@PathVariable("id") int id, @ModelAttribute Accessory accessory) {
-        accessoryService.update(accessory, id);
+        accessoryService.update(id, accessory);
         return "redirect:/showAllAccessories";
     }
 
