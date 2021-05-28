@@ -23,6 +23,7 @@
 <form class="add-form" th:href="@{'/updateMotorhome/'+${motorhome.id}}" method="post">
   <div style="background-color: rgba(255,255,255,0.50)">
 
+    <br>
   <label class="label-text">Brand</label>
   <br>
   <input class="labelcss" type="text" name="brand" th:value="${motorhome.brand}"> <span style="color: red">*</span>
@@ -120,7 +121,9 @@
   <br><br>
 
   <pre style="font-size: 14px; font-family: Arial, sans-serif">               ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</pre>
-  <input class="button1 button-anc" type="submit" value="Update Motorhome">
+  <input style="margin-left: 6.25%" class="button1 button-anc" type="submit" value="Update Motorhome">
+    <br>
+  </div>
 </form>
 
 </head>

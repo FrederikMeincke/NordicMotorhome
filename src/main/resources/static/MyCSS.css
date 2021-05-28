@@ -107,9 +107,9 @@ CSS for the creation table for new customers, motorhomes, rentals and service re
  */
 
 .add-form{
-    background-color: rgba(51, 51, 51, 0.44);
+    /*background-color: rgba(51, 51, 51, 0.44);
     margin-left: 15%;
-    margin-right: 15%;
+    margin-right: 15%; */
 }
 
 .utility-box{
@@ -117,12 +117,14 @@ CSS for the creation table for new customers, motorhomes, rentals and service re
     margin-left: 75px;
 }
 
-.img.add-form{
+/*.img.add-form{
     object-fit:contain;
     width:200px;
     height:300px;
     border: solid 1px;
 }
+
+ */
 
 .motorhome-pictures-row-1 {
     width: 240px;
