@@ -201,7 +201,6 @@ public class RentalRepo implements CRUDRepo<Rental>{
         String drop_off_location = input.getDrop_off_location();
         int pick_up_distance = input.getPick_up_distance();
         int drop_off_distance = input.getDrop_off_distance();
-        String cancel_date = input.getCancel_date();
         int customers_fk = input.getCustomers_fk();
         int motorhomes_fk = input.getMotorhomes_fk();
         int seasons_fk = input.getSeasons_fk();
@@ -209,8 +208,12 @@ public class RentalRepo implements CRUDRepo<Rental>{
         setSeasonById(input);
 
 
-        if (cancel_date.isEmpty()) {
+        String cancel_date;
+        System.out.println(input.getCancel_date().isEmpty());
+        if (input.getCancel_date().isEmpty()) {
             cancel_date = null;
+        } else {
+            cancel_date = input.getCancel_date();
         }
 
         jdbcTemplate.update(sql, start_date, end_date, pick_up_location,

@@ -1,6 +1,7 @@
 package com.nordicmotorhome.Model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class Calculator {
             System.out.println(cancel_date);
             System.out.println(start_date);
             System.out.println(days);
-        } catch (NullPointerException exception) {
+        } catch (NullPointerException | DateTimeParseException exception) {
             return 1;
         }
 
