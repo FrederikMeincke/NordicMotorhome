@@ -44,7 +44,15 @@ public class HomeController {
     // CUSTOMER
     @GetMapping("/showAllCustomers")
     public String showAllCustomers(Model model){
-        List<Customer> customerList = customerService.fetchAllCustomers();
+        List<Customer> customerList = customerService.fetchAll();
+        model.addAttribute("customerList", customerList);
+        return "home/showAllCustomers";
+    }
+
+    @GetMapping("/showAllCustomers/{sort}")
+    public String showAllCustomers(@PathVariable("sort") String sort, Model model) {
+        List<Customer> customerList = customerService.fetchAll();
+        customerService.sort(customerList, sort);
         model.addAttribute("customerList", customerList);
         return "home/showAllCustomers";
     }
@@ -221,6 +229,14 @@ public class HomeController {
     @GetMapping("/showAllAccessories")
     public String showAllAccessories(Model model) {
         List<Accessory> accessoryList = accessoryService.fetchAll();
+        model.addAttribute("accessoryList", accessoryList);
+        return "home/showAllAccessories";
+    }
+
+    @GetMapping("/showAllAccessories/{sort}")
+    public String showAllAccessories(@PathVariable("sort") String sort, Model model) {
+        List<Accessory> accessoryList = accessoryService.fetchAll();
+        accessoryService.sort(accessoryList, sort);
         model.addAttribute("accessoryList", accessoryList);
         return "home/showAllAccessories";
     }

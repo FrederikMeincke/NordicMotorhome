@@ -21,6 +21,17 @@
 <!-- Header -->
 <h1 class="h1">Accessory List</h1>
 
+<div class="row">
+    <a href="/showAllAccessories/name">
+        <button class="btn-update" id="btn-name" title="sort by name"><img src="../edit.png" alt="name sort" width="25px" height="25px"></button>
+    </a>
+
+    <a href="/showAllAccessories/price">
+        <button class="btn-update" id="btn-price" title="sort by price"><img src="../edit.png" alt="price sort" width="25px" height="25px"></button>
+    </a>
+
+</div>
+
 <!-- Search Bar -->
 
 
@@ -42,9 +53,8 @@
         <td th:text="${accessory.price}"/>
         <td>
             <a th:href="@{'/updateAccessory/'+${accessory.id}}">
-                <button class="btn-update" id="btn-update" title="Edit Accessory"><img src="edit.png" alt="Edit Accessory" width="25px" height="25px"></button>
+                <button class="btn-update" id="btn-update" title="Edit Accessory"><img src="../edit.png" alt="Edit Accessory" width="25px" height="25px"></button>
             </a>
-
         </td>
     </tr>
     </tbody>

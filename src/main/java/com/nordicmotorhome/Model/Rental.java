@@ -17,7 +17,7 @@ public class Rental {
     private String drop_off_location;
     private int pick_up_distance;
     private int drop_off_distance;
-    private double distanceDriven;
+    private double distance_driven;
     private boolean halfFuel;
     private String cancel_date;
     private double total_price;
@@ -198,12 +198,12 @@ public class Rental {
         return accessories;
     }
 
-    public double getDistanceDriven() {
-        return distanceDriven;
+    public double getDistance_driven() {
+        return distance_driven;
     }
 
-    public void setDistanceDriven(double distanceDriven) {
-        this.distanceDriven = distanceDriven;
+    public void setDistance_driven(double distance_driven) {
+        this.distance_driven = distance_driven;
     }
 
     public boolean isHalfFuel() {

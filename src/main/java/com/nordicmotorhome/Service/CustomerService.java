@@ -1,10 +1,12 @@
 package com.nordicmotorhome.Service;
 
+import com.nordicmotorhome.ListComparator.*;
 import com.nordicmotorhome.Model.Customer;
 import com.nordicmotorhome.Repository.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -13,7 +15,7 @@ public class CustomerService {
     @Autowired
     CustomerRepo customerRepo;
 
-    public List<Customer> fetchAllCustomers() {
+    public List<Customer> fetchAll() {
         return customerRepo.fetchAll();
     }
 
@@ -40,6 +42,25 @@ public class CustomerService {
 
     public boolean hasConstraint(int id) {
         return customerRepo.hasConstraint(id);
+    }
+
+    public void sort(List<Customer> list, String sort) {
+        switch (sort) {
+            case "name":
+                Collections.sort(list, new CustomerNameComparator());
+                break;
+            case "mobile":
+                Collections.sort(list, new CustomerMobileComparator());
+                break;
+            case "phone":
+                Collections.sort(list, new CustomerPhoneComparator());
+            case "email":
+                Collections.sort(list, new CustomerEmailComparator());
+                break;
+
+            default:
+                break;
+        }
     }
 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:text-decoration="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,13 +33,16 @@
 <!-- Table -->
 <table id="tablecss">
     <thead>
-    <tr>
+    <tr  >
         <th>ID</th>
-        <th>First Name</th>
+        <th><a href="/showAllCustomers/name">First Name</a></th>
+
         <th>Last<br>Name</th>
-        <th>Mobile no.</th>
-        <th>Phone no.</th>
-        <th>e-mail</th>
+
+        <th><a href="/showAllCustomers/mobile">Mobile no.</a></th>
+        <th><a href="/showAllCustomers/phone">Phone no.</a></th>
+        <th><a href="/showAllCustomers/email">Email</a></th>
+        
         <th>Drivers License</th>
         <th>Drivers License<br>issue date</th>
         <th>Drivers License<br>expire date</th>
@@ -71,11 +74,11 @@
         <td>
 
             <a th:href="@{'/updateCustomer/'+${customers.id}}">
-                <button class="btn-update" id="btn-update" title="Edit Customer"><img src="edit.png" alt="Edit Customer" width="25px" height="25px"></button>
+                <button class="btn-update" id="btn-update" title="Edit Customer"><img src="../edit.png" alt="Edit Customer" width="25px" height="25px"></button>
             </a>
 
             <a th:href="@{'/deleteCustomer/'+${customers.id}}">
-                <button class="btn-delete" id="btn-delete" title="Delete Customer"><img src="delete.png" alt="Delete Customer" width="25px" height="25px"></button>
+                <button class="btn-delete" id="btn-delete" title="Delete Customer"><img src="../delete.png" alt="Delete Customer" width="25px" height="25px"></button>
             </a>
 
         </td>

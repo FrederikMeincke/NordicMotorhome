@@ -1,10 +1,14 @@
 package com.nordicmotorhome.Service;
 
+import com.nordicmotorhome.ListComparator.AccessoryNameComparator;
+import com.nordicmotorhome.ListComparator.AccessoryPriceComparator;
 import com.nordicmotorhome.Model.Accessory;
 import com.nordicmotorhome.Repository.AccessoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -34,6 +38,18 @@ public class AccessoryService {
         } else {
             accessoryRepo.delete(id);
             return "redirect:/showAllAccessories";
+        }
+    }
+
+    public void sort(List<Accessory> list, String sort) {
+        switch (sort) {
+            case "name":
+                Collections.sort(list, new AccessoryNameComparator());
+                break;
+            case "price":
+                Collections.sort(list, new AccessoryPriceComparator());
+            default:
+                break;
         }
     }
 }

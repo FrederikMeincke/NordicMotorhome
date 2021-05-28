@@ -22,7 +22,7 @@ public class Calculator {
 
         int fuelPrice = rental.isHalfFuel() ? 70 : 0;
         double distancePrice = (rental.getPick_up_distance()+rental.getDrop_off_distance()) * 0.7; // 0.7€ per kilometer
-        double averageDistance = rental.getDistanceDriven() / days;
+        double averageDistance = rental.getDistance_driven() / days;
         int averageDistancePrice = 0;
         if(averageDistance > 400) {
             averageDistancePrice = (int) averageDistance-400; // removes any decimals after "."
