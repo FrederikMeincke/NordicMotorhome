@@ -31,6 +31,6 @@ public class RentalService {
 
     public String delete(int id) {
        rentalRepo.delete(id);
-        return "/home/showAllRentals";
+        return "redirect:/showAllRentals";
     }
 }
