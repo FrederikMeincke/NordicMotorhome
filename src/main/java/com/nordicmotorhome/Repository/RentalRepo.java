@@ -195,18 +195,34 @@ public class RentalRepo implements CRUDRepo<Rental>{
                 "customers_fk = ?, motorhomes_fk = ?, seasons_fk = ?, cancel_date = ? " +
                 "WHERE id = ?;";
 
-        System.out.println(input.getCancel_date());
-        String cancelDate;
-        if (input.getCancel_date().isEmpty()) {
-            cancelDate = null;
-        } else {
-            cancelDate = input.getCancel_date();
+        String start_date = input.getStart_date();
+        String end_date = input.getEnd_date();
+        String pick_up_location = input.getPick_up_location();
+        String drop_off_location = input.getDrop_off_location();
+        int pick_up_distance = input.getPick_up_distance();
+        int drop_off_distance = input.getDrop_off_distance();
+        String cancel_date = input.getCancel_date();
+        int customers_fk = input.getCustomers_fk();
+        int motorhomes_fk = input.getMotorhomes_fk();
+        int seasons_fk = input.getSeasons_fk();
+        setMotorhomeById(input);
+        setSeasonById(input);
+
+
+        if (cancel_date.isEmpty()) {
+            cancel_date = null;
         }
+
+        jdbcTemplate.update(sql, start_date, end_date, pick_up_location,
+                drop_off_location, pick_up_distance, drop_off_distance,
+                Calculator.rentalPrice(input), customers_fk, motorhomes_fk,
+                seasons_fk, cancel_date, id);
+
 
         jdbcTemplate.update(sql, input.getStart_date(), input.getEnd_date(), input.getPick_up_location(),
                 input.getDrop_off_location(), input.getPick_up_distance(), input.getDrop_off_distance(),
                 Calculator.rentalPrice(rental), input.getCustomers_fk(), input.getMotorhomes_fk(),
-                input.getSeasons_fk(), cancelDate, id);
+                input.getSeasons_fk(), cancel_date, id);
 
         for(int i = 0; i < input.getAcList().length; i++) {
             if(input.getAcList()[i]) {
