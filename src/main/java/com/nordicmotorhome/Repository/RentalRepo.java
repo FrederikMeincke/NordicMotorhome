@@ -119,7 +119,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
         //motorhome
         String sqlMotorhome = "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type," +
                 " bed_amount, m.weight, m.width, m.height," +
-                " license_plate, register_date, odometer, models_fk FROM motorhomes" +
+                " license_plate, register_date, distance_driven, models_fk FROM motorhomes" +
                 " INNER JOIN models m on motorhomes.models_fk = m.id" +
                 " INNER JOIN brands b on m.brands_fk = b.id " +
                 " WHERE motorhomes.id = ?" +

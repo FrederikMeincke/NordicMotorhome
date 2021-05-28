@@ -97,8 +97,9 @@ public class DatabaseRepo {
                 "license_plate VARCHAR(45) NOT NULL, " +
                 "register_date DATE NOT NULL, " +
                 "price DOUBLE NOT NULL, " +
-                "odometer DOUBLE NOT NULL, " +
+                "distance_driven DOUBLE NOT NULL, " +
                 "models_fk INT NOT NULL, " +
+                "ready_status BOOL NOT NULL DEFAULT FALSE , " +
                 "CONSTRAINT motorhomes_models_fk " +
                 "\tFOREIGN KEY (models_fk) REFERENCES NMR.models(id));";
 

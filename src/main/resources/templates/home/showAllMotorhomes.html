@@ -39,7 +39,8 @@
         <th>Height</th>
         <th>License<br> Plate</th>
         <th>Register<br>Date</th>
-        <th>Odometer</th>
+        <th>Distance<br>Driven</th>
+        <th>Ready<br>Status</th>
         <th>Utilities</th>
         <th>Actions</th>
     </tr>
@@ -59,7 +60,8 @@
         <td th:text="${motorhome.height}"/>
         <td th:text="${motorhome.license_plate}"/>
         <td th:text="${motorhome.register_date}"/>
-        <td th:text="${motorhome.odometer}"/>
+        <td th:text="${motorhome.distance_driven}"/>
+        <td><input type="checkbox" name="ready_status" th:checked="${motorhome.ready_status} ? 'checked'" disabled="disabled"></td>
 
         <td>
         <img src="../tv.png" width="15px" height="15px" title="TV"><input type="checkbox" name="utility_0" th:checked="${motorhome.utilityArray[0]} ? 'checked'" disabled="disabled">
