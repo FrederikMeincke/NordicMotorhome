@@ -92,6 +92,7 @@ public class CustomerRepo implements CRUDRepo<Customer>{
                 " inner join zip_codes on zip_codes_fk = zip_codes.id" +
                 " WHERE customers.id = ?;";
         RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
+        jdbcTemplate.update("USE NMR;");
         Customer customer = jdbcTemplate.queryForObject(sqlFindCustomerById, rowMapper, id);
         return customer;
     }

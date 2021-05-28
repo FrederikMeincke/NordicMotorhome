@@ -45,7 +45,6 @@ public class HomeController {
     @GetMapping("/showAllCustomers")
     public String showAllCustomers(Model model){
         List<Customer> customerList = customerService.fetchAllCustomers();
-        System.out.println("Customer country: " + customerList.get(0).getCountry());
         model.addAttribute("customerList", customerList);
         return "home/showAllCustomers";
     }
