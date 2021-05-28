@@ -21,6 +21,8 @@
 
 <!--@Author Kasper N. Jensen-->
 <form class="add-form" th:href="@{'/updateMotorhome/'+${motorhome.id}}" method="post">
+  <div style="background-color: rgba(255,255,255,0.50)">
+
   <label class="label-text">Brand</label>
   <br>
   <input class="labelcss" type="text" name="brand" th:value="${motorhome.brand}"> <span style="color: red">*</span>
