@@ -70,10 +70,6 @@
         <td th:text="${customers.country}"/>
         <td>
 
-            <a th:href="@{'/showContracts/'+${customers.id}}">
-                <button class="btn-show" id="show-contract" title="Show Contracts"><img src="view.png" alt="Show Contracts" width="25px" height="25px"></button>
-            </a>
-
             <a th:href="@{'/updateCustomer/'+${customers.id}}">
                 <button class="btn-update" id="btn-update" title="Edit Customer"><img src="edit.png" alt="Edit Customer" width="25px" height="25px"></button>
             </a>
