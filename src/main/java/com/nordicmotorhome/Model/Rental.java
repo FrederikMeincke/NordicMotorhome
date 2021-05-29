@@ -107,9 +107,6 @@ public class Rental {
     }
 
     public double getTotal_price() {
-        String totalPrice = String.format("%.2f",total_price);
-        totalPrice = totalPrice.replace(',', '.');
-        total_price = Double.parseDouble(totalPrice);
         return total_price;
     }
 
