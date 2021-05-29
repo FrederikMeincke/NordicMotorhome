@@ -87,9 +87,9 @@
 
   <label class="label-text">Country</label>
   <br>
-  <div class="label-text" for="countries" accesskey="countries" th:object="${country}">
-    <select class="form-control" id="countryOrder" name="Country">
-      <option th:text="${customer.country}"></option>
+  <div class="label-text">
+    <select class="form-control" id="countryOrder" name="country">
+      <option th:value="${customer.country}" th:text="${customer.country_name}"></option>
       <option th:each="country : ${countries}"
               th:value="${country.id}"
               th:text="${country.name}"></option>
@@ -100,7 +100,7 @@
   <pre style="font-size: 14px; font-family: Arial, sans-serif">               ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</pre>
   <input style="margin-left: 6%" class="button1 button-anc" type="submit" value="Update Customer">
     <br>
-
+  </div>
 </form>
 </body>
 </html>

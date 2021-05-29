@@ -86,10 +86,11 @@ public class CustomerRepo implements CRUDRepo<Customer>{
      * @return
      */
     public Customer findById(int id){
-        String sqlFindCustomerById = "SELECT *" +
-                " FROM NMR.customers" +
+        String sqlFindCustomerById = "SELECT *, co.name as country_name, co.id as country" +
+                " FROM NMR.customers " +
                 " inner join addresses on addresses_fk = addresses.id" +
                 " inner join zip_codes on zip_codes_fk = zip_codes.id" +
+                " inner join countries co on countries_fk = co.id" +
                 " WHERE customers.id = ?;";
         RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
         jdbcTemplate.update("USE NMR;");

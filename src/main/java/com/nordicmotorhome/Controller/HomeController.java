@@ -76,7 +76,7 @@ public class HomeController {
                         customer.getMobile().isEmpty() || customer.getEmail().isEmpty() ||
                         customer.getDrivers_license().isEmpty() || customer.getDl_issue_date().isEmpty() ||
                         customer.getDl_expire_date().isEmpty() || customer.getStreet().isEmpty() ||
-                        customer.getFloor().isEmpty() || customer.getZip().isEmpty() || customer.getCity().isEmpty() ||
+                        customer.getZip().isEmpty() || customer.getCity().isEmpty() ||
                         customer.getCountry().isEmpty();
 
         if (emptyField) {
@@ -92,7 +92,7 @@ public class HomeController {
         Customer customer = customerService.findCustomerByID(id);
         List<Country> countries = countryService.fetchAllCountries();
         model.addAttribute("countries", countries);
-        model.addAttribute(customer);
+        model.addAttribute("customer", customer);
         return "home/updateCustomer";
     }
 

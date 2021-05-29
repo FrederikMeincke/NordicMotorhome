@@ -42,7 +42,7 @@ class CalculatorTest {
     @Test
     void rentalPrice() {
         rental.setDistance_driven(12000);       //800 km more than allowed
-        rental.setHalf_fuel(true);
+        rental.setHalf_fuel(true);              //less than half fuel in tank 70
 
 
         double expectedPrice = 57012;
