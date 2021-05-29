@@ -17,8 +17,20 @@ public class MotorhomeService {
         return motorhomeRepo.fetchAll();
     }
 
-    public void addMotorhome(Motorhome motorhome){
-        motorhomeRepo.addNew(motorhome);
+    // Doesn't work properly because of empty string conversions to doubles/ints.
+    public String addMotorhome(Motorhome motorhome){
+        boolean emptyFields = motorhome.getBrand().isEmpty() || motorhome.getModel().isEmpty() ||
+                motorhome.getFuel_type().isEmpty() || motorhome.getType().isEmpty() || motorhome.getBed_amount() == 0 ||
+                motorhome.getUtilityArray()[0] || motorhome.getWidth() == 0 || motorhome.getHeight() == 0 ||
+                motorhome.getWeight() == 0 || motorhome.getLicense_plate().isEmpty() ||
+                motorhome.getRegister_date().isEmpty() || motorhome.getPrice() == 0;
+        if(emptyFields) {
+            return "home/error/errorPage";
+        } else {
+            motorhomeRepo.addNew(motorhome);
+            return "redirect:/showAllMotorhomes";
+        }
+
     }
 
     public String deleteMotorhome(int id) {

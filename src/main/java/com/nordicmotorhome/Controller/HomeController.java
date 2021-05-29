@@ -71,20 +71,7 @@ public class HomeController {
      */
     @PostMapping("/addNewCustomer")
     public String addNewCustomer(@ModelAttribute Customer customer) {
-        boolean emptyField =
-                customer.getFirst_name().isEmpty() || customer.getLast_name().isEmpty() ||
-                        customer.getMobile().isEmpty() || customer.getEmail().isEmpty() ||
-                        customer.getDrivers_license().isEmpty() || customer.getDl_issue_date().isEmpty() ||
-                        customer.getDl_expire_date().isEmpty() || customer.getStreet().isEmpty() ||
-                        customer.getZip().isEmpty() || customer.getCity().isEmpty() ||
-                        customer.getCountry().isEmpty();
-
-        if (emptyField) {
-            return "home/error/errorPage";
-        }
-
-        customerService.addCustomer(customer);
-        return "redirect:/showAllCustomers";
+        return customerService.addCustomer(customer);
     }
 
     @GetMapping("/updateCustomer/{id}")
@@ -98,8 +85,7 @@ public class HomeController {
 
     @PostMapping("/updateCustomer/{id}")
     public String updateCustomer(@PathVariable("id") int id, @ModelAttribute Customer customer) {
-        customerService.updateCustomer(customer, id);
-        return "redirect:/showAllCustomers";
+        return customerService.updateCustomer(customer, id);
     }
 
     /**
@@ -140,8 +126,7 @@ public class HomeController {
 
     @PostMapping("/addNewMotorhome")
     public String addNewMotorhome(@ModelAttribute Motorhome motorhome){
-        motorhomeService.addMotorhome(motorhome);
-        return "redirect:/showAllMotorhomes";
+        return motorhomeService.addMotorhome(motorhome);
     }
 
     @GetMapping("/deleteMotorhome/{id}")
