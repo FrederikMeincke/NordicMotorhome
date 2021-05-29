@@ -262,11 +262,11 @@ public class RentalRepo implements CRUDRepo<Rental>{
      * @Author Frederik M.
      */
     public void delete(int id) {
-        String delete = "DELETE FROM NMR.rentals WHERE id = ?";
+        String delete = "DELETE FROM NMR.rentals WHERE id= ?";
         try {
             jdbcTemplate.update(delete, id);
         } catch (DataIntegrityViolationException e) {
-            System.out.println("An Error happened");
+            System.out.println("An SQL Error occurred");
             e.printStackTrace();
         }
     }
