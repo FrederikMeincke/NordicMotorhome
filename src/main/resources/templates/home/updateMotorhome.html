@@ -21,7 +21,7 @@
 
 <!--@Author Kasper N. Jensen-->
 <form class="add-form" th:href="@{'/updateMotorhome/'+${motorhome.id}}" method="post">
-  <div style="background-color: rgba(255,255,255,0.50)">
+  <div style="background-color: rgba(255,255,255,0.50); margin-left: 16%; margin-right: 16%">
 
     <br>
   <label class="label-text">Brand</label>
@@ -64,8 +64,9 @@
   <input class="labelcss" type="double" name="bed_amount" th:value="${motorhome.bed_amount}"> <span style="color: red">*</span>
   <br><br>
 
-  <div class="utility-box" style="width: 16%">
-    <label class="label-text">Utilities</label>
+    <label class="label-text" style="margin-left: 6.5%">Utilities</label>
+  <div class="utility-box" style="width: 15.75%; border: 1px solid grey">
+
     <br>
 
     <img src="../tv.png" width="15px" height="15px" title="TV"><input type="checkbox" th:checked="${motorhome.utilityArray[0]} ? 'checked'" name="utility_0" value="1">
@@ -121,7 +122,7 @@
   <br><br>
 
   <pre style="font-size: 14px; font-family: Arial, sans-serif">               ALL FIELDS WITH <i style="color: red; font-size: 24px">*</i> MUST BE FILLED</pre>
-  <input style="margin-left: 6.25%" class="button1 button-anc" type="submit" value="Update Motorhome">
+  <input style="margin-left: 6%" class="button1 button-anc" type="submit" value="Update Motorhome">
     <br>
 
 </form>
