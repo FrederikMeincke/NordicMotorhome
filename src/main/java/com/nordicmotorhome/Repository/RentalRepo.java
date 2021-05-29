@@ -30,7 +30,25 @@ public class RentalRepo implements CRUDRepo<Rental>{
         jdbcTemplate.update(SQL_USE);
         List<Rental> rentalList = jdbcTemplate.query(sqlFetch, rowMapper);
 
-        return getRentals(rentalList);
+         getRentals(rentalList);
+         initPrice(rentalList);
+
+        return rentalList;
+    }
+
+    public void initPrice(List<Rental> rentalList) {
+        if (rentalList.get(0).getTotal_price() == 0.0) {
+            for (Rental rental : rentalList) {
+                rental.setTotal_price(Calculator.rentalPrice(rental));
+                String sqlPrice = "UPDATE NMR.rentals " +
+                        " SET total_price = ?" +
+                        " WHERE id = ?;";
+                System.out.println(rental.getTotal_price());
+                System.out.println(rental.getStart_date());
+                System.out.println(rental.getMotorhome().getPrice());
+                jdbcTemplate.update(sqlPrice, rental.getTotal_price(), rental.getId());
+            }
+        }
     }
 
     /**
@@ -45,7 +63,9 @@ public class RentalRepo implements CRUDRepo<Rental>{
         RowMapper rowMapper = new BeanPropertyRowMapper(Rental.class);
         List<Rental> rentalList = jdbcTemplate.query(sqlFetch, rowMapper, id);
 
-        Rental rental = getRentals(rentalList).get(0);
+        getRentals(rentalList);
+
+        Rental rental = rentalList.get(0);
 
         String sqlAcc = "SELECT a.id, a.name, a.price FROM accessories a " +
                 "INNER JOIN rental_accessories ra on a.id = ra.accessories_fk " +
@@ -70,7 +90,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
      * @param rentalList
      * @return
      */
-    private List<Rental> getRentals(List<Rental> rentalList) {
+    private void getRentals(List<Rental> rentalList) {
         for (Rental rental : rentalList) {
             //customer
             String sqlCustomer =
@@ -102,8 +122,6 @@ public class RentalRepo implements CRUDRepo<Rental>{
             rental.setAccessoryList(list);
             //SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlAccessories);
         }
-
-        return rentalList;
     }
 
     private void setSeasonById(Rental rental) {
