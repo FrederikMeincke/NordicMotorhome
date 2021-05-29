@@ -29,7 +29,7 @@ public class Calculator {
         }
         double motorhomePrice = rental.getMotorhome().getPrice();
         double seasonRate = rental.getSeason().getRate();
-        double totalPrice = (days * motorhomePrice * seasonRate + accessoriesPrice + averageDistancePrice +
+        double totalPrice = (days * motorhomePrice * seasonRate + accessoriesPrice + averageDistancePrice + fuelPrice +
                 distancePrice) * cancelFee(rental);
 
         if(totalPrice < 200) {
