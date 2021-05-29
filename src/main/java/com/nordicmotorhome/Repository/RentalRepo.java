@@ -43,9 +43,6 @@ public class RentalRepo implements CRUDRepo<Rental>{
                 String sqlPrice = "UPDATE NMR.rentals " +
                         " SET total_price = ?" +
                         " WHERE id = ?;";
-                System.out.println(rental.getTotal_price());
-                System.out.println(rental.getStart_date());
-                System.out.println(rental.getMotorhome().getPrice());
                 jdbcTemplate.update(sqlPrice, rental.getTotal_price(), rental.getId());
             }
         }
@@ -107,8 +104,8 @@ public class RentalRepo implements CRUDRepo<Rental>{
 
             setMotorhomeById(rental);
 
-            String sqlSeason = "SELECT * FROM rentals " +
-                    "WHERE seasons_fk = ? ";
+            String sqlSeason = "SELECT * FROM NMR.seasons " +
+                    "WHERE id = ? ";
             RowMapper<Season> seasonRowMapper = new BeanPropertyRowMapper<>(Season.class);
             List<Season> seasonList = jdbcTemplate.query(sqlSeason, seasonRowMapper, rental.getSeasons_fk());
             rental.setSeason(seasonList.get(0));
