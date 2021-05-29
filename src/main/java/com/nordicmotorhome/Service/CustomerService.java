@@ -54,8 +54,12 @@ public class CustomerService {
                 break;
             case "phone":
                 Collections.sort(list, new CustomerPhoneComparator());
+                break;
             case "email":
                 Collections.sort(list, new CustomerEmailComparator());
+                break;
+            case "drivers-license":
+                Collections.sort(list, new CustomerDLComparator());
                 break;
 
             default:
