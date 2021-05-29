@@ -45,7 +45,7 @@
     <input class="labelcss" type="text" name="pick_up_location" th:value="${rental.pick_up_location}"> <span style="color: red">*</span>
     <br><br>
 
-    <label class="label-text">Pick-Up Distance</label>
+    <label class="label-text">Pick-Up Distance in KM</label>
     <br>
     <input class="labelcss" type="text" name="pick_up_distance" th:value="${rental.pick_up_distance}"> <span style="color: red">*</span>
     <br><br>
@@ -55,7 +55,7 @@
     <input class="labelcss" type="text" name="drop_off_location" th:value="${rental.drop_off_location}"> <span style="color: red">*</span>
     <br><br>
 
-    <label class="label-text">Drop-Off Distance</label>
+    <label class="label-text">Drop-Off Distance in KM</label>
     <br>
     <input class="labelcss" type="text" name="drop_off_distance" th:value="${rental.drop_off_distance}"> <span style="color: red">*</span>
     <br><br>
@@ -84,7 +84,7 @@
     <input class="labelcss" type="number" name="distance_driven" th:value="${rental.distance_driven}"> <span style="color: red">*</span>
     <br><br>
 
-    <label class="label-text">Half Fuel</label>
+    <label class="label-text">Not re-fueled on return</label>
     <br>
     <input class="labelcss" type="checkbox" th:checked="${rental.half_fuel} ? 'checked'" name="half_fuel" value="1">
     <br><br>
