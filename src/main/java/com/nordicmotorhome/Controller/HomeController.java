@@ -36,11 +36,6 @@ public class HomeController {
         return "home/index";
     }
 
-    @GetMapping("/loginPage")
-    public String loginPage(){
-        return "home/loginPage";
-    }
-
     // CUSTOMER
     @GetMapping("/showAllCustomers")
     public String showAllCustomers(Model model){
@@ -194,23 +189,6 @@ public class HomeController {
     }
 
     // ACCESSORIES
-    /*
-    @GetMapping("/addNewAccessory")
-    public String addNewAccessory() {
-        return "home/addNewAccessory";
-    }
-
-    @PostMapping("/addNewAccessory")
-    public String addNewAccessory(@ModelAttribute Accessory accessory) {
-        accessoryService.addNew(accessory);
-        return "redirect:/showAllAccessories";
-    }
-
-    @GetMapping("/deleteAccessory/{id}")
-    public String deleteAccessory(@PathVariable("id") int id) {
-        return accessoryService.delete(id);
-    }
-*/
     @GetMapping("/showAllAccessories")
     public String showAllAccessories(Model model) {
         List<Accessory> accessoryList = accessoryService.fetchAll();
@@ -238,11 +216,4 @@ public class HomeController {
         accessoryService.update(id, accessory);
         return "redirect:/showAllAccessories";
     }
-
-    // SERVICE REPORTS
-    @GetMapping("/showAllServiceReports")
-    public String showAllServiceReports(){
-        return "home/showAllServiceReports";
-    }
-
 }
