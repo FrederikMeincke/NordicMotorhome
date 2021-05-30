@@ -22,17 +22,19 @@ public class DatabaseRepo {
     JdbcTemplate jdbcTemplate;
 
     /**
-     *
+     * @author Jimmy
+     * This method simply calls other methods responsible for initialzing the database scripts
      */
     public void initializeDatabase() {
-        System.out.println("SKY NET INITIALIZED");
+        System.out.println("NORDIC MOTORHOME DB INITIALIZED");
         createDatabase();
         createTables();
         selectCase();
     }
 
     /**
-     * @Author Jimmy
+     * This method creates the schema NMR if it doesn't already exists
+     * @author Jimmy
      */
     public void createDatabase() {
         String sql = "CREATE DATABASE IF NOT EXISTS NMR;";
@@ -40,7 +42,8 @@ public class DatabaseRepo {
     }
 
     /**
-     * @Author Jimmy
+     * This method creates all the tables of our db schema.
+     * @author Jimmy
      */
     public void createTables() {
         String sqlCountries = "CREATE TABLE IF NOT EXISTS NMR.countries (" +
@@ -179,7 +182,7 @@ public class DatabaseRepo {
     }
 
     /**
-     * @Author Jimmy Losang, Mads Westh
+     * @author Jimmy Losang, Mads Westh
      * Checks if the countries table is empty and if so it will read a textfile that contains
      * prepared data and inserts the data into the database. This method is used to quickly
      * store data in the database in order to check the programs functionality for demos.
@@ -209,7 +212,7 @@ public class DatabaseRepo {
     }
 
     /**
-     *
+     * @author Jimmy Losang, Mads Westh
      */
     public void selectCase() {
         String sql = "SELECT\n" +

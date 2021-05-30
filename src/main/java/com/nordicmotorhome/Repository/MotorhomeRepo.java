@@ -23,7 +23,7 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
     /**
      * Gets all the motorhomes from the database and adds all the utilities that a motorhome has to the motorhome object
      * @author Mads
-     * @return
+     * @return List
      */
     public List<Motorhome> fetchAll() {
         String sqlMotorhome =
@@ -45,8 +45,8 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
 
     /**
      * @author Mads
-     * @param motorhomeList
-     * @return
+     * @param motorhomeList List
+     * @return List
      */
     public List<Motorhome> addUtilitiesToMotorhome(List<Motorhome> motorhomeList) {
         // TODO: Maybe it doesn't need to return a list?
@@ -80,7 +80,7 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
      */
     public void addNew(Motorhome motorhome) {
 
-        //
+        // Step that adds a brand and finds the last added brand id
         String brandsql = "INSERT INTO NMR.brands (id, name) " +
                 "VALUES (DEFAULT, ?);";
         jdbcTemplate.update(SQL_USE);
@@ -91,7 +91,7 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
         rowSet.next();
 
 
-        //
+        // takes the last added brand id to create a new model under that brand then finds the last added model id
         int lastBrandId = rowSet.getInt("id");
         String modelsql = "INSERT INTO NMR.models (id, name, fuel_type, width, height, weight, brands_fk) " +
                 "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?);";
@@ -103,16 +103,13 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
         rowSet.next();
 
 
-        //
+        // takes the last added model id to create a new motorhome and finds the last added motorhome id
         int lastModelId = rowSet.getInt("id");
         String motorhomesql = "INSERT INTO NMR.motorhomes (id, type, bed_amount, license_plate, register_date, price, " +
                 "odometer, ready_status, models_fk) " +
                 "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(motorhomesql, motorhome.getType(), motorhome.getBed_amount(), motorhome.getLicense_plate(),
                 motorhome.getRegister_date(), motorhome.getPrice(), motorhome.getOdometer(), 1, lastModelId);
-
-
-        //
         String lastAddedMotorhome = "SELECT id FROM NMR.motorhomes " +
                 "ORDER BY id DESC LIMIT 1;";
 
@@ -121,6 +118,7 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
         int lastMotorhomeId = rowSet.getInt("id");
 
 
+        // Uses the last added motorhome id to apply utilities to the motorhome.
         utilInsert(motorhome.getUtility_0(),lastMotorhomeId,1); //TV
         utilInsert(motorhome.getUtility_1(),lastMotorhomeId,2); //Fridge
         utilInsert(motorhome.getUtility_2(),lastMotorhomeId,3); //Shower
@@ -135,9 +133,9 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
      * Method takes util id from addNewMotorhome.html and gets the last added id from a motorhome
      * and finally it takes a utillity id
      * @author Kasper N. Jensen
-     * @param utilTrue
-     * @param lastMotorhomeId
-     * @param utilNr
+     * @param utilTrue int
+     * @param lastMotorhomeId int
+     * @param utilNr int
      */
     public void utilInsert(int utilTrue, int lastMotorhomeId, int utilNr){
         if(utilTrue == 1) {
@@ -148,31 +146,11 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
         }
     }
 
-    /**
-     *
-     * @param motorhome
-     * @param input
-     */
-    public void test(Motorhome motorhome, Motorhome input) {
-        boolean[] utility = input.getUtilityArray();
-        String delete = "DELETE FROM NMR.motorhome_utilities " +
-                "WHERE motorhomes_fk = ?;";
-        jdbcTemplate.update(delete, motorhome.getId());
-        for(int i = 0; i < utility.length; i++) {
-            int utilId = i+1;
-            if(utility[i]) {
-                System.out.println("bool: + " + utility[i]);
-                String sql = "INSERT INTO NMR.motorhome_utilities " +
-                        "VALUES (DEFAULT, ?, ?);";
-                jdbcTemplate.update(sql, motorhome.getId(), utilId);
-            }
-        }
-    }
 
     /**
      * Deleting a Motorhome from the database, and removes external settings(Brand, Model,Daily Price, etc)
-     * @param id
-     * @Author Frederik M.
+     * @param id int
+     * @author Frederik M.
      */
         public void delete(int id) {
             String sqlDeleteUtil = "DELETE FROM motorhome_utilities WHERE motorhomes_fk = ?";
@@ -188,9 +166,10 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
         }
 
     /**
-     *
-     * @param inputMotorhome
-     * @param id
+     * This method updates a motorhome
+     * @author Kasper N. Jensen, Jimmy, Mads
+     * @param inputMotorhome Motorhome
+     * @param id int
      */
     public void update(Motorhome inputMotorhome, int id) {
         Motorhome motorhome = findById(id);
@@ -319,9 +298,10 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
     }
 
     /**
+     * This method finds a motorhome by its id.
      * @author Mads
-     * @param id
-     * @return
+     * @param id int
+     * @return Motorhome
      */
     public Motorhome findById(int id) {
         String sqlFind = "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type,\n" +
@@ -343,8 +323,8 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
 
     /**
      *
-     * @param id
-     * @return
+     * @param id int
+     * @return boolean
      */
     public boolean hasConstraint(int id) {
         String sql = "SELECT\n" +
@@ -359,24 +339,5 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, id);
         rowSet.next();
         return Boolean.parseBoolean(rowSet.getString(1));
-    }
-
-    /**
-     *
-     * @param inputMotorhome
-     * @return
-     */
-    public boolean modelExists(Motorhome inputMotorhome) {
-        String sqlModelExists = " SELECT " +
-                " CASE WHEN EXISTS "+
-                " (" +
-                "SELECT * FROM models WHERE models.name = ? " +
-                ")" +
-                " THEN 'TRUE' " +
-                " ELSE 'FALSE'" +
-                " END;";
-        SqlRowSet rowSetModel = jdbcTemplate.queryForRowSet(sqlModelExists, inputMotorhome.getModel());
-        rowSetModel.next();
-        return Boolean.parseBoolean(rowSetModel.getString(1));
     }
 }

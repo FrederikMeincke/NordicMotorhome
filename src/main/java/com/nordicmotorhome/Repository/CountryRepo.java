@@ -16,6 +16,7 @@ public class CountryRepo {
     JdbcTemplate jdbcTemplate;
 
     /**
+     * This method fetches all countries in the DB and adds it to the rowMapper
      * @author Kasper N. Jensen
      * @return jdbcTemplate
      */

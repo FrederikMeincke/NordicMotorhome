@@ -69,7 +69,8 @@ public class CustomerRepo implements CRUDRepo<Customer>{
     }
 
     /**
-     * hmm
+     * @author Kasper N. Jensen
+     * This method finds a specific customer using their id
      * @param id int
      * @return Customer
      */
@@ -90,7 +91,7 @@ public class CustomerRepo implements CRUDRepo<Customer>{
      * We also need to check for a new zip code for the updated customer, since they may move to an existing zip code.
      * @param inputCustomer Customer
      */
-    public void update(Customer inputCustomer, int id) { //TODO: Test in html
+    public void update(Customer inputCustomer, int id) {
         Customer customer = findById(id);
         int zipInt = getProperZipCode(inputCustomer);
 
@@ -99,7 +100,6 @@ public class CustomerRepo implements CRUDRepo<Customer>{
                 "WHERE id = ?;";
         jdbcTemplate.update(sqlAddress, inputCustomer.getStreet(), inputCustomer.getFloor(), zipInt, customer.getAddresses_fk());
 
-        //TODO: addresses_fk is only used here because we might have unique addresses in the future, but right now we don't
         String sqlCustomer = "UPDATE NMR.customers " +
                 "SET first_name = ?, last_name = ?, mobile = ?, phone = ?, email = ?, drivers_license = ?, " +
                 "dl_issue_date = ?, dl_expire_date = ? " +
@@ -200,7 +200,7 @@ public class CustomerRepo implements CRUDRepo<Customer>{
     }
 
     /**
-     *
+     * @author Jimmy
      * @param id int
      * @return boolean
      */
