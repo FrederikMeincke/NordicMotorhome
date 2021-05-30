@@ -24,8 +24,6 @@ public class HomeController {
     @Autowired
     CountryService countryService;
     @Autowired
-    ZipService zipService;
-    @Autowired
     AccessoryService accessoryService;
     @Autowired
     RentalService rentalService;

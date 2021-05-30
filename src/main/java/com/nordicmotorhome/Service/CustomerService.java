@@ -66,9 +66,10 @@ public class CustomerService {
     }
 
     /**
-     *
-     * @param list
-     * @param sort
+     * sends sort methods to the customer html table headers
+     * @author Jimmy
+     * @param list List
+     * @param sort String
      */
     public void sort(List<Customer> list, String sort) {
         switch (sort) {

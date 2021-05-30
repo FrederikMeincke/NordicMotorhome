@@ -20,8 +20,9 @@ public class RentalRepo implements CRUDRepo<Rental>{
     final String SQL_USE = "USE NMR;";
 
     /**
+     * This method fetches all rentals
      * @author Mads
-     * @return
+     * @return List
      */
     public List<Rental> fetchAll() {
         String sqlFetch = "SELECT * FROM rentals;";
@@ -37,8 +38,9 @@ public class RentalRepo implements CRUDRepo<Rental>{
     }
 
     /**
-     *
-     * @param rentalList
+     * This method sets the total price of a rental
+     * @author Mads
+     * @param rentalList List
      */
     public void initPrice(List<Rental> rentalList) {
         if (rentalList.get(0).getTotal_price() == 0.0) {
@@ -53,9 +55,10 @@ public class RentalRepo implements CRUDRepo<Rental>{
     }
 
     /**
+     * This method finds a rental based on it's id
      * @author Mads
-     * @param id
-     * @return
+     * @param id int
+     * @return Rental
      */
     public Rental findById(int id) {
         String sqlFetch = "SELECT * FROM rentals WHERE rentals.id = ?";
@@ -87,9 +90,9 @@ public class RentalRepo implements CRUDRepo<Rental>{
     }
 
     /**
+     * TODO: @Mads Skriv noget javaDoc her ;)
      * @author Mads
-     * @param rentalList
-     * @return
+     * @param rentalList List
      */
     private void getRentals(List<Rental> rentalList) {
         for (Rental rental : rentalList) {
@@ -126,8 +129,9 @@ public class RentalRepo implements CRUDRepo<Rental>{
     }
 
     /**
-     *
-     * @param rental
+     * This method TODO: @Mads Skriv noget javaDoc her ;)
+     * @author Mads
+     * @param rental Rental
      */
     private void setSeasonById(Rental rental) {
         //season
@@ -139,7 +143,8 @@ public class RentalRepo implements CRUDRepo<Rental>{
     }
 
     /**
-     *
+     * This method TODO: @Mads Skriv noget javaDoc her ;)
+     * @author Mads
      * @param rental
      */
     private void setMotorhomeById(Rental rental) {
@@ -157,8 +162,9 @@ public class RentalRepo implements CRUDRepo<Rental>{
     }
 
     /**
-     *
-     * @return
+     * This method finds the last added rental id
+     * @author Mads
+     * @return int
      */
     public int lastAddedRentalId() {
         String sql = "SELECT id " +
@@ -172,8 +178,9 @@ public class RentalRepo implements CRUDRepo<Rental>{
     }
 
     /**
-     *
-     * @param inputRental
+     * @author Mads
+     * This method adds a new rental contract
+     * @param inputRental Rental
      */
     public void addNew(Rental inputRental) {
         jdbcTemplate.update(SQL_USE);
@@ -223,9 +230,10 @@ public class RentalRepo implements CRUDRepo<Rental>{
     }
 
     /**
-     *
-     * @param input
-     * @param id
+     * This method updates a rental cintract
+     * @author mads
+     * @param input Rental
+     * @param id int
      */
     public void update(Rental input, int id) {
         Rental rental = findById(id);
@@ -297,8 +305,8 @@ public class RentalRepo implements CRUDRepo<Rental>{
 
     /**
      * Delete a rental
-     * @param id
-     * @Author Frederik M.
+     * @param id int
+     * @author Frederik M.
      */
     public void delete(int id) {
         String delete = "DELETE FROM NMR.rentals WHERE id = ?";
