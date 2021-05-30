@@ -15,6 +15,10 @@ public class ZipRepo {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    /**
+     *
+     * @return
+     */
     public List<Zip> fetchAllZips(){
         String sqlUse = "USE NMR;";
         String sqlZip = "SELECT * FROM NMR.zip_codes;";

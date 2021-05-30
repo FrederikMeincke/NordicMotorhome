@@ -73,14 +73,12 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
         return motorhomeList;
     }
 
-
     /**
      * @author Kasper N. Jensen
      * @param motorhome Motorhome
      * This method adds a new motorhome to the db
      */
     public void addNew(Motorhome motorhome) {
-
 
         //
         String brandsql = "INSERT INTO NMR.brands (id, name) " +
@@ -150,7 +148,11 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
         }
     }
 
-    // TODO: Refactor later
+    /**
+     *
+     * @param motorhome
+     * @param input
+     */
     public void test(Motorhome motorhome, Motorhome input) {
         boolean[] utility = input.getUtilityArray();
         String delete = "DELETE FROM NMR.motorhome_utilities " +
@@ -185,7 +187,11 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
             }
         }
 
-
+    /**
+     *
+     * @param inputMotorhome
+     * @param id
+     */
     public void update(Motorhome inputMotorhome, int id) {
         Motorhome motorhome = findById(id);
 
@@ -297,9 +303,6 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
         jdbcTemplate.update(sqlUpdateModelDimensions, inputMotorhome.getWidth(), inputMotorhome.getHeight(),
                 inputMotorhome.getWeight(), motorhome.getModels_fk());
 
-        //String sqlMotorhomeUtilities = "";
-        //jdbcTemplate.update(sqlMotorhomeUtilities);
-
         String sqlDropUtils = "DELETE FROM NMR.motorhome_utilities WHERE motorhomes_fk = ?";
 
         jdbcTemplate.update(SQL_USE);
@@ -313,9 +316,6 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
         utilInsert(inputMotorhome.getUtility_2(),id,3); //Shower
         utilInsert(inputMotorhome.getUtility_6(),id,7); //Kitchen
         utilInsert(inputMotorhome.getUtility_7(),id,8); //Awning
-
-
-        //test(motorhome, inputMotorhome);
     }
 
     /**
@@ -341,6 +341,11 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
         return motorhomeList.get(0);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public boolean hasConstraint(int id) {
         String sql = "SELECT\n" +
                 "\tCASE WHEN EXISTS \n" +
@@ -356,20 +361,11 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
         return Boolean.parseBoolean(rowSet.getString(1));
     }
 
-    public boolean brandExists(Motorhome inputMotorhome) {
-        String sqlBrandExists = " SELECT " +
-                " CASE WHEN EXISTS "+
-                " (" +
-                "SELECT * FROM brands WHERE brands.name = ? " +
-                ")" +
-                " THEN 'TRUE' " +
-                " ELSE 'FALSE'" +
-                " END;";
-        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlBrandExists, inputMotorhome.getBrand());
-        rowSet.next();
-        return Boolean.parseBoolean(rowSet.getString(1));
-    }
-
+    /**
+     *
+     * @param inputMotorhome
+     * @return
+     */
     public boolean modelExists(Motorhome inputMotorhome) {
         String sqlModelExists = " SELECT " +
                 " CASE WHEN EXISTS "+

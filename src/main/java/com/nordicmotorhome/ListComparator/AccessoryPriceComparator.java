@@ -6,6 +6,12 @@ import java.util.Comparator;
 
 public class AccessoryPriceComparator implements Comparator<Accessory> {
 
+    /**
+     *
+     * @param a1
+     * @param a2
+     * @return
+     */
     public int compare(Accessory a1, Accessory a2) {
         int compare = 0;
         if(a1.getPrice() > a2.getPrice()) {

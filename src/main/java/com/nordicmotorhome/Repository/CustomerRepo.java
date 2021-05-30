@@ -17,6 +17,10 @@ public class CustomerRepo implements CRUDRepo<Customer>{
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    /**
+     *
+     * @return
+     */
     public List<Customer> fetchAll() {
         String sqluse = "USE NMR;";
         String sqlCustomer =
@@ -30,23 +34,6 @@ public class CustomerRepo implements CRUDRepo<Customer>{
         jdbcTemplate.update(sqluse);
         return jdbcTemplate.query(sqlCustomer,rowMapper);
     }
-
-    /**
-     * @author Jimmy Losang
-     * A customer has an address field which needs a valid zip code, so we must first either insert a new zip code into
-     * the database if one doesn't already exist, or use an existing zip code from the database. This zip code also needs
-     * a valid country, so we must first check for countries.
-     * @param customer
-     */
-   /*
-    public void addCustomer(Customer customer) {
-        String sqlCountry = "IF NOT EXISTS (SELECT * FROM countries " +
-                "WHERE name = ?) " +
-                "INSERT INTO countries " +
-                "VALUES (DEFAULT, ?);";
-        jdbcTemplate.update(sqlCountry, customer.getCountry(), customer.getCountry());
-    }
-*/
 
     /**
      * @Author Kasper N. Jensen, Jimmy Losang
@@ -105,15 +92,7 @@ public class CustomerRepo implements CRUDRepo<Customer>{
     public void update(Customer inputCustomer, int id) { //TODO: Test in html
         Customer customer = findById(id);
         int zipInt = getProperZipCode(inputCustomer);
-/*
-        //this query may not return the correct addressID since we dont validate for identical addresses.
-        String sqlAddressId = "SELECT id FROM NMR.addresses " +
-                "WHERE street = ? AND floor = ? AND zip_codes_fk = ?;";
-        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlAddressId, customer.getStreet(), customer.getFloor(),zipInt);
-        rowSet.next();
-        int addressId = rowSet.getInt(1);
 
- */
         String sqlAddress = "UPDATE NMR.addresses " +
                 "SET street = ?, floor = ?, zip_codes_fk = ? " +
                 "WHERE id = ?;";
@@ -130,7 +109,6 @@ public class CustomerRepo implements CRUDRepo<Customer>{
                 inputCustomer.getPhone(),inputCustomer.getEmail(),inputCustomer.getDrivers_license(),
                 inputCustomer.getDl_issue_date(),inputCustomer.getDl_expire_date(), id);
     }
-
 
     /**
      * @Author Jimmy
@@ -154,18 +132,6 @@ public class CustomerRepo implements CRUDRepo<Customer>{
         rowSet.next();
         return Boolean.parseBoolean(rowSet.getString(1));
     }
-    // TODO: Maybe move these to an Adapter class? Maybe also SQL statements in general?
-    /*
-    public int getCountryForeignKeyFromName(String country) {
-        String sqlGetCountry = "SELECT id FROM NMR.countries " +
-                "WHERE countries.name = ?;";
-        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlGetCountry, country);
-        rowSet.next();
-        System.out.println("Country: " + country);
-        return rowSet.getInt(1);
-    }
-     */
-
 
     /**
      * Deletes a customer entity from the database with a given primary key
@@ -181,6 +147,7 @@ public class CustomerRepo implements CRUDRepo<Customer>{
             e.printStackTrace();
         }
     }
+
     /**
      * @Author Jimmy
      * Returns the primary key for a zip code, given the zip code and country.
@@ -195,6 +162,7 @@ public class CustomerRepo implements CRUDRepo<Customer>{
         rowSet.next();
         return rowSet.getInt(1);
     }
+
     /**
      * @Author Jimmy
      * Checks if a zip code already exists in the database and if so, returns that specific zip codes id (primary key),
@@ -230,6 +198,11 @@ public class CustomerRepo implements CRUDRepo<Customer>{
         return zipInt;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public boolean hasConstraint(int id) {
         String sql = "SELECT\n" +
                 "\tCASE WHEN EXISTS \n" +

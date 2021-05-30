@@ -15,7 +15,6 @@ public class CountryRepo {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-
     /**
      * @Author Kasper N. Jensen
      * @return jdbcTemplate

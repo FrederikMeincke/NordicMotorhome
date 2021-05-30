@@ -40,10 +40,11 @@ public class CustomerService {
         }
     }
 
-    public boolean hasConstraint(int id) {
-        return customerRepo.hasConstraint(id);
-    }
-
+    /**
+     *
+     * @param list
+     * @param sort
+     */
     public void sort(List<Customer> list, String sort) {
         switch (sort) {
             case "name":

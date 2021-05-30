@@ -21,6 +21,9 @@ public class DatabaseRepo {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    /**
+     *
+     */
     public void initializeDatabase() {
         System.out.println("SKY NET INITIALIZED");
         createDatabase();
@@ -175,7 +178,6 @@ public class DatabaseRepo {
         jdbcTemplate.update(sqlRA);
     }
 
-
     /**
      * @Author Jimmy Losang, Mads Westh
      * Checks if the countries table is empty and if so it will read a textfile that contains
@@ -206,6 +208,9 @@ public class DatabaseRepo {
         }
     }
 
+    /**
+     *
+     */
     public void selectCase() {
         String sql = "SELECT\n" +
                 "\tCASE WHEN EXISTS \n" +

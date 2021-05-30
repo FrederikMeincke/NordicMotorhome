@@ -7,6 +7,11 @@ import java.util.List;
 
 public class Calculator {
 
+    /**
+     *
+     * @param rental
+     * @return
+     */
     public static double rentalPrice(Rental rental) {
         boolean isCancelled = rental.getCancel_date() == null;
         LocalDate start_date = LocalDate.parse(rental.getStart_date());
@@ -42,6 +47,11 @@ public class Calculator {
         }
     }
 
+    /**
+     *
+     * @param rental
+     * @return
+     */
     private static double cancelFee(Rental rental) {
         int days = -1;
         try {

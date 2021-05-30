@@ -2,6 +2,10 @@ package com.nordicmotorhome.Repository;
 
 import java.util.List;
 
+/**
+ *
+ * @param <T>
+ */
 public interface CRUDRepo<T> {
     List fetchAll();
     T findById(int id);
@@ -9,5 +13,4 @@ public interface CRUDRepo<T> {
     void delete(int id);
     void update(T obj, int id);
     boolean hasConstraint(int id);
-
 }

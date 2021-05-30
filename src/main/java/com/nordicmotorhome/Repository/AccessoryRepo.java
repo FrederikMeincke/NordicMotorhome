@@ -16,6 +16,10 @@ public class AccessoryRepo implements CRUDRepo<Accessory>{
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    /**
+     *
+     * @return
+     */
     public List<Accessory> fetchAll() {
         String sqlUse = "USE NMR;";
         jdbcTemplate.update(sqlUse);
@@ -24,12 +28,21 @@ public class AccessoryRepo implements CRUDRepo<Accessory>{
         return jdbcTemplate.query(sql, rowMapper);
     }
 
+    /**
+     *
+     * @param accessory
+     */
     public void addNew(Accessory accessory) {
         String sql = "INSERT INTO NMR.accessories " +
                 "VALUES (DEFAULT, ?, ?);";
         jdbcTemplate.update(sql, accessory.getName(), accessory.getPrice());
     }
 
+    /**
+     *
+     * @param inputAccessory
+     * @param id
+     */
     public void update(Accessory inputAccessory, int id) {
         Accessory accessory = findById(id);
         String sql = "UPDATE NMR.accessories " +
@@ -50,12 +63,21 @@ public class AccessoryRepo implements CRUDRepo<Accessory>{
         return jdbcTemplate.queryForObject(sql, rowMapper, id);
     }
 
+    /**
+     *
+     * @param id
+     */
     public void delete(int id) {
         String sql = "DELETE FROM NMR.accessories " +
                 "WHERE id = ?;";
         jdbcTemplate.update(sql, id);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public boolean hasConstraint(int id) {
         String sql = "SELECT\n" +
                 "\tCASE WHEN EXISTS \n" +

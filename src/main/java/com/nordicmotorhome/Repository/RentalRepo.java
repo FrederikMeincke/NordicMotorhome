@@ -36,6 +36,10 @@ public class RentalRepo implements CRUDRepo<Rental>{
         return rentalList;
     }
 
+    /**
+     *
+     * @param rentalList
+     */
     public void initPrice(List<Rental> rentalList) {
         if (rentalList.get(0).getTotal_price() == 0.0) {
             for (Rental rental : rentalList) {
@@ -121,6 +125,10 @@ public class RentalRepo implements CRUDRepo<Rental>{
         }
     }
 
+    /**
+     *
+     * @param rental
+     */
     private void setSeasonById(Rental rental) {
         //season
         String sqlSeason = "SELECT * FROM seasons " +
@@ -130,6 +138,10 @@ public class RentalRepo implements CRUDRepo<Rental>{
         rental.setSeason(seasonList.get(0));
     }
 
+    /**
+     *
+     * @param rental
+     */
     private void setMotorhomeById(Rental rental) {
         //motorhome
         String sqlMotorhome = "SELECT motorhomes.id, b.name as brand, m.name as model, price, m.fuel_type, type," +
@@ -144,6 +156,10 @@ public class RentalRepo implements CRUDRepo<Rental>{
         rental.setMotorhome(motorhomeList.get(0));
     }
 
+    /**
+     *
+     * @return
+     */
     public int lastAddedRentalId() {
         String sql = "SELECT id " +
                 "FROM rentals " +
@@ -155,6 +171,10 @@ public class RentalRepo implements CRUDRepo<Rental>{
         return rowSet.getInt("id");
     }
 
+    /**
+     *
+     * @param inputRental
+     */
     public void addNew(Rental inputRental) {
         jdbcTemplate.update(SQL_USE);
         String sqlRental = "INSERT INTO rentals " +
@@ -202,7 +222,11 @@ public class RentalRepo implements CRUDRepo<Rental>{
         }
     }
 
-    // TODO: fix price
+    /**
+     *
+     * @param input
+     * @param id
+     */
     public void update(Rental input, int id) {
         Rental rental = findById(id);
         // Customer, dates, motorhome, accessories
@@ -277,7 +301,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
      * @Author Frederik M.
      */
     public void delete(int id) {
-        String delete = "DELETE FROM NMR.rentals WHERE id= ?";
+        String delete = "DELETE FROM NMR.rentals WHERE id = ?";
 
         String deleteAcc = "DELETE FROM NMR.rental_accessories " +
                 "WHERE rentals_fk = ?";
@@ -290,23 +314,8 @@ public class RentalRepo implements CRUDRepo<Rental>{
         }
     }
 
-
     public boolean hasConstraint(int id) {
         return false;
     }
 
-    public boolean rental_accessoryExists(int accessoryId, Rental input) {
-        String sqlExists = " SELECT " +
-                " CASE WHEN EXISTS "+
-                " (" +
-                "SELECT * FROM NMR.rental_accessories " +
-                "WHERE accessories_fk = ? AND rentals_fk = ?" +
-                ")" +
-                " THEN 'TRUE' " +
-                " ELSE 'FALSE'" +
-                " END;";
-        SqlRowSet rowSetModel = jdbcTemplate.queryForRowSet(sqlExists, accessoryId, input.getId());
-        rowSetModel.next();
-        return Boolean.parseBoolean(rowSetModel.getString(1));
-    }
 }
