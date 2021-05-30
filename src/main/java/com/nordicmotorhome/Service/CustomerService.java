@@ -19,12 +19,37 @@ public class CustomerService {
         return customerRepo.fetchAll();
     }
 
-    public void addCustomer(Customer customer){
-        customerRepo.addNew(customer);
+    public String addCustomer(Customer customer){
+        boolean emptyField =
+                customer.getFirst_name().isEmpty() || customer.getLast_name().isEmpty() ||
+                        customer.getMobile().isEmpty() || customer.getEmail().isEmpty() ||
+                        customer.getDrivers_license().isEmpty() || customer.getDl_issue_date().isEmpty() ||
+                        customer.getDl_expire_date().isEmpty() || customer.getStreet().isEmpty() ||
+                        customer.getZip().isEmpty() || customer.getCity().isEmpty() ||
+                        customer.getCountry().isEmpty();
+        if(emptyField) {
+            return "home/error/errorPage";
+        } else {
+            customerRepo.addNew(customer);
+            return "redirect:/showAllCustomers";
+        }
     }
 
-    public void updateCustomer(Customer customer, int id) {
-        customerRepo.update(customer, id);
+    public String updateCustomer(Customer customer, int id) {
+        boolean emptyField =
+                customer.getFirst_name().isEmpty() || customer.getLast_name().isEmpty() ||
+                        customer.getMobile().isEmpty() || customer.getEmail().isEmpty() ||
+                        customer.getDrivers_license().isEmpty() || customer.getDl_issue_date().isEmpty() ||
+                        customer.getDl_expire_date().isEmpty() || customer.getStreet().isEmpty() ||
+                        customer.getZip().isEmpty() || customer.getCity().isEmpty() ||
+                        customer.getCountry().isEmpty();
+        if(emptyField) {
+            return "home/error/errorPage";
+        } else {
+            customerRepo.update(customer, id);
+            return "redirect:/showAllCustomers";
+        }
+
     }
 
     public Customer findCustomerByID(int id) {

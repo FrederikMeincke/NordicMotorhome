@@ -17,10 +17,10 @@ public class CustomerPhoneComparator implements Comparator<Customer> {
         try {
             compare = c1.getPhone().compareTo(c2.getPhone());
         } catch (NullPointerException exception) {
-            if (c1.getPhone() != null) {
-                compare = -1;
-            } else if (c2.getPhone() != null) {
+            if (c1.getPhone() == null) {
                 compare = 1;
+            } else if (c2.getPhone() == null) {
+                compare = -1;
             }
         }
         return compare;
