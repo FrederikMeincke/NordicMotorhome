@@ -18,8 +18,9 @@ public class CustomerRepo implements CRUDRepo<Customer>{
     JdbcTemplate jdbcTemplate;
 
     /**
-     *
-     * @return
+     * @author Kasper N. Jensen
+     * This method retireves all Customers from the MySQL database
+     * @return jdbcTemplate
      */
     public List<Customer> fetchAll() {
         String sqluse = "USE NMR;";
@@ -36,7 +37,7 @@ public class CustomerRepo implements CRUDRepo<Customer>{
     }
 
     /**
-     * @Author Kasper N. Jensen, Jimmy Losang
+     * @author Kasper N. Jensen, Jimmy Losang
      * @param customer Customer
      * This method adds a customer to our MySQL database.
      * Adding a customer to a database over multiple tables with dependencies and forign keys,
@@ -87,7 +88,7 @@ public class CustomerRepo implements CRUDRepo<Customer>{
 
     /**
      * We also need to check for a new zip code for the updated customer, since they may move to an existing zip code.
-     * @param inputCustomer
+     * @param inputCustomer Customer
      */
     public void update(Customer inputCustomer, int id) { //TODO: Test in html
         Customer customer = findById(id);
@@ -111,12 +112,12 @@ public class CustomerRepo implements CRUDRepo<Customer>{
     }
 
     /**
-     * @Author Jimmy
+     * @author Jimmy
      * Method checks if an existing zip code, in regard to a country, already exists and returns the
      * corresponding boolean.
-     * @param zip
-     * @param country
-     * @return
+     * @param zip int
+     * @param country int
+     * @return boolean
      */
     public boolean validateZipForCustomer(int zip, int country) {
         // This sql statement will check for two conditions.
@@ -149,11 +150,11 @@ public class CustomerRepo implements CRUDRepo<Customer>{
     }
 
     /**
-     * @Author Jimmy
+     * @author Jimmy
      * Returns the primary key for a zip code, given the zip code and country.
      * @param zipcode
      * @param country
-     * @return
+     * @return rowSet
      */
     public int getZipCodePrimaryKey(int zipcode, int country) {
         String sql = "SELECT id FROM NMR.zip_codes " +
@@ -164,11 +165,11 @@ public class CustomerRepo implements CRUDRepo<Customer>{
     }
 
     /**
-     * @Author Jimmy
+     * @author Jimmy
      * Checks if a zip code already exists in the database and if so, returns that specific zip codes id (primary key),
      * otherwise it returns the last added zip code id.
-     * @param customer
-     * @return
+     * @param customer Customer
+     * @return int
      */
     public int getProperZipCode(Customer customer) {
         int countryForeignKey = Integer.parseInt(customer.getCountry());
@@ -200,8 +201,8 @@ public class CustomerRepo implements CRUDRepo<Customer>{
 
     /**
      *
-     * @param id
-     * @return
+     * @param id int
+     * @return boolean
      */
     public boolean hasConstraint(int id) {
         String sql = "SELECT\n" +

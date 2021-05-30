@@ -16,7 +16,7 @@ public class CountryRepo {
     JdbcTemplate jdbcTemplate;
 
     /**
-     * @Author Kasper N. Jensen
+     * @author Kasper N. Jensen
      * @return jdbcTemplate
      */
     public List<Country> fetchAllCountries(){
