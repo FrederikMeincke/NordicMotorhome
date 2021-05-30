@@ -1,18 +1,12 @@
 package com.nordicmotorhome.Repository;
 
-import com.nordicmotorhome.Model.Calculator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.RowSet;
 import java.io.File;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.util.List;
 import java.util.Scanner;
 
 @Repository

@@ -1,4 +1,7 @@
-package com.nordicmotorhome.Model;
+package com.nordicmotorhome.Utility;
+
+import com.nordicmotorhome.Model.Accessory;
+import com.nordicmotorhome.Model.Rental;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
