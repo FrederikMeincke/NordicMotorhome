@@ -70,8 +70,8 @@ public class CustomerRepo implements CRUDRepo<Customer>{
 
     /**
      * hmm
-     * @param id
-     * @return
+     * @param id int
+     * @return Customer
      */
     public Customer findById(int id){
         String sqlFindCustomerById = "SELECT *, co.name as country_name, co.id as country" +
@@ -152,8 +152,8 @@ public class CustomerRepo implements CRUDRepo<Customer>{
     /**
      * @author Jimmy
      * Returns the primary key for a zip code, given the zip code and country.
-     * @param zipcode
-     * @param country
+     * @param zipcode int
+     * @param country int
      * @return rowSet
      */
     public int getZipCodePrimaryKey(int zipcode, int country) {
