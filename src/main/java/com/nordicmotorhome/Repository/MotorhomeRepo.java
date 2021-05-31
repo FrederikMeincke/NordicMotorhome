@@ -44,6 +44,7 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
     }
 
     /**
+     * adds utilities to motorhomes
      * @author Mads
      * @param motorhomeList List
      * @return List

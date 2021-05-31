@@ -20,10 +20,10 @@ public class DatabaseRepo {
      * This method simply calls other methods responsible for initialzing the database scripts
      */
     public void initializeDatabase() {
-        System.out.println("NORDIC MOTORHOME DB INITIALIZED");
         createDatabase();
         createTables();
         selectCase();
+        System.out.println("NORDIC MOTORHOME DB INITIALIZED");
     }
 
     /**

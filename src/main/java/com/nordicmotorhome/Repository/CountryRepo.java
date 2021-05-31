@@ -18,7 +18,7 @@ public class CountryRepo {
     /**
      * This method fetches all countries in the DB and adds it to the rowMapper
      * @author Kasper N. Jensen
-     * @return jdbcTemplate
+     * @return list of countries
      */
     public List<Country> fetchAllCountries(){
         String sqlUse = "USE NMR;";

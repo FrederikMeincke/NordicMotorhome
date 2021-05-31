@@ -91,7 +91,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
     }
 
     /**
-     * TODO: @Mads Skriv noget javaDoc her ;)
+     * This method adds a motorhome, season and ccessories to a Rental
      * @author Mads
      * @param rentalList List
      */
@@ -130,7 +130,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
     }
 
     /**
-     * This method TODO: @Mads Skriv noget javaDoc her ;)
+     * This method sets a rental's season by a season id
      * @author Mads
      * @param rental Rental
      */
@@ -144,7 +144,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
     }
 
     /**
-     * This method TODO: @Mads Skriv noget javaDoc her ;)
+     * This method sets a rental's motorhome by a motorhome id
      * @author Mads
      * @param rental
      */
@@ -179,8 +179,8 @@ public class RentalRepo implements CRUDRepo<Rental>{
     }
 
     /**
-     * @author Mads
      * This method adds a new rental contract
+     * @author Mads
      * @param inputRental Rental
      */
     public void addNew(Rental inputRental) {
@@ -231,8 +231,8 @@ public class RentalRepo implements CRUDRepo<Rental>{
     }
 
     /**
-     * This method updates a rental cintract
-     * @author mads
+     * This method updates an existing rental contract
+     * @author Mads
      * @param input Rental
      * @param id int
      */
