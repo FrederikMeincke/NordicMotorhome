@@ -12,6 +12,11 @@ class CalculatorTest {
 
     static Rental rental;
 
+    /**
+     * the calculation methods need a Rental object with necessary information to do calculations
+     * a test rental is setup here with the base information
+     * @author Mads
+     */
     @BeforeEach
     void setup() {
         rental = new Rental();
@@ -39,6 +44,9 @@ class CalculatorTest {
         rental.setDrop_off_distance(100);       //70
     }
 
+    /**
+     * @author Mads
+     */
     @Test
     void rentalPrice() {
         rental.setDistance_driven(12000);       //800 km more than allowed
@@ -51,6 +59,9 @@ class CalculatorTest {
         assertEquals(expectedPrice, actualPrice);
     }
 
+    /**
+     * @author Mads
+     */
     @Test
     void cancelFee() {
         rental.setCancel_date("2021-02-01");
