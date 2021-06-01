@@ -31,7 +31,6 @@ public class Motorhome {
     private String odometer;
     private boolean[] utilityArray = new boolean[8];
     private boolean ready_status;
-    private String service_raport;
     private String fuel_type;
     private String type;
 
@@ -157,14 +156,6 @@ public class Motorhome {
 
     public void setReady_status(boolean ready_status) {
         this.ready_status = ready_status;
-    }
-
-    public String getService_raport() {
-        return service_raport;
-    }
-
-    public void setService_raport(String service_raport) {
-        this.service_raport = service_raport;
     }
 
     public String getFuel_type() {

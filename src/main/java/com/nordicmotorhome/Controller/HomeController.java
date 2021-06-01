@@ -144,7 +144,7 @@ public class HomeController {
     @GetMapping("/showAllRentals")
     public String showAllRentals(Model model){
         List<Rental> rentalList = rentalService.fetchAll();
-        model.addAttribute(rentalList);
+        model.addAttribute("rentalList", rentalList);
         return "home/showAllRentals";
     }
 
@@ -159,7 +159,6 @@ public class HomeController {
 
     @PostMapping("/addNewRental")
     public String addNewRental(@ModelAttribute Rental rental) {
-        //System.out.println("Accessory_list: " + rental.getAccessoryList()[0].getName());
         rentalService.addNew(rental);
         return "redirect:/showAllRentals";
     }

@@ -26,11 +26,11 @@ public class RentalRepo implements CRUDRepo<Rental>{
      * @return List
      */
     public List<Rental> fetchAll() {
-        String sqlFetch = "SELECT * FROM rentals;";
+        String sqlRental = "SELECT * FROM rentals;";
         RowMapper rowMapper = new BeanPropertyRowMapper(Rental.class);
 
         jdbcTemplate.update(SQL_USE);
-        List<Rental> rentalList = jdbcTemplate.query(sqlFetch, rowMapper);
+        List<Rental> rentalList = jdbcTemplate.query(sqlRental, rowMapper);
 
          getRentals(rentalList);
          initPrice(rentalList);
@@ -237,7 +237,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
      * @param id int
      */
     public void update(Rental input, int id) {
-        Rental rental = findById(id);
+
         // Customer, dates, motorhome, accessories
         String sql = "UPDATE NMR.rentals " +
                 "SET start_date = ?, end_date = ?, pick_up_location = ?, drop_off_location = ?, pick_up_distance = ?, " +
@@ -261,6 +261,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
         setSeasonById(input);
 
 
+        // necessary step to properly insert cancel_date into database, otherwise cancel_date will be an empty string.
         String cancel_date;
         if (input.getCancel_date().isEmpty()) {
             cancel_date = null;
@@ -290,7 +291,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
         // Clean db for old entries
         String sqlDeleteAccessories = "DELETE FROM NMR.rental_accessories " +
                 "WHERE rentals_fk = ?;";
-        jdbcTemplate.update(sqlDeleteAccessories, rental.getId());
+        jdbcTemplate.update(sqlDeleteAccessories, id);
 
         for(Accessory accessory : input.getAccessoryList()) {
             int accessoryId = accessory.getId();
@@ -298,9 +299,9 @@ public class RentalRepo implements CRUDRepo<Rental>{
             // add new associations
             String sqlAccessory = "INSERT INTO NMR.rental_accessories " +
                     "VALUES (DEFAULT, ?, ?);";
-            jdbcTemplate.update(sqlAccessory, accessoryId, rental.getId());
+            jdbcTemplate.update(sqlAccessory, accessoryId, id);
         }
-
+        Rental rental = findById(id);
         Calculator.rentalPrice(rental);
     }
 

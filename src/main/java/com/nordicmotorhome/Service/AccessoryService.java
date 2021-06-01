@@ -24,6 +24,12 @@ public class AccessoryService {
         accessoryRepo.addNew(accessory);
     }
 
+    /**
+     * Has no validation because it is allowed to be empty by design, in case the owners want to remove the option of an accessory.
+     * @Author Jimmy
+     * @param id
+     * @param accessory
+     */
     public void update(int id, Accessory accessory) {
         accessoryRepo.update(accessory, id);
     }
@@ -41,6 +47,11 @@ public class AccessoryService {
         }
     }
 
+    /**
+     * @Author Jimmy
+     * @param list
+     * @param sort
+     */
     public void sort(List<Accessory> list, String sort) {
         switch (sort) {
             case "name":

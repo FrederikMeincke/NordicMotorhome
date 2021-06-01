@@ -17,13 +17,14 @@ public class CustomerRepo implements CRUDRepo<Customer>{
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    final String SQL_USE = "USE NMR;";
+
     /**
      * @author Kasper N. Jensen
      * This method retireves all Customers from the MySQL database
      * @return jdbcTemplate
      */
     public List<Customer> fetchAll() {
-        String sqluse = "USE NMR;";
         String sqlCustomer =
                 "SELECT customers.id, first_name, last_name, mobile, phone, email, drivers_license, dl_issue_date, " +
                 "dl_expire_date, street, floor, zip, city, countries.name as 'country', addresses_fk" +
@@ -32,7 +33,7 @@ public class CustomerRepo implements CRUDRepo<Customer>{
                 "INNER JOIN zip_codes on zip_codes.id = zip_codes_fk " +
                 "INNER JOIN countries on countries.id = countries_fk;";
         RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
-        jdbcTemplate.update(sqluse);
+        jdbcTemplate.update(SQL_USE);
         return jdbcTemplate.query(sqlCustomer,rowMapper);
     }
 
@@ -141,12 +142,7 @@ public class CustomerRepo implements CRUDRepo<Customer>{
      */
     public void delete(int id) {
         String sql = "DELETE FROM customers WHERE id = ?";
-        try {
-            jdbcTemplate.update(sql, id);
-        } catch (DataAccessException e) {
-            System.out.println("SQL Error when deleting customer");
-            e.printStackTrace();
-        }
+        jdbcTemplate.update(sql, id);
     }
 
     /**
@@ -205,13 +201,13 @@ public class CustomerRepo implements CRUDRepo<Customer>{
      * @return boolean
      */
     public boolean hasConstraint(int id) {
-        String sql = "SELECT\n" +
-                "\tCASE WHEN EXISTS \n" +
-                "    (\n" +
-                "    SELECT * FROM NMR.rentals WHERE customers_fk = ?\n" +
-                "    )\n" +
-                "    THEN 'TRUE'\n" +
-                "    ELSE 'FALSE'\n" +
+        String sql = "SELECT " +
+                "\tCASE WHEN EXISTS " +
+                "    ( " +
+                "    SELECT * FROM NMR.rentals WHERE customers_fk = ? " +
+                "    ) " +
+                "    THEN 'TRUE' " +
+                "    ELSE 'FALSE' " +
                 "END";
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, id);
         rowSet.next();

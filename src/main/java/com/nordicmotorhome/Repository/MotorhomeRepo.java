@@ -2,7 +2,6 @@ package com.nordicmotorhome.Repository;
 
 import com.nordicmotorhome.Model.Motorhome;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -39,7 +38,7 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
         List<Motorhome> motorhomeList = jdbcTemplate.query(sqlMotorhome,rowMapper);
 
         // adds the utilities to the motorhome object
-        motorhomeList = addUtilitiesToMotorhome(motorhomeList);
+        setUtilitiesForMotorhomes(motorhomeList);
         return motorhomeList;
     }
 
@@ -49,8 +48,7 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
      * @param motorhomeList List
      * @return List
      */
-    public List<Motorhome> addUtilitiesToMotorhome(List<Motorhome> motorhomeList) {
-        // TODO: Maybe it doesn't need to return a list?
+    public void setUtilitiesForMotorhomes (List<Motorhome> motorhomeList) {
         for (Motorhome motor: motorhomeList) {
             int id = motor.getId();
 
@@ -71,7 +69,6 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
             motor.setUtilityArray(tmpUtilArray);    //sets the array of the motorhome to the updated one.
             // Dont know if this is necessary if the array is reference type
         }
-        return motorhomeList;
     }
 
     /**
@@ -156,14 +153,9 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
         public void delete(int id) {
             String sqlDeleteUtil = "DELETE FROM motorhome_utilities WHERE motorhomes_fk = ?";
             String sql = "DELETE FROM NMR.motorhomes WHERE id = ?";
-            try {
-                jdbcTemplate.update(SQL_USE);
-                jdbcTemplate.update(sqlDeleteUtil, id);
-                jdbcTemplate.update(sql, id);
-            } catch (DataIntegrityViolationException e) {
-                System.out.println("An SQL Error occurred");
-                e.printStackTrace();
-            }
+            jdbcTemplate.update(SQL_USE);
+            jdbcTemplate.update(sqlDeleteUtil, id);
+            jdbcTemplate.update(sql, id);
         }
 
     /**
@@ -217,7 +209,6 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
 
             int lastAddedBrandId = rowSetLastAdded.getInt(1);   //id of the last added brand so we can update current motorhome
             jdbcTemplate.update(sqlUpdateBrand, lastAddedBrandId, motorhome.getModels_fk());
-
         }
 
         String sqlModelExists = " SELECT " +
@@ -317,8 +308,7 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
         List<Motorhome> motorhomeList = jdbcTemplate.query(sqlFind, rowMapper, id);
         //Dont know how to use queryForObject because it uses lambda expressions so this is done with a query instead
         //even if its only returning one object
-
-        motorhomeList = addUtilitiesToMotorhome(motorhomeList);
+        setUtilitiesForMotorhomes(motorhomeList);
         return motorhomeList.get(0);
     }
 

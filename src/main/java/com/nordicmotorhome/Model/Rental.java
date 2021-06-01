@@ -1,7 +1,7 @@
 package com.nordicmotorhome.Model;
 
 import java.time.LocalDate;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Rental {
@@ -10,7 +10,7 @@ public class Rental {
     private Customer customer;
     private Motorhome motorhome;
     private Season season;
-    private List<Accessory> accessoryList = new LinkedList<>();
+    private List<Accessory> accessoryList = new ArrayList<>(); // Used to be a LinkedList because we initially made it possible to add and remove accessories
     private String start_date;
     private String end_date;
     private String pick_up_location;

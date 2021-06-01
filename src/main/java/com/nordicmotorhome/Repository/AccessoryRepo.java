@@ -16,13 +16,14 @@ public class AccessoryRepo implements CRUDRepo<Accessory>{
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    static final String SQL_USE = "USE NMR;";
+
     /**
      *
      * @return
      */
     public List<Accessory> fetchAll() {
-        String sqlUse = "USE NMR;";
-        jdbcTemplate.update(sqlUse);
+        jdbcTemplate.update(SQL_USE);
         String sql = "SELECT * FROM nmr.accessories;";
         RowMapper rowMapper = new BeanPropertyRowMapper<>(Accessory.class);
         return jdbcTemplate.query(sql, rowMapper);
@@ -44,11 +45,10 @@ public class AccessoryRepo implements CRUDRepo<Accessory>{
      * @param id
      */
     public void update(Accessory inputAccessory, int id) {
-        Accessory accessory = findById(id);
         String sql = "UPDATE NMR.accessories " +
                 "SET name = ?, price = ? " +
                 "WHERE id = ?;";
-        jdbcTemplate.update(sql, inputAccessory.getName(), inputAccessory.getPrice(), accessory.getId());
+        jdbcTemplate.update(sql, inputAccessory.getName(), inputAccessory.getPrice(), id);
     }
 
     /**
