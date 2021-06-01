@@ -42,6 +42,13 @@ public class HomeController {
         return "home/showAllCustomers";
     }
 
+    /**
+     * @author Jimmy
+     * Tells the view to show a page with the customers sorted by; name, phone, mobile, email or drivers license.
+     * @param sort
+     * @param model
+     * @return String
+     */
     @GetMapping("/showAllCustomers/{sort}")
     public String showAllCustomers(@PathVariable("sort") String sort, Model model) {
         List<Customer> customerList = customerService.fetchAll();
@@ -193,6 +200,13 @@ public class HomeController {
         return "home/showAllAccessories";
     }
 
+    /**
+     * @author Jimmy
+     * Shows a page with the accessories sorted by either price or name.
+     * @param sort
+     * @param model
+     * @return String
+     */
     @GetMapping("/showAllAccessories/{sort}")
     public String showAllAccessories(@PathVariable("sort") String sort, Model model) {
         List<Accessory> accessoryList = accessoryService.fetchAll();

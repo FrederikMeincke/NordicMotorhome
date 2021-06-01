@@ -19,8 +19,9 @@ public class AccessoryRepo implements CRUDRepo<Accessory>{
     static final String SQL_USE = "USE NMR;";
 
     /**
-     *
-     * @return
+     * @author Jimmy
+     * Returns a List<Accessory> of all accessory entities from the database.
+     * @return List<Accessory>
      */
     public List<Accessory> fetchAll() {
         jdbcTemplate.update(SQL_USE);
@@ -30,7 +31,8 @@ public class AccessoryRepo implements CRUDRepo<Accessory>{
     }
 
     /**
-     *
+     * @author Jimmy
+     * Inserts a new entity to the accessories table with information from the Accessory accessory.
      * @param accessory
      */
     public void addNew(Accessory accessory) {
@@ -40,9 +42,11 @@ public class AccessoryRepo implements CRUDRepo<Accessory>{
     }
 
     /**
-     *
+     * @author Jimmy
+     * Updates the column values for an accessory entity from an Accessory inputAccessory and identifies the entity in
+     * the accessories table with int id.
      * @param inputAccessory
-     * @param id
+     * @param id int
      */
     public void update(Accessory inputAccessory, int id) {
         String sql = "UPDATE NMR.accessories " +
@@ -52,9 +56,10 @@ public class AccessoryRepo implements CRUDRepo<Accessory>{
     }
 
     /**
-     * @Author Jimmy
-     * @param id
-     * @return
+     * @author Jimmy
+     * Finds an accessory entity in the database from its primary key and returns an Accessory object with the relevant data.
+     * @param id int
+     * @return Accessory
      */
     public Accessory findById(int id) {
         String sql = "SELECT * FROM NMR.accessories " +
@@ -64,7 +69,8 @@ public class AccessoryRepo implements CRUDRepo<Accessory>{
     }
 
     /**
-     *
+     * @author Jimmy
+     * Deletes an accessory entity in the database.
      * @param id
      */
     public void delete(int id) {
@@ -74,9 +80,10 @@ public class AccessoryRepo implements CRUDRepo<Accessory>{
     }
 
     /**
-     *
-     * @param id
-     * @return
+     * @author Jimmy
+     * The method checks if an accessory entity's primary key is a foreign key in the rental_accessories table.
+     * @param id int
+     * @return boolean
      */
     public boolean hasConstraint(int id) {
         String sql = "SELECT\n" +

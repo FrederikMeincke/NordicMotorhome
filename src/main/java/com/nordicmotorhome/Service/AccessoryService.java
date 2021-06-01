@@ -20,12 +20,19 @@ public class AccessoryService {
         return accessoryRepo.fetchAll();
     }
 
+    /**
+     * @author Jimmy
+     * Due to design choices we aren't using this method anywhere, but we have decided to leave it in in case we
+     * want to be able to add more accessories through the program. The method addNew in accessoryRepo works just fine.
+     * @param accessory
+     */
     public void addNew(Accessory accessory) {
         accessoryRepo.addNew(accessory);
     }
 
     /**
-     * Has no validation because it is allowed to be empty by design, in case the owners want to remove the option of an accessory.
+     * Has no validation because it is allowed to be empty by design, in case the owners want to remove the option of
+     * an accessory.
      * @Author Jimmy
      * @param id
      * @param accessory
@@ -38,9 +45,15 @@ public class AccessoryService {
         return accessoryRepo.findById(id);
     }
 
+    /**
+     * @author Jimmy
+     * Uses a boolean to determine what address String to return.
+     * @param id
+     * @return String
+     */
     public String delete(int id) {
         if(accessoryRepo.hasConstraint(id)) {
-            return "/home/error/error420";
+            return "/home/error/errorAccessory";
         } else {
             accessoryRepo.delete(id);
             return "redirect:/showAllAccessories";
@@ -49,6 +62,7 @@ public class AccessoryService {
 
     /**
      * @Author Jimmy
+     * Sorts the displayed accessory list by the identifying String sort.
      * @param list
      * @param sort
      */

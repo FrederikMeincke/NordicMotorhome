@@ -7,10 +7,13 @@ import java.util.Comparator;
 public class CustomerPhoneComparator implements Comparator<Customer> {
 
     /**
-     *
+     * @author Jimmy
+     * the String class already contains a compareTo method that we can use. This Comparator is still necessary as it
+     * specifies the String in the Accessory class that needs to be compared. However the field is also allowed to be
+     * empty by design, and as such we need to be able to compare null objects.
      * @param c1
      * @param c2
-     * @return
+     * @return int
      */
     public int compare(Customer c1, Customer c2) {
         int compare = 0;

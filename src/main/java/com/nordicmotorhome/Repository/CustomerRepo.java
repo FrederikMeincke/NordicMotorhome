@@ -21,8 +21,8 @@ public class CustomerRepo implements CRUDRepo<Customer>{
 
     /**
      * @author Kasper N. Jensen
-     * This method retireves all Customers from the MySQL database
-     * @return jdbcTemplate
+     * This method retreives all Customers from the MySQL database
+     * @return List<Customer>
      */
     public List<Customer> fetchAll() {
         String sqlCustomer =
@@ -89,7 +89,9 @@ public class CustomerRepo implements CRUDRepo<Customer>{
     }
 
     /**
-     * We also need to check for a new zip code for the updated customer, since they may move to an existing zip code.
+     * @author Jimmy
+     * Updates the customer entity in the database, but doesn't change the addresses_fk in the customers table, instead it
+     * updates the entry in the addresses table.
      * @param inputCustomer Customer
      */
     public void update(Customer inputCustomer, int id) {
@@ -150,7 +152,7 @@ public class CustomerRepo implements CRUDRepo<Customer>{
      * Returns the primary key for a zip code, given the zip code and country.
      * @param zipcode int
      * @param country int
-     * @return rowSet
+     * @return int
      */
     public int getZipCodePrimaryKey(int zipcode, int country) {
         String sql = "SELECT id FROM NMR.zip_codes " +
@@ -199,6 +201,7 @@ public class CustomerRepo implements CRUDRepo<Customer>{
      * @author Jimmy
      * @param id int
      * @return boolean
+     * The method checks if a customer entity's primary key is a foreign key in the rentals table.
      */
     public boolean hasConstraint(int id) {
         String sql = "SELECT " +

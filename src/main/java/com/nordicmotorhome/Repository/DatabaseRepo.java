@@ -22,7 +22,6 @@ public class DatabaseRepo {
     public void initializeDatabase() {
         createDatabase();
         createTables();
-        selectCase();
         System.out.println("NORDIC MOTORHOME DB INITIALIZED");
     }
 
@@ -203,23 +202,5 @@ public class DatabaseRepo {
                 System.out.println("Data file not found or unreadable.");
             }
         }
-    }
-
-    /**
-     * @author Jimmy Losang, Mads Westh
-     */
-    public void selectCase() {
-        String sql = "SELECT\n" +
-                "\tCASE WHEN EXISTS \n" +
-                "    (\n" +
-                "    SELECT * FROM NMR.zip_codes WHERE zip = 9700 AND countries_fk = 58\n" +
-                "    )\n" +
-                "    THEN 'TRUE'\n" +
-                "    ELSE 'FALSE'\n" +
-                "END";
-        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql);
-        rowSet.next();
-        String s = rowSet.getString(1);
-        boolean f = Boolean.parseBoolean(s);
     }
 }

@@ -22,7 +22,7 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
     /**
      * Gets all the motorhomes from the database and adds all the utilities that a motorhome has to the motorhome object
      * @author Mads
-     * @return List
+     * @return List<Motorhome>
      */
     public List<Motorhome> fetchAll() {
         String sqlMotorhome =
@@ -46,7 +46,6 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
      * adds utilities to motorhomes
      * @author Mads
      * @param motorhomeList List
-     * @return List
      */
     public void setUtilitiesForMotorhomes (List<Motorhome> motorhomeList) {
         for (Motorhome motor: motorhomeList) {
@@ -87,7 +86,6 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
                 "ORDER BY id DESC LIMIT 1;";
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(lastAddedBrand);
         rowSet.next();
-
 
         // takes the last added brand id to create a new model under that brand then finds the last added model id
         int lastBrandId = rowSet.getInt("id");
@@ -313,6 +311,7 @@ public class MotorhomeRepo implements CRUDRepo<Motorhome>{
     }
 
     /**
+     * @author Jimmy, Mads
      *
      * @param id int
      * @return boolean

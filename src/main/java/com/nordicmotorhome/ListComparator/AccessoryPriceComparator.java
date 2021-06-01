@@ -7,10 +7,11 @@ import java.util.Comparator;
 public class AccessoryPriceComparator implements Comparator<Accessory> {
 
     /**
-     *
+     * @author Jimmy
+     * Orders the accessories low to high in prices.
      * @param a1
      * @param a2
-     * @return
+     * @return int
      */
     public int compare(Accessory a1, Accessory a2) {
         int compare = 0;

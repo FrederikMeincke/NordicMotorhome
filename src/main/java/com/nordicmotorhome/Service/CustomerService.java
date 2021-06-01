@@ -19,6 +19,14 @@ public class CustomerService {
         return customerRepo.fetchAll();
     }
 
+    /**
+     * @author Kasper
+     * The method checks whether any of the mandatory input fields are left empty and if so, directs the user to a
+     * webpage that explains what went wrong. If all mandatory input fields are filled out, a customer entry is added
+     * to the database.
+     * @param customer
+     * @return
+     */
     public String addCustomer(Customer customer){
         boolean emptyField =
                 customer.getFirst_name().isEmpty() || customer.getLast_name().isEmpty() ||
@@ -35,6 +43,14 @@ public class CustomerService {
         }
     }
 
+    /**
+     * @author Kasper
+     * The method checks whether any of the mandatory input fields are left empty and if so, directs the user to a
+     * webpage that explains what went wrong. If all mandatory input fields are filled out, the update method in
+     * customerRepo is called and the user is redirected to the previous page.
+     * @param customer
+     * @return
+     */
     public String updateCustomer(Customer customer, int id) {
         boolean emptyField =
                 customer.getFirst_name().isEmpty() || customer.getLast_name().isEmpty() ||
@@ -49,13 +65,18 @@ public class CustomerService {
             customerRepo.update(customer, id);
             return "redirect:/showAllCustomers";
         }
-
     }
 
     public Customer findCustomerByID(int id) {
         return customerRepo.findById(id);
     }
 
+    /**
+     * @author Jimmy
+     * Uses a boolean to determine what address String to return.
+     * @param id
+     * @return
+     */
     public String deleteCustomer(int id) {
         if(customerRepo.hasConstraint(id)) {
             return "/home/error/errorCustomer";
@@ -66,8 +87,8 @@ public class CustomerService {
     }
 
     /**
-     * sends sort methods to the customer html table headers
      * @author Jimmy
+     * Sorts the displayed accessory list by the identifying String sort.
      * @param list List
      * @param sort String
      */
@@ -88,10 +109,8 @@ public class CustomerService {
             case "drivers-license":
                 Collections.sort(list, new CustomerDLComparator());
                 break;
-
             default:
                 break;
         }
     }
-
 }

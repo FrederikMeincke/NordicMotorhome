@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -203,6 +204,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
         setMotorhomeById(inputRental);
         setSeasonById(inputRental);
 
+        List<Accessory> accessoryList = new ArrayList<>();
         for(int i = 0; i < inputRental.getAcList().length; i++) {
             if(inputRental.getAcList()[i]) {
                 String sql = "SELECT * FROM NMR.accessories " +
@@ -213,9 +215,10 @@ public class RentalRepo implements CRUDRepo<Rental>{
                 accessory.setId(rowSet.getInt(1));
                 accessory.setName(rowSet.getString(2));
                 accessory.setPrice(rowSet.getDouble(3));
-                inputRental.getAccessoryList().add(accessory);
+                accessoryList.add(accessory);
             }
         }
+        inputRental.setAccessoryList(accessoryList);
 
         double total_price = Calculator.rentalPrice(inputRental);
 
@@ -237,15 +240,6 @@ public class RentalRepo implements CRUDRepo<Rental>{
      * @param id int
      */
     public void update(Rental input, int id) {
-
-        // Customer, dates, motorhome, accessories
-        String sql = "UPDATE NMR.rentals " +
-                "SET start_date = ?, end_date = ?, pick_up_location = ?, drop_off_location = ?, pick_up_distance = ?, " +
-                "drop_off_distance = ?, total_price = ?, " +
-                "customers_fk = ?, motorhomes_fk = ?, seasons_fk = ?, cancel_date = ?, distance_driven = ?, " +
-                "half_fuel = ? " +
-                "WHERE id = ?;";
-
         String start_date = input.getStart_date();
         String end_date = input.getEnd_date();
         String pick_up_location = input.getPick_up_location();
@@ -260,7 +254,6 @@ public class RentalRepo implements CRUDRepo<Rental>{
         setMotorhomeById(input);
         setSeasonById(input);
 
-
         // necessary step to properly insert cancel_date into database, otherwise cancel_date will be an empty string.
         String cancel_date;
         if (input.getCancel_date().isEmpty()) {
@@ -269,12 +262,7 @@ public class RentalRepo implements CRUDRepo<Rental>{
             cancel_date = input.getCancel_date();
         }
 
-        jdbcTemplate.update(sql, start_date, end_date, pick_up_location,
-                drop_off_location, pick_up_distance, drop_off_distance,
-                Calculator.rentalPrice(input), customers_fk, motorhomes_fk,
-                seasons_fk, cancel_date, distance_driven, half_fuel, id);
-
-
+        List<Accessory> accessoryList = new ArrayList<>();
         for(int i = 0; i < input.getAcList().length; i++) {
             if(input.getAcList()[i]) {
                 String sqlAc = "SELECT * FROM NMR.accessories " +
@@ -285,9 +273,24 @@ public class RentalRepo implements CRUDRepo<Rental>{
                 accessory.setId(rowSet.getInt(1));
                 accessory.setName(rowSet.getString(2));
                 accessory.setPrice(rowSet.getDouble(3));
-                input.getAccessoryList().add(accessory);
+                accessoryList.add(accessory);
             }
         }
+        input.setAccessoryList(accessoryList);
+
+        // Customer, dates, motorhome, accessories
+        String sql = "UPDATE NMR.rentals " +
+                "SET start_date = ?, end_date = ?, pick_up_location = ?, drop_off_location = ?, pick_up_distance = ?, " +
+                "drop_off_distance = ?, total_price = ?, " +
+                "customers_fk = ?, motorhomes_fk = ?, seasons_fk = ?, cancel_date = ?, distance_driven = ?, " +
+                "half_fuel = ? " +
+                "WHERE id = ?;";
+
+        jdbcTemplate.update(sql, start_date, end_date, pick_up_location,
+                drop_off_location, pick_up_distance, drop_off_distance,
+                Calculator.rentalPrice(input), customers_fk, motorhomes_fk,
+                seasons_fk, cancel_date, distance_driven, half_fuel, id);
+
         // Clean db for old entries
         String sqlDeleteAccessories = "DELETE FROM NMR.rental_accessories " +
                 "WHERE rentals_fk = ?;";
@@ -301,8 +304,6 @@ public class RentalRepo implements CRUDRepo<Rental>{
                     "VALUES (DEFAULT, ?, ?);";
             jdbcTemplate.update(sqlAccessory, accessoryId, id);
         }
-        Rental rental = findById(id);
-        Calculator.rentalPrice(rental);
     }
 
     /**
